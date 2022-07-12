@@ -1,0 +1,14 @@
+{
+  "name": "easypay-taxi-app",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "node app.js"
+  },
+  "devDependencies": {
+    "vite": "^2.9.9"
+  }
+}

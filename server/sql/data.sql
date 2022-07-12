@@ -1,0 +1,11 @@
+insert into destination (name) values ('Bellville');
+insert into destination (name) values ('Cape Town');
+insert into destination (name) values ('Goodwood');
+insert into destination (name) values ('Bellar');
+insert into destination (name) values ('Stellenbosch');
+insert into destination (name) values ('Kuilsriver');
+insert into destination (name) values ('Claremont');
+insert into destination (name) values ('Site C');
+insert into destination (name) values ('Site B');
+insert into destination (name) values ('Makhaza');
+insert into destination (name) values ('Mfuleni');
