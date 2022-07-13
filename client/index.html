@@ -1,34 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
-  </head>
-  <body>
-    <div x-data="taxisapis">
 
-      <div class="container">
-        <div class="row">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite App</title>
+</head>
 
+<body>
+  <div x-data="taxisapis">
+
+    <div class="ui four column doubling stackable grid container">
+      <h1 class="ui header">Easy Pay</h1>
+      <div class="row">
+        <div class="ui form">
+          <div class="two fields">
+            <div class="field">
+              <label for="">username</label>
+              <input type="text">
+            </div>
+            <div class="field">
+              <label for="">password</label>
+              <input type="text">
+            </div>
+          </div>
+
+          <button class="ui secondary button" @click="login()">Submit</button>
+          <button class="ui secondary button">Register</button>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="ui form">
           <!-- <div x-show="user_role.role == 'passenger'" class="passenger"> -->
-            <label for="">name</label>
-            <input x-model="user.name" type="text" placeholder="amanda">
-            <label for="">surname</label>
-            <input x-model="user.surname" type="text" placeholder="maarman">
-            <label for="">username</label>
-            <input x-model="user.username" type="text" placeholder="ama123">
-            <label for="">password</label>
-            <input x-model="user.password" type="text" placeholder="***">
-            <label for="">role</label>
-            <input x-model="user.role" type="text" placeholder="owner">
-            <button @click="signup()">Submit</button>
+          <div class="five fields">
+            <div class="field">
+              <label for="">name</label>
+              <input x-model="user.name" type="text" placeholder="amanda">
+            </div>
+            <div class="field">
+              <label for="">surname</label>
+              <input x-model="user.surname" type="text" placeholder="maarman">
+            </div>
+            <div class="field">
+              <label for="">username</label>
+              <input x-model="user.username" type="text" placeholder="ama123">
+            </div>
+            <div class="field">
+              <label for="">password</label>
+              <input x-model="user.password" type="text" placeholder="***">
+            </div>
+            <div class="field">
+              <label for="">role</label>
+              <input x-model="user.role" type="text" placeholder="owner">
+            </div>
+          </div>
+          <button class="ui secondary button" @click="signup()">Submit</button>
+
           <!-- </div> -->
         </div>
       </div>
-
     </div>
-    <script type="module" src="/main.js"></script>
-  </body>
+
+  </div>
+  <script type="module" src="/main.js"></script>
+</body>
+
 </html>

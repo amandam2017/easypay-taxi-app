@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite App</title>
+</head>
+
+<body>
+  <div x-data="taxisapis">
+    <div class="ui four column doubling stackable grid container">
+      <h1 class="ui header">Hello User</h1>
+      <span>To check coming taxis on your route enter your departure and destination below</span>
+      <div class="row">
+        <div class="ui form">
+          <div class="two fields">
+            <div class="field">
+              <label for="">Enter Departure</label>
+              <input type="text">
+            </div>
+            <div class="field">
+              <label for="">Enter Destination</label>
+              <input type="text">
+            </div>
+          </div>
+
+          <button class="ui secondary button">Search</button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>
