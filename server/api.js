@@ -3,6 +3,14 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 const api = (app, db) => {
+        app.get('/api/users', async function (req, res) {
+    
+            let users = [];
+            users = await db.many('select * from users');
+            res.json(
+            {data:users}
+            )
+        });
     app.post('/api/signup', async function(req, res){
 
     const {name, surname, username, password, role} = req.body

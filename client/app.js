@@ -1,8 +1,10 @@
 import axios from 'axios'
+import Login from './login'
 const localUrl = 'http://localhost:2000'
 
 const Taxi = ()=>{
     return{
+        ...Login(),
         user:{
             name:'',
             surname:'',
