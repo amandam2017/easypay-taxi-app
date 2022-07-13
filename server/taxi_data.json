@@ -1,7 +1,247 @@
-[{
-    "img":"",
-    "reg_number":"",
-    "price":"",
-    "destination":"",
-    "departure":""
-}]
+[
+    {
+        "img": "taxi.png",
+        "reg_number": "CA 123-456",
+        "price": "25.00",
+        "departure": "Stellenbosch",
+        "destination": "Cape Town"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CA 123-789",
+        "price": "25.00",
+        "departure": "Stellenbosch",
+        "destination": "Cape Town"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CA 123-000",
+        "price": "25.00",
+        "departure": "Stellenbosch",
+        "destination": "Cape Town"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CA 000-456",
+        "price": "25.00",
+        "departure": "Stellenbosch",
+        "destination": "Cape Town"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CA 012-456",
+        "price": "25.00",
+        "departure": "Stellenbosch",
+        "destination": "Cape Town"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CA 034-456",
+        "price": "25.00",
+        "departure": "Stellenbosch",
+        "destination": "Kuilsriver"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CA 123456",
+        "price": "25.00",
+        "departure": "Stellenbosch",
+        "destination": "Kuilsriver"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CA 125673",
+        "price": "25.00",
+        "departure": "Stellenbosch",
+        "destination": "Kuilsriver"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CA 789465",
+        "price": "25.00",
+        "departure": "Stellenbosch",
+        "destination": "Kuilsriver"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CA 156345",
+        "price": "25.00",
+        "departure": "Stellenbosch",
+        "destination": "Kuilsriver"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CA 785631",
+        "price": "25.00",
+        "departure": "Stellenbosch",
+        "destination": "Kuilsriver"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CA 567294",
+        "price": "23.50",
+        "departure": "Bellville",
+        "destination": "Cape Town"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CA 893042",
+        "price": "23.50",
+        "departure": "Bellville",
+        "destination": "Cape Town"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CA 758392",
+        "price": "23.50",
+        "departure": "Bellville",
+        "destination": "Cape Town"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CA 748294",
+        "price": "23.50",
+        "departure": "Bellville",
+        "destination": ""
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CA 748274",
+        "price": "23.50",
+        "departure": "Bellville",
+        "destination": "Cape Town"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CA 127583",
+        "price": "23.50",
+        "departure": "Bellville",
+        "destination": "Cape Town"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CA 647383",
+        "price": "23.50",
+        "departure": "Bellville",
+        "destination": "Cape Town"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CA 185849",
+        "price": "23.50",
+        "departure": "Bellville",
+        "destination": "Cape Town"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CY 123456",
+        "price": "23.50",
+        "departure": "Bellville",
+        "destination": "Kuilsriver"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CY 124652",
+        "price": "23.50",
+        "departure": "Stellenbosch",
+        "destination": "Khayelitsha"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CY 738292",
+        "price": "23.50",
+        "departure": "Khayelitsha",
+        "destination": "Kuilsriver"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CY 172849",
+        "price": "20.00",
+        "departure": "Bellville",
+        "destination": ""
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CY 748927",
+        "price": "20.00",
+        "departure": "Bellville",
+        "destination": "Khayelitsha"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CL 123-456",
+        "price": "20.00",
+        "departure": "Bellville",
+        "destination": "Khayelitsha"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CL 123-473",
+        "price": "20.00",
+        "departure": "Bellville",
+        "destination": ""
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CL 123-478",
+        "price": "20.00",
+        "departure": "Bellville",
+        "destination": "Khayelitsha"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CL73822",
+        "price": "20.00",
+        "departure": "Bellville",
+        "destination": "Khayelitsha"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CL84393",
+        "price": "20.00",
+        "departure": "Bellville",
+        "destination": "Khayelitsha"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CL783632",
+        "price": "15.50",
+        "departure": "Kuilsiver",
+        "destination": "Mfuleni"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CAA1234",
+        "price": "15.50",
+        "departure": "Kuilsiver",
+        "destination": ""
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CAA1287",
+        "price": "15.50",
+        "departure": "Kuilsiver",
+        "destination": "Mfuleni"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CAA5674",
+        "price": "15.50",
+        "departure": "Kuilsiver",
+        "destination": "Mfuleni"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CAA7683",
+        "price": "15.50",
+        "departure": "Kuilsiver",
+        "destination": "Mfuleni"
+    },
+    {
+        "img": "taxi.png",
+        "reg_number": "CAA7493",
+        "price": "15.50",
+        "departure": "Kuilsiver",
+        "destination": "Mfuleni"
+    }
+]
