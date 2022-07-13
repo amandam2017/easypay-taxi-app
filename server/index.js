@@ -39,7 +39,7 @@ const pgp = PgPromise({});
 const config = {
 	connectionString: process.env.DATABASE_URL || 'postgres://hlomla_okuhle:HOT9921WLove@localhost:5432/',
 	// max: 30,
-	ssl:{ rejectUnauthorized : false}
+	//ssl:{ rejectUnauthorized : false}
  };
  
  const db = pgp(config);
