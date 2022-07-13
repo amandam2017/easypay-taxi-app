@@ -1,6 +1,12 @@
 import './style.css'
+// import './bootstrap.min.css'
 
-document.querySelector('#app').innerHTML = `
-  <h1>Hello Vite!</h1>
-  <a href="https://vitejs.dev/guide/features.html" target="_blank">Documentation</a>
-`
+import Alpine from 'alpinejs'
+
+import Taxi from './app'
+import persist from '@alpinejs/persist'
+
+window.Alpine = Alpine
+Alpine.plugin(persist)
+Alpine.data('taxisapis',Taxi)
+Alpine.start()

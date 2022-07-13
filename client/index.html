@@ -7,7 +7,28 @@
     <title>Vite App</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div x-data="taxisapis">
+
+      <div class="container">
+        <div class="row">
+
+          <!-- <div x-show="user_role.role == 'passenger'" class="passenger"> -->
+            <label for="">name</label>
+            <input x-model="user.name" type="text" placeholder="amanda">
+            <label for="">surname</label>
+            <input x-model="user.surname" type="text" placeholder="maarman">
+            <label for="">username</label>
+            <input x-model="user.username" type="text" placeholder="ama123">
+            <label for="">password</label>
+            <input x-model="user.password" type="text" placeholder="***">
+            <label for="">role</label>
+            <input x-model="user.role" type="text" placeholder="owner">
+            <button @click="signup()">Submit</button>
+          <!-- </div> -->
+        </div>
+      </div>
+
+    </div>
     <script type="module" src="/main.js"></script>
   </body>
 </html>

@@ -3,7 +3,7 @@ create table users(
     name text not null,
     surname text not null,
     username text not null,
-    password text not null
+    password text not null,
     role text default 'passengers/drivers/owner'
 );
 
@@ -19,7 +19,7 @@ create table drivers(
     user_id int not null,
     foreign key(user_id) references users(id),
     taxi_id int not null,
-    foreign key(taxi_id) references taxi_data(id),
+    foreign key(taxi_id) references taxi_data(id)
 );
 
 -- create table routes(
