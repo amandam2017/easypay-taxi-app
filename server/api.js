@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 const api = (app, db) => {
+
         app.get('/api/users', async function (req, res) {
     
             let users = [];
@@ -32,11 +33,41 @@ const api = (app, db) => {
             message: 'user registered',
             data: user
         })
-    }
+     }
         
-    // }
-})
-
+   });
+   app.post('/api/login', async function (req, res, next) {
+        
+    try {
+        const { username,password} = req.body;
+    console.log(username,password);
+        const theUser = await db.oneOrNone(`select * from users where username = $1`, [username]);
+        console.log(theUser)
+       if (theUser == null) {
+        res.json({
+            message: 'User does not exist',
+            status: 401
+        })
+         }
+      const decrypt=  bcrypt.compare(password,theUser.password) 
+        if ( !decrypt) {
+            return Error('wrong password')
+            
+             }
+             
+            const token = jwt.sign({
+              username:theUser.username
+             }, process.env.SECRET_TOKEN);
+            res.json({
+                  data:theUser,token,
+                 message: `${username} is logged in`
+             });
+        
+    } catch (error) {
+        console.log(error);
+    }
+   
+});
 }
 
 module.exports = api;

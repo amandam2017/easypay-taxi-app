@@ -5,8 +5,8 @@ const Login = ()=>{
     return{
         user:{
             
-            username:'',
-            password:''
+            Username:'',
+            Password:''
 
         },
         // user_role:false,
@@ -15,14 +15,16 @@ const Login = ()=>{
         axios
             .post(`${localUrl}/api/login`, {
                 
-                username: this.user.username,
-                password: this.user.password
+                username: this.user.Username,
+                password: this.user.Password
 
             })
-
-            .then(results => {
-                console.log(results.data);
-            })
+            .then(r => r.json)
+            .catch(error => console.error(error))
+           // .then(results => {
+               // console.log(results.data);
+           // })
+            
     },
 }
 }
