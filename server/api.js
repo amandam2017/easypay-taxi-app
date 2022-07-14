@@ -78,21 +78,16 @@ const api = (app, db) => {
 
     });
 
-    app.get('/api/taxis', async function (req, res) {
+    app.post('/api/taxis', async function (req, res) {
         try {
-            const {user_destination, user_departure} = req.query;
-            // console.log(user_destination);
+            const {user_destination, user_departure} = req.body;
+            console.log(user_destination);
 
             const destination_taxis = taxis.filter(taxi => {
-                if (user_destination =='Kuilsriver'  && user_departure =='Stellenbosch') {
+                return taxi.destination === user_destination && taxi.departure === user_departure
 
-                    return taxi.destination === user_destination && taxi.departure === user_departure;
-                }else{
-                    return'no matching data'
-                }
-                // return true
             });
-            console.log('dep '+destination_taxis);
+
 
 
             res.json({

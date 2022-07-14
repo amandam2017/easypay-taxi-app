@@ -22,11 +22,11 @@ create table drivers(
     foreign key(taxi_id) references taxi_data(id)
 );
 
--- create table routes(
---     id serial not null primary key,
---     depature text not null,
---     destination text not null
--- );
+create table routes(
+    id serial not null primary key,
+    depature text not null,
+    destination text not null
+);
 
 -- create table taxi_trips(
 --     id serial not null primary key,

@@ -8,4 +8,4 @@ insert into routes (depature, destination) values ('Claremont','Stellenbosch');
 insert into routes (depature, destination) values ('Site C','Stellenbosch');
 insert into routes (depature, destination) values ('Site B', 'Bellville');
 insert into routes (depature, destination) values ('Makhaza','Kuilsriver');
-insert into routes (depature, destination) values ('Mfuleni','Stellenbosch');
+insert into routes (depature, destination) values ('Kuilsriver','Stellenbosch');
