@@ -80,17 +80,19 @@ const api = (app, db) => {
 
     app.get('/api/taxis', async function (req, res) {
         try {
-            const {user_destination, user_departure} = req.body;
+            const {user_destination, user_departure} = req.query;
             // console.log(user_destination);
-            // console.log(user_departure);
 
             const destination_taxis = taxis.filter(taxi => {
-                // console.log(taxi);
-                if (user_destination && user_departure) {
+                if (user_destination =='Kuilsriver'  && user_departure =='Stellenbosch') {
+
+                    return taxi.destination === user_destination && taxi.departure === user_departure;
+                }else{
+                    return'no matching data'
                 }
-                console.log('dep '+user_departure);
-                return taxi.destination === user_destination && taxi.departure === user_departure;
+                // return true
             });
+            console.log('dep '+destination_taxis);
 
 
             res.json({
