@@ -87,9 +87,9 @@ const api = (app, db) => {
             const destination_taxis = taxis.filter(taxi => {
                 // console.log(taxi);
                 if (user_destination && user_departure) {
-                    return taxi.destination === user_destination && taxi.departure === user_departure;
                 }
                 console.log('dep '+user_departure);
+                return taxi.destination === user_destination && taxi.departure === user_departure;
             });
 
 
