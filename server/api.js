@@ -88,7 +88,7 @@ const api = (app, db) => {
                 return taxi.destination === user_destination && taxi.departure === user_departure
 
             });
-
+            console.log(req.body);
             console.log(destination_taxis);
             res.json({
                 data: destination_taxis

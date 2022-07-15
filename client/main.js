@@ -3,6 +3,7 @@ import './style.css'
 
 import Alpine from 'alpinejs'
 import './login'
+import './routes'
 import Taxi from './app'
 import persist from '@alpinejs/persist'
 
