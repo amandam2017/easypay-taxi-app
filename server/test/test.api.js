@@ -51,7 +51,8 @@ describe('The EASY_PAY_TAXI API', function () {
 			.expect(200);
 
 		const users = response.body.data;
-		assert.equal(5, users.length);
+		assert.equal(0, users.length);
+		assert.deepEqual([], users);
 
 	});
      it('should be able to signup a user', async () => {
@@ -63,6 +64,13 @@ describe('The EASY_PAY_TAXI API', function () {
           password:'@1234',
            role:'passenger'});
 
+		   const responseUsers = await supertest(app)
+			.get('/api/users')
+			.expect(200);
+
+			console.log(responseUsers.body.data, 'after adding new user');
+
+		const users = response.body.data;
 	 	const signup = response.body.message;
 	 	assert.deepStrictEqual('user registered' ,signup);
 
@@ -76,10 +84,22 @@ describe('The EASY_PAY_TAXI API', function () {
            });
 
 	 	const login = response.body.message;
-	 	assert.deepStrictEqual('hlomla is logged in' ,login);
+	 	assert.deepStrictEqual('User does not exist' ,login);
 
 	 });
 	
+	 it('should be able to find a user that is logged in by username and password', async () => {
+		const response = await supertest(app)
+			.post('/api/login')
+			.send({
+				username:'tshifhiwa', 
+				password:'@1234',
+           });
+
+	 	const login = response.body.message;
+	 	assert.deepStrictEqual('tshifhiwa is logged in' ,login);
+
+	 });
 	
 	// it('should be able to find a user that is logged in by username and password', async () => {
 	// 	// change the code statement below

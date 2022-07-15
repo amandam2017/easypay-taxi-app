@@ -6,6 +6,9 @@ const taxis = require('./taxi_data');
 // console.log(taxis);
 
 const api = (app, db) => {
+
+
+    const getUsers = async () => await db.manyOrNone('select * from users')
     
     app.get('/api/test', function (req, res) {
         res.json({
@@ -16,7 +19,7 @@ const api = (app, db) => {
     app.get('/api/users', async function (req, res) {
 
         let users = [];
-        users = await db.many('select * from users');
+        users = await db.manyOrNone('select * from users');
         res.json(
             { data: users }
         )
@@ -32,13 +35,9 @@ const api = (app, db) => {
                     status: 401
                 })
             } else {
-                bcrypt.genSalt(saltRounds, function (err, salt) {
-                    bcrypt.hash(password, salt, async function (err, hash) {
-                        await db.none('insert into users (name, surname, username, password, role) values ($1, $2, $3, $4, $5)', [name, surname, username, hash, role]);
-                    })
-
-                });
-
+                const salt =  await bcrypt.genSalt(saltRounds);
+                const hash = await bcrypt.hash(password, salt)
+                await db.none('insert into users (name, surname, username, password, role) values ($1, $2, $3, $4, $5)', [name, surname, username, hash, role]);
                 res.json({
                     message: 'user registered',
                     data: user
@@ -55,14 +54,16 @@ const api = (app, db) => {
 
         try {
             const { username, password } = req.body;
-            console.log(username, password);
+            // console.log(username, password);
             const theUser = await db.oneOrNone(`select * from users where username = $1`, [username]);
-            console.log(theUser)
+            // console.log(theUser)
             if (theUser == null) {
                 res.json({
                     message: 'User does not exist',
                     status: 401
                 })
+
+                return
             }
             const decrypt = bcrypt.compare(password, theUser.password)
             if (!decrypt) {
