@@ -81,17 +81,17 @@ const api = (app, db) => {
     app.post('/api/taxis', async function (req, res) {
         try {
             const {user_destination, user_departure} = req.body;
-            console.log(user_destination);
+            // console.log(user_destination);
 
             const destination_taxis = taxis.filter(taxi => {
+                // console.log(taxis);
                 return taxi.destination === user_destination && taxi.departure === user_departure
 
             });
 
-
-
+            console.log(destination_taxis);
             res.json({
-                taxis: destination_taxis
+                data: destination_taxis
             });
 
         } catch (error) {

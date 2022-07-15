@@ -14,7 +14,6 @@ const Taxi = ()=>{
             password:'',
             role:''
         },
-        // user_role:false,
 
     signup() {
         axios
@@ -27,10 +26,10 @@ const Taxi = ()=>{
 
             })
 
-            .then(results => {
-                console.log(results.data);
+            .then(result => {
+                console.log(result.data);
             })
-    },
+    }
 }
 }
 

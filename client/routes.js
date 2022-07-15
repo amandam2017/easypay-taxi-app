@@ -1,25 +1,31 @@
 import axios from 'axios'
 const localUrl = 'http://localhost:2000'
 
-let destination = 'All';
-let departure = 'All';
-
 const Routes = ()=>{
     return{
         destination:'',
-        departure:'',
-
-        
+        depature:'',
         
         findTaxiByRoute(){
             axios
-            .get(`${localUrl}/api/taxis?destination=${this.destination}&departure=${this.departure}`)
-        
-            .then(function (result) {
-                console.log(result.taxis)
+            .post(`${localUrl}/api/taxis`,{
+                depature: this.depature,
+                destination:this.destination,
             })
+            // alert(`${this.depature}, ${this.destination}`)
+            .then(r => r.json())
+            .then(results=>{
+                console.log(data);
+                console.log(results.data);
+                this.depature = results.data
+                this.destination = results.data
+            })
+            .catch(err => console.log(err))
+            
         }
 }
 }
 
 export default Routes
+
+
