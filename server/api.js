@@ -6,6 +6,12 @@ const taxis = require('./taxi_data');
 // console.log(taxis);
 
 const api = (app, db) => {
+    
+    app.get('/api/test', function (req, res) {
+        res.json({
+            name: 'tshifhiwa'
+        });
+    });
 
     app.get('/api/users', async function (req, res) {
 
