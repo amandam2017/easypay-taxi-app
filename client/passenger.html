@@ -31,16 +31,12 @@
               <h2>Taxis on Route: <span x-text="taxis.length"></span></h2>
               <template x-for="taxi in taxis">
                 <div>
-
-                  
                     <img x-bind:src="`/public/images/${taxi.png}`">
                     <span x-text="taxi.departure"></span>
                     <span x-text="taxi.destination"></span>
                     R<span x-text="taxi.price"></span>
                     <span x-text="taxi.reg_number"></span>
                 </div>
-               
-               
               </template>
             </div>
           </div>
