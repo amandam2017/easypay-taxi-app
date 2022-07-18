@@ -10,7 +10,7 @@ const api = (app, db) => {
     
     app.get('/api/test', function (req, res) {
         res.json({
-            name: 'tshifhiwa'
+            name: 'amanda'
         });
     });
 
