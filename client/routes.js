@@ -1,5 +1,6 @@
 import axios from 'axios'
 const localUrl = 'http://localhost:2000'
+const remote_url = 'https://easy-pay-taxi.herokuapp.com/'
 
 const Routes = ()=>{
     return{
@@ -10,7 +11,7 @@ const Routes = ()=>{
         
         findTaxiByRoute(){
             axios
-            .post(`${localUrl}/api/taxis`, this.routes)
+            .post(`${remote_url}/api/taxis`, this.routes)
             // alert(`${this.depature}, ${this.destination}`)
             // .then(r => r.json())
             .then(results=>{

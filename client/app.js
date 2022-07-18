@@ -2,6 +2,7 @@ import axios from 'axios'
 import Login from './login'
 import Routes from './routes'
 const localUrl = 'http://localhost:2000'
+const remote_url = 'https://easy-pay-taxi.herokuapp.com/'
 
 const Taxi = ()=>{
     return{
@@ -17,7 +18,7 @@ const Taxi = ()=>{
 
     signup() {
         axios
-            .post(`${localUrl}/api/signup`, {
+            .post(`${remote_url}/api/signup`, {
                 name: this.user.name,
                 surname: this.user.surname,
                 username: this.user.username,

@@ -1,5 +1,6 @@
 import axios from 'axios'
 const localUrl = 'http://localhost:2000'
+const remote_url = 'https://easy-pay-taxi.herokuapp.com/'
 
 const Login = ()=>{
     return{
@@ -13,7 +14,7 @@ const Login = ()=>{
 
     login() {
         axios
-            .post(`${localUrl}/api/login`, {
+            .post(`${remote_url}/api/login`, {
                 
                 username: this.user.Username,
                 password: this.user.Password
