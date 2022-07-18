@@ -4,9 +4,11 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --mode production",
     "preview": "vite preview",
     "start": "node app.js"
+
+
   },
   "devDependencies": {
     "vite": "^2.9.9"
