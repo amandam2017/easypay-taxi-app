@@ -5,7 +5,7 @@ const assert = require('assert');
 const fs = require('fs');
 require('dotenv').config()
 
-const API = require('../api');
+const API = require('../server/api');
 const { default: axios } = require('axios');
 const app = express();
 
@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 const config = {
 	connectionString: process.env.DATABASE_URL || 'postgres://amanda:@262632@localhost:5432/easy_pay_taxi',
 	// max: 30,
-	//ssl:{ rejectUnauthorized : false}
+	ssl:{ rejectUnauthorized : false}
  };
 const pgp = PgPromise({});
 const db = pgp(config);
@@ -27,11 +27,10 @@ describe('The EASY_PAY_TAXI API', function () {
 
 	before(async function () {
 		this.timeout(5000);
-		//await db.none(`delete from users`);
+		await db.none(`delete from users`);
         await db.none(`delete from drivers`);
         await db.none(`delete from taxi_data`);
-		const commandText = fs.readFileSync('./sql/data.sql', 'utf-8');
-		 await db.none(commandText)
+		//  await db.none(commandText)
 	});
 
 
