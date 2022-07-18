@@ -1,0 +1,16 @@
+language: node_js
+
+node_js:
+  - "v12"
+
+env:
+  - DATABASE_URL=postgres://amanda:@262632@localhost:5432/easy_pay_taxi;
+
+before_script:
+  - npm install
+  - psql -c 'create database  easy_pay_taxi' -U postgres
+  - psql -U postgres -d easy_pay_taxi -a -f sql/tables.sql
+
+
+services:
+  - postgresql  
