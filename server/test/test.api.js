@@ -27,7 +27,7 @@ describe('The EASY_PAY_TAXI API', function () {
 
 	before(async function () {
 		this.timeout(5000);
-		await db.none(`delete from users`);
+		//await db.none(`delete from users`);
         await db.none(`delete from drivers`);
         await db.none(`delete from taxi_data`);
 		const commandText = fs.readFileSync('./sql/data.sql', 'utf-8');

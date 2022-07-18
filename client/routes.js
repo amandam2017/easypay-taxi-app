@@ -1,7 +1,7 @@
 import axios from 'axios'
-const localUrl = 'http://localhost:2000'
-const remote_url = 'https://easypay-taxi-app.herokuapp.com'
-
+// const localUrl = 'http://localhost:2000'
+// const remote_url = 'https://easypay-taxi-app.herokuapp.com/'
+const remote_url=import.meta.env.VITE_SERVER_URL
 const Routes = ()=>{
     return{
         taxis: [],
@@ -12,7 +12,7 @@ const Routes = ()=>{
         
         findTaxiByRoute(){
             axios
-            .post(`${localUrl}/api/taxis`, this.routes)
+            .post(`${remote_url}/api/taxis`, this.routes)
             // alert(`${this.depature}, ${this.destination}`)
             // .then(r => r.json())
             .then(results=>{
