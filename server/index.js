@@ -14,7 +14,7 @@ const app = express();
 // THE CORES ARE ADDED FOR HEROKU AND THEY ARE USED ON ALL MY ROUTES
 const cors = require('cors');
 app.use((req, res, next) => {
-	res.setHeader("Access-Control-Allow-Origin", "https://easy-pay-taxi.herokuapp.com/");
+	res.setHeader("Access-Control-Allow-Origin", "https://amandam2017.github.io/easypay-taxi-app/");
 	res.header(
 	  "Access-Control-Allow-Headers",
 	  "Origin, X-Requested-With, Content-Type, Accept"
@@ -34,8 +34,8 @@ const pgp = PgPromise({});
 
 const config = {
 	connectionString: process.env.DATABASE_URL || 'postgres://amanda:@262632@localhost:5432/easy_pay_taxi',
-	// max: 30,
-	//ssl:{ rejectUnauthorized : false}
+	max: 30,
+	ssl:{ rejectUnauthorized : false}
  };
  
  const db = pgp(config);
