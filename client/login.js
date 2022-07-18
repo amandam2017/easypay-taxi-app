@@ -1,6 +1,6 @@
 import axios from 'axios'
 const localUrl = 'http://localhost:2000'
-const remote_url = 'https://easy-pay-taxi.herokuapp.com/'
+const remote_url = 'https://easy-pay-taxi.herokuapp.com'
 
 const Login = ()=>{
     return{
