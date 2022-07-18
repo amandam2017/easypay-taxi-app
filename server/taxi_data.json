@@ -206,42 +206,42 @@
         "img": "taxi.png",
         "reg_number": "CL783632",
         "price": "15.50",
-        "departure": "Kuilsiver",
+        "departure": "Kuilsriver",
         "destination": "Mfuleni"
     },
     {
         "img": "taxi.png",
         "reg_number": "CAA1234",
         "price": "15.50",
-        "departure": "Kuilsiver",
+        "departure": "Kuilsriver",
         "destination": ""
     },
     {
         "img": "taxi.png",
         "reg_number": "CAA1287",
         "price": "15.50",
-        "departure": "Kuilsiver",
+        "departure": "Kuilsriver",
         "destination": "Mfuleni"
     },
     {
         "img": "taxi.png",
         "reg_number": "CAA5674",
         "price": "15.50",
-        "departure": "Kuilsiver",
+        "departure": "Kuilsriver",
         "destination": "Mfuleni"
     },
     {
         "img": "taxi.png",
         "reg_number": "CAA7683",
         "price": "15.50",
-        "departure": "Kuilsiver",
+        "departure": "Kuilsriver",
         "destination": "Mfuleni"
     },
     {
         "img": "taxi.png",
         "reg_number": "CAA7493",
         "price": "15.50",
-        "departure": "Kuilsiver",
+        "departure": "Kuilsriver",
         "destination": "Mfuleni"
     }
 ]
