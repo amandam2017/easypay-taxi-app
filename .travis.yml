@@ -9,7 +9,7 @@ env:
 before_script:
   - npm install
   - psql -c 'create database  easy_pay_taxi' -U postgres
-  - psql -U postgres -d easy_pay_taxi -a -f sql/tables.sql
+  - psql -U postgres -d easy_pay_taxi -a -f ./server/sql/tables.sql
 
 
 services:
