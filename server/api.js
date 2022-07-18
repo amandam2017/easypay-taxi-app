@@ -3,8 +3,6 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const taxis = require('./taxi_data');
 
-// console.log(taxis);
-
 const api = (app, db) => {
 
 
