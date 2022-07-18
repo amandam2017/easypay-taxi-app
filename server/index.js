@@ -11,7 +11,6 @@ const axios  = require("axios");
 
 const app = express();
 
-// added cores
 // THE CORES ARE ADDED FOR HEROKU AND THEY ARE USED ON ALL MY ROUTES
 const cors = require('cors');
 app.use((req, res, next) => {
@@ -24,12 +23,9 @@ app.use((req, res, next) => {
   });
 
 app.use(cors({
-    methods: ['POST','DELETE','UPDATE','PUT','PATCH']
+    methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
 }));
 // cores code ends here
-
-//middlewere to make public folder visible
-app.use(express.static('public'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
