@@ -5,6 +5,7 @@ import axios from 'axios'
 const remote_url=import.meta.env.VITE_SERVER_URL
 const Login = ()=>{
     return{
+        landing:true, 
         user:{
             
             Username:'',
@@ -41,6 +42,7 @@ const Login = ()=>{
                 this.register = false
                 this.loggedin = false
                this.showroutes = true
+               this.landing = false
               })
             .catch(error => console.error(error))
            
@@ -51,6 +53,8 @@ const Login = ()=>{
         this.login = true
         this.register = false
         this.showroutes = false
+        this.landing = true
+
   
       },
 }

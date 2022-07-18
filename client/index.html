@@ -8,6 +8,40 @@
 </head>
 <body>
   <div class="container" x-data="taxisapis">
+    <div class="row" x-show="landing">
+      <div class="navigation">
+          <ul>
+              <li><a href="./index.html">Home</a></li>
+              <!-- <li><a href="news.asp">Promotions</a></li>
+              <li><a href="contact.asp">Contact</a></li>
+              <li><a href="about.asp">About</a></li> -->
+            </ul>
+      </div>
+      <div class="landing center-text">
+          <img src="./public/images/easypay.png" alt="..."  class="center">
+        </div>
+         <a href="./index.html"><button class="ui secondary button" @click="">Let's get started</button></a>
+
+        <div class="row">
+          <div class="footer">
+              <div class="contact">
+                  <strong>Contact us at:</strong>
+                  (021)-555-2000
+
+                  <strong>twitter /fb /insta </strong> @easy_taxi
+              </div>
+              <div class="address">
+                  Easy Taxi Station
+                  <br>
+                  Drive Road
+                  <br>
+                  Taxi Town
+                  <br>
+                  7890
+              </div>
+          </div>
+      </div>
+  </div>
     <h1 class="ui header">Easy Pay</h1>
     <div class="row" x-show="loggedin">
       <div class="ui form">

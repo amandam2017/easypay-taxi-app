@@ -8,7 +8,8 @@ const Taxi = ()=>{
     return{
         ...Login(),
         ...Routes(),
-        register: false, loggedin: true,
+        landing:true, 
+        register: false, loggedin: false,
         hideLogin() {
             this.loggedin = false
             this.register = true
