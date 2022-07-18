@@ -34,7 +34,6 @@
 
       <div class="row">
         <div class="ui form">
-          <!-- <div x-show="user_role.role == 'passenger'" class="passenger"> -->
           <div class="five fields">
             <div class="field">
               <label for="">name</label>
@@ -62,6 +61,30 @@
           <!-- </div> -->
         </div>
       </div>
+
+      <!-- <div x-show="user_role.role == 'passenger'" class="passenger"> -->
+      <span>To check coming taxis on your route enter your departure and destination below</span>
+      <div class="row">
+        <div class="ui form">
+          <div class="two fields">
+            <div class="field">
+              <label for="">Enter Departure</label>
+              <input x-model="routes.user_departure" type="text">
+            </div>
+            <div class="field">
+              <label for="">Enter Destination</label>
+              <input x-model="routes.user_destination" type="text">
+            </div>
+          </div>
+
+          <button @click="findTaxiByRoute()" class="ui secondary button">Search</button>
+        </div>
+        <div >
+
+        </div>
+
+      </div>
+      <!-- </div> -->
       
     </div>
 
