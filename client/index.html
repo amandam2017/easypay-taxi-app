@@ -4,68 +4,71 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css">
   <title>Vite App</title>
 </head>
-
 <body>
-  <div x-data="taxisapis">
-
-    <div class="ui four column doubling stackable grid container">
-      <h1 class="ui header">Easy Pay</h1>
-      <div class="row" x-show="loggedin">
-        <div class="ui form">
-          <div class="two fields">
-            <div class="field">
-              <label for="">username</label>
-              <input type="text" x-model="user.Username">
-            </div>
-            <div class="field">
-              <label for="">password</label>
-              <input type="password" x-model="user.Password">
-            </div>
+  <div class="container" x-data="taxisapis">
+    <h1 class="ui header">Easy Pay</h1>
+    <div class="row" x-show="loggedin">
+      <div class="ui form">
+        <div class="two fields">
+          <div class="field">
+            <label for="">username</label>
+            <input type="text" x-model="user.Username">
           </div>
-
-          <button class="ui secondary button" @click="login()">Login</button>
-          <button class="ui secondary button">Register</button>
-        </div>
-        
-      </div>
-      <h4 @click="hideRegister()" class="btn btn-link"> login here</h4>
-      
-        <h4 @click="hideLogin()" class="btn btn-link">no account? register here</h4>
-
-      <div class="row" x-show="register">
-        <div class="ui form">
-          <div class="five fields">
-            <div class="field">
-              <label for="">name</label>
-              <input x-model="user.name" type="text" placeholder="amanda">
-            </div>
-            <div class="field">
-              <label for="">surname</label>
-              <input x-model="user.surname" type="text" placeholder="maarman">
-            </div>
-            <div class="field">
-              <label for="">username</label>
-              <input x-model="user.username" type="text" placeholder="ama123">
-            </div>
-            <div class="field">
-              <label for="">password</label>
-              <input x-model="user.password" type="password" placeholder="***">
-            </div>
-            <div class="field">
-              <label for="">role</label>
-              <input x-model="user.role" type="text" placeholder="owner">
-            </div>
+          <div class="field">
+            <label for="">password</label>
+            <input type="password" x-model="user.Password">
           </div>
-          <button class="ui secondary button" @click="signup()">Submit</button>
-
-          <!-- </div> -->
         </div>
+
+        <button class="ui secondary button" @click="login()">Login</button>
+        <button class="ui secondary button">Register</button>
       </div>
 
-      <div x-show="showroutes" class="passenger">
+    </div>
+    <h4 @click="hideRegister()" class="btn btn-link"> login here</h4>
+
+    <h4 @click="hideLogin()" class="btn btn-link">no account? register here</h4>
+
+    <div class="row" x-show="register">
+      <div class="ui form">
+        <div class="five fields">
+          <div class="field">
+            <label for="">name</label>
+            <input x-model="user.name" type="text" placeholder="amanda">
+          </div>
+          <div class="field">
+            <label for="">surname</label>
+            <input x-model="user.surname" type="text" placeholder="maarman">
+          </div>
+          <div class="field">
+            <label for="">username</label>
+            <input x-model="user.username" type="text" placeholder="ama123">
+          </div>
+          <div class="field">
+            <label for="">password</label>
+            <input x-model="user.password" type="password" placeholder="***">
+          </div>
+          <div class="field">
+            <label for="">role</label>
+            <input x-model="user.role" type="text" placeholder="owner">
+          </div>
+        </div>
+        <button class="ui secondary button" @click="signup()">Submit</button>
+
+        <!-- </div> -->
+      </div>
+    </div>
+
+    <div x-show="showroutes" class="passenger">
+      <div>
+        <button @click="logout()">Logout</button>
+      </div>
       <span>To check coming taxis on your route enter your departure and destination below</span>
       <div class="row">
         <div class="ui form">
@@ -82,27 +85,25 @@
 
           <button @click="findTaxiByRoute()" class="ui secondary button">Search</button>
         </div>
+
         <div class="field">
-            <h2>Taxis on Route: <span x-text="taxis.length"></span></h2>
-            <template x-for="taxi in taxis">
-              <div>
-                  <img x-bind:src="`/public/images/${taxi.png}`">
-                  <span x-text="taxi.departure"></span>
-                  <span x-text="taxi.destination"></span>
-                  R<span x-text="taxi.price"></span>
-                  <span x-text="taxi.reg_number"></span>
-              </div>
-            </template>
-          </div>
-        <div >
-          <button @click="logout()">Logout</button>
+          <h2>Taxis on Route: <span x-text="taxis.length"></span></h2>
+          <template x-for="taxi in taxis">
+            <div class="card" style="width: 18rem;">
+              <!-- <ul class="list-group-item"><span class="card-text" x-text="taxi.img"></span></ul> -->
+              <img :src="`./images/${taxi.img}`" class="card-img-top" alt="...">
+               <ul class="list-group-item"><span class="card-text" x-text="taxi.departure"></span></ul>
+               <ul class="list-group-item"><span class="card-text" x-text="taxi.destination"></span></ul>
+                <ul class="list-group-item">R<span class="card-text" x-text="taxi.price"></span></ul>
+                <ul class="list-group-item"><span class="card-text" x-text="taxi.reg_number"></span></ul>   
+            </div>
+          </template>
         </div>
-
+        <div>
+        </div>
       </div>
-      </div>
-      
+     
     </div>
-
   </div>
   <script type="module" src="/main.js"></script>
 </body>
