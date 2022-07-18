@@ -1,5 +1,6 @@
 import './semantic.css'
 import './style.css'
+import './bootstrap.min.css'
 
 import Alpine from 'alpinejs'
 import './login'
