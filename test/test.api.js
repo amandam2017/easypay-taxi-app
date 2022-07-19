@@ -74,7 +74,7 @@ describe('The EASY_PAY_TAXI API', function () {
 	 	assert.deepStrictEqual('user registered' ,signup);
 
 	 });
-	 it('should be able to find a user that is logged in by username and password', async () => {
+	 it('should be return error message does not exist', async () => {
 		const response = await supertest(app)
 			.post('/api/login')
 			.send({

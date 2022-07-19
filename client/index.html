@@ -7,7 +7,7 @@
 </head>
 <body>
   <div class="container" x-data="taxisapis">
-    <div class="row" x-show="landing">
+    <div class="row space" x-show="landing">
       <div class="navigation">
           <ul>
               <li><a href="./index.html">Home</a></li>
@@ -37,9 +37,9 @@
           </div>
       </div>
   </div>
-    <h1 class="ui header">Easy Pay</h1>
-    <!-- <div id="grad"> -->
-      <div class="row" x-show="loggedin">
+  <!-- <div id="grad"> -->
+    <div class="row" x-show="loggedin">
+      <h1 class="ui header">Easy Pay</h1>
         <div class="ui form">
           <div class="two fields">
             <div class="field">
@@ -53,10 +53,10 @@
           </div>
           <button class="ui secondary button" @click="login()">Login</button>
         </div>
+        <h4 @click="hideRegister()" class="btn btn-link"> login here</h4>
+        <h4 @click="hideLogin()" class="btn btn-link">no account? register here</h4>
       </div>
     <!-- </div> -->
-    <h4 @click="hideRegister()" class="btn btn-link"> login here</h4>
-    <h4 @click="hideLogin()" class="btn btn-link">no account? register here</h4>
 <!-- <div id="grad"> -->
   <div class="row" x-show="register">
     <div class="ui form">
