@@ -27,6 +27,7 @@ const Taxi = ()=>{
             password:'',
             role:''
         },
+        feedback_message:'',
 
     signup() {
         axios
@@ -41,6 +42,8 @@ const Taxi = ()=>{
 
             .then(result => {
                 console.log(result.data);
+                this.feedback_message = result.data.message
+
             })
     }
 }

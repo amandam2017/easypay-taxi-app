@@ -38,20 +38,11 @@ const Login = ()=>{
             
             .then(results => {
             console.log(results.data.message);
-            if (results.data == 'User does not exist' && this.user == '') {
+            if (results.data.message === 'User does not exist') {
                 this.error_message = results.data.message
-                this.loggedIn = false
-                this.registerForm = true
-               this.showroutes = false
             } 
             })
-            .then(()=>{
-                this.register = false
-                this.loggedin = false
-               this.showroutes = true
-                this.landing = false
-
-              })
+           
             .catch(error => console.error(error))
            
             

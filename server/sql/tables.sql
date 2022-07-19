@@ -4,7 +4,7 @@ create table users(
     surname text not null,
     username text not null,
     password text not null,
-    role text default 'passengers/drivers/owner'
+    role text default 'passengers/driver/owner'
 );
 
 create table taxi_data(
@@ -24,7 +24,7 @@ create table drivers(
 
 create table routes(
     id serial not null primary key,
-    depature text not null,
+    departure text not null,
     destination text not null
 );
 
