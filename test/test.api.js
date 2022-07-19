@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 const config = {
 	connectionString: process.env.DATABASE_URL || 'postgres://amanda:@262632@localhost:5432/easy_pay_taxi',
 	// max: 30,
-	ssl:{ rejectUnauthorized : false}
+	// ssl:{ rejectUnauthorized : false}
  };
 const pgp = PgPromise({});
 const db = pgp(config);

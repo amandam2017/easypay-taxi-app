@@ -27,21 +27,23 @@ const api = (app, db) => {
         try {
             const { name, surname, username, password, role } = req.body
             
-            // if (user !== null) {
-            //     res.json({
-            //         message: 'User already exist please login with the username and password',
-            //         status: 401
-            //     })
-            // } else {
                 const salt =  await bcrypt.genSalt(saltRounds);
                 const hash = await bcrypt.hash(password, salt)
                 await db.none('insert into users (name, surname, username, password, role) values ($1, $2, $3, $4, $5)', [name, surname, username, hash, role]);
                const user = await db.oneOrNone('select * from users where username = $1', [username]) 
+
+               if (user !== null) {
+                res.json({
+                    message: 'User already exist please login with the username and password',
+                    status: 401
+                })
+            }else{
+
                res.json({
                     message: 'user registered',
                     data: user
                 })
-            // }
+            }
 
         } catch (error) {
             console.log(error);

@@ -1,7 +1,6 @@
 
 import axios from 'axios'
-// const localUrl = 'http://localhost:2000'
-// const remote_url = 'https://easypay-taxi-app.herokuapp.com/'
+
 const remote_url=import.meta.env.VITE_SERVER_URL
 const Login = ()=>{
     return{
@@ -12,9 +11,11 @@ const Login = ()=>{
             Password:''
 
         },
-        register: false, loggedin: true,
+        error_message: '',
+        register: false, 
+        loggedin: true,
         showroutes:false,
-        // user_role:false,
+
         hideLogin() {
             this.loggedin = false
             this.register = true
@@ -34,15 +35,22 @@ const Login = ()=>{
                 password: this.user.Password
 
             })
-            //.then(r => r.json)
+            
             .then(results => {
-            console.log(results.data);
+            console.log(results.data.message);
+            if (results.data == 'User does not exist' && this.user == '') {
+                this.error_message = results.data.message
+                this.loggedIn = false
+                this.registerForm = true
+               this.showroutes = false
+            } 
             })
             .then(()=>{
                 this.register = false
                 this.loggedin = false
                this.showroutes = true
-               this.landing = false
+                this.landing = false
+
               })
             .catch(error => console.error(error))
            
