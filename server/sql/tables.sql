@@ -24,6 +24,9 @@ create table drivers(
 
 create table routes(
     id serial not null primary key,
+    img text not null,
+    reg_number varchar not null,
+    price int not null,
     departure text not null,
     destination text not null
 );

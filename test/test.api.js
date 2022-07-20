@@ -83,7 +83,7 @@ describe('The EASY_PAY_TAXI API', function () {
            });
 
 	 	const login = response.body.message;
-	 	assert.deepStrictEqual('User does not exist' ,login);
+	 	assert.deepStrictEqual('User does not exist please sign up below' ,login);
 
 	 });
 	
