@@ -11,6 +11,7 @@ const Login = ()=>{
             Password:''
 
         },
+        feedback_message:'',
         error_message: '',
         register: false, 
         loggedin: true,
@@ -37,10 +38,21 @@ const Login = ()=>{
             })
             
             .then(results => {
-            console.log(results.data.message);
-            if (results.data.message === 'User does not exist') {
+            console.log(results.data);
+            
+            if (results.data.message == 'User does not exist please sign up below') {
                 this.error_message = results.data.message
-            } 
+                    this.loggedin = false,
+                    this.register = true
+                
+            }
+
+            else{
+                this.showroutes = true,
+                this.loggedin = false,
+                this.feedback_message = results.data.message
+    
+            }
             })
            
             .catch(error => console.error(error))

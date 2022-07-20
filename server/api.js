@@ -29,19 +29,22 @@ const api = (app, db) => {
             
                 const salt =  await bcrypt.genSalt(saltRounds);
                 const hash = await bcrypt.hash(password, salt)
-                await db.none('insert into users (name, surname, username, password, role) values ($1, $2, $3, $4, $5)', [name, surname, username, hash, role]);
-               const user = await db.oneOrNone('select * from users where username = $1', [username]) 
+                const user = await db.oneOrNone('select * from users where username = $1', [username]) 
+                await db.oneOrNone(`update users set role='driver' where username = $1`, [username])
+                
+                if (user == null) {
+                   await db.none('insert into users (name, surname, username, password) values ($1, $2, $3, $4)', [name, surname, username, hash]);
 
-               if (user !== null) {
+                res.json({
+                    message: 'user registered',
+                    data: user
+                })
+                
+            }else{
+
                 res.json({
                     message: 'User already exist please login with the username and password',
                     status: 401
-                })
-            }else{
-
-               res.json({
-                    message: 'user registered',
-                    data: user
                 })
             }
 
@@ -59,26 +62,34 @@ const api = (app, db) => {
             const theUser = await db.oneOrNone(`select * from users where username = $1`, [username]);
             if (theUser == null) {
                 res.json({
-                    message: 'User does not exist',
+                    message: 'User does not exist please sign up below',
                     status: 401
                 })
 
-                return
+            }
+
+            if(theUser !== null){
+
+                const decrypt = bcrypt.compare(password, theUser.password)
+                    if (!decrypt) {
+                        res.json({
+                            message: 'Wrong password',
+                            status: 402
+                        })
+
+                }else{
+                    const token = jwt.sign({
+                    username: theUser.username
+                }, process.env.SECRET_TOKEN);
+                res.json({
+                    data: theUser, token,
+                    message: `${username} is logged in`
+                });
+                }
+                
             }
  
-            const decrypt = bcrypt.compare(password, theUser.password)
-            if (!decrypt) {
-                return Error('wrong password')
-
-            }
-
-            const token = jwt.sign({
-                username: theUser.username
-            }, process.env.SECRET_TOKEN);
-            res.json({
-                data: theUser, token,
-                message: `${username} is logged in`
-            });
+            
 
         } catch (error) {
             console.log(error);
