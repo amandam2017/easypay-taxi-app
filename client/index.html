@@ -39,6 +39,7 @@
   </div>
   <!-- <div id="grad"> -->
     <div class="row" x-show="loggedin">
+
       <h1 class="ui header">Easy Pay</h1>
         <div class="ui form">
           <div class="two fields">
@@ -59,7 +60,7 @@
     <!-- </div> -->
 <!-- <div id="grad"> -->
   <div class="row" x-show="register">
-    <span x-text="feedback_message"></span>
+    <span x-text="error_message"></span>
     <div class="ui form">
       <div class="five fields">
         <div class="field">
@@ -91,10 +92,11 @@
 <!-- <div id="grad"> -->
   <div x-show="showroutes" class="passenger">
     <div>
+      <span x-text="feedback_message"></span>
       <button class="ui secondary button" @click="logout()">Logout</button>
     </div>
-    <span>To check coming taxis on your route enter your departure and destination below</span>
     <div class="row">
+
       <div class="ui form">
         <div class="two fields">
           <div class="field">
