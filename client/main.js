@@ -5,6 +5,7 @@ import './bootstrap.min.css'
 import Alpine from 'alpinejs'
 import './login'
 import './routes'
+import './driver'
 import Taxi from './app'
 import persist from '@alpinejs/persist'
 

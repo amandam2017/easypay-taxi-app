@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Driver from './driver'
 import Login from './login'
 import Routes from './routes'
 //const localUrl = 'http://localhost:2000'
@@ -8,6 +9,7 @@ const Taxi = ()=>{
     return{
         ...Login(),
         ...Routes(),
+        ...Driver(),
         landing:true, 
         register: false, loggedin: false,
         hideLogin() {
