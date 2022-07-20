@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 const config = {
 	connectionString: process.env.DATABASE_URL || 'postgres:///amanda:@262632@localhost:5432/easy_pay_taxi',
 	// max: 30,
-	ssl:{ rejectUnauthorized : false}
+	// ssl:{ rejectUnauthorized : false}
  };
 const pgp = PgPromise({});
 const db = pgp(config);
@@ -74,7 +74,7 @@ describe('The EASY_PAY_TAXI API', function () {
 	 	assert.deepStrictEqual('user registered' ,signup);
 
 	 });
-	 it('should be able to find a user that is logged in by username and password', async () => {
+	 it('should be return error message does not exist', async () => {
 		const response = await supertest(app)
 			.post('/api/login')
 			.send({

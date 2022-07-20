@@ -1,5 +1,6 @@
 body{
   margin-top:8%;
+  /* overflow: hidden; */
 }
 .inner{
   overflow: hidden;
@@ -9,6 +10,9 @@ body{
 }
 .inner:hover img{
   transform: scale(1.5);
+}
+.space{
+  margin-bottom: 50px;
 }
 footer {
   display: flex;
