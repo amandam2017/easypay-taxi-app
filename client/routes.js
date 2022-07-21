@@ -4,18 +4,18 @@ const remote_url=import.meta.env.VITE_SERVER_URL
 const Routes = ()=>{
     return{
         taxis: [],
-        routes:{
+        route:{
             user_departure:'',
             user_destination:''
         },
 
-        register: false, 
-        loggedin: false,
-        showroutes:false,
+        // register: false, 
+        // loggedin: false,
+        // showroutes:false,
         
         findTaxiByRoute(){
             axios
-            .post(`${remote_url}/api/taxis`, this.routes)
+            .get(`${remote_url}/api/routes`, this.route)
     
             .then(results=>{
 

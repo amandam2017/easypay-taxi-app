@@ -11,7 +11,7 @@ const Taxi = ()=>{
         ...Routes(),
         ...Driver(),
         landing:true, 
-        register: false, loggedin: false,
+       // register: false, loggedin: false,
         hideLogin() {
             this.loggedin = false
             this.register = true
