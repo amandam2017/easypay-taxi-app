@@ -34,10 +34,8 @@
                 
             </select>
           </div> -->
-        </div>
 
-        <div>
-          <h5 x-text="departure">Departure</h5>
+        <div class="field">
           <label for="Select departure">Select departute:</label>
           <select x-model="departure">
             <template x-for="taxi in departures">
@@ -45,8 +43,7 @@
             </template>
           </select>
         </div>
-        <div>
-          <h5 x-text="destination">Destination</h5>
+        <div class="field"> 
           <label for="Select destination">Select destination:</label>
           <select x-model="destination">
             <template x-for="taxi in destinations">
@@ -54,9 +51,11 @@
             </template>
           </select>
         </div>
+      </div>
        
             <div class="field">
-              <span>Results here:</span>
+              You are in <h1 x-text="departure"></h1>Going to <h1 x-text="destination"></h1>
+              <!-- <span>Results here:</span> -->
             </div>
 
         <!-- </div> -->
