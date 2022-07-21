@@ -22,7 +22,6 @@ const api = (app, db) => {
             const salt = await bcrypt.genSalt(saltRounds);
             const hash = await bcrypt.hash(password, salt)
             const user = await db.oneOrNone('select * from users where username = $1', [username])
-            await db.oneOrNone(`update users set role='driver' where username = $1`, [username])
             if (user == null) {
                 await db.none('insert into users (name, surname, username, password) values ($1, $2, $3, $4)', [name, surname, username, hash]);
                 res.json({
@@ -135,5 +134,6 @@ const api = (app, db) => {
             })
         }
     });
+
 }
 module.exports = api;
