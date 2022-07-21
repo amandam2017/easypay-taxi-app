@@ -42,7 +42,6 @@ const api = (app, db) => {
     app.post('/api/login', async function (req, res, next) {
         try {
             const { username, password } = req.body;
-            // console.log(username, password);
             const theUser = await db.oneOrNone(`select * from users where username = $1`, [username]);
             if (theUser == null) {
                 res.json({
@@ -74,9 +73,7 @@ const api = (app, db) => {
     app.post('/api/taxis', async function (req, res) {
         try {
             const {user_destination, user_departure} = req.body;
-            // console.log(user_destination);
             const destination_taxis = taxis.filter(taxi => {
-                // console.log(taxis);
                 return taxi.destination === user_destination && taxi.departure === user_departure
             });
             console.log(req.body);
@@ -89,8 +86,7 @@ const api = (app, db) => {
         }
     });
     app.get('/api/routes', async function (req, res){
-        // const for_dropdown = await db.manyOrNone(`select destination`)
-        // console.log(for_dropdown);
+
         const routes = await db.manyOrNone(`select * from routes`);
         console.log(routes);
         if(!routes){
@@ -100,8 +96,8 @@ const api = (app, db) => {
             })
         }else{
             res.json({
-                data: routes,
-                message: `there are ${routes.length} available routes`
+                message: `there are ${routes.length} available routes`,
+                data: routes
             });
         }
     });
