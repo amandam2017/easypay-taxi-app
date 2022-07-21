@@ -11,7 +11,7 @@ const Driver = () => {
         departures: [],
         destinations: [],
 
-
+destination :'',
 
         driver() {
             axios
