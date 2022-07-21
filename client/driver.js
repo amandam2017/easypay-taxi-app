@@ -10,8 +10,8 @@ const Driver = () => {
         },
         departures: [],
         destinations: [],
-
-destination :'',
+        destination :'',
+        departure :'',
 
         driver() {
             axios
@@ -19,9 +19,17 @@ destination :'',
 
                 })
                 .then(results => {
-                    console.log(results.data.data);
-                  this.destinations=results.data.data
+                    // console.log(this.departures = results.data.data2);
+                    // console.log(this.destinations = results.data.data);
+
+                    this.destinations = results.data.data;
+                    this.departures = results.data.data;
+
                     console.log(this.destinations);
+
+                    // console.log(this.departures);
+
+                //   this.destinations=results.data.data
                 })
 
                 .catch(error => console.error(error))

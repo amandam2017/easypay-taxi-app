@@ -88,7 +88,7 @@ const api = (app, db) => {
     app.get('/api/routes', async function (req, res) {
 
         const routes = await db.manyOrNone(`select * from routes`);
-        console.log(routes);
+        // console.log(routes);
         if (!routes) {
             res.json({
                 message: 'No routes for that destination',
@@ -119,7 +119,7 @@ const api = (app, db) => {
     // driver
     app.post('/api/driver', async function (req, res) {
         try {
-            const Routes = await db.manyOrNone('select departure, destination) from routes')
+            const Routes = await db.manyOrNone('select departure, destination from routes')
             const TaxiData = await db.manyOrNone(`select reg_number, qty from taxi_data`)
             console.log('routes' + Routes);
             console.log('taxidata:' + TaxiData);

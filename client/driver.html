@@ -23,15 +23,36 @@
             </template>
             </select>
           </div> -->
-          <div class="field">
-            <label for="Select destination">Select destination:</label>
+          <!-- <div class="field">
+            <div x-text="destinations"></div> -->
+            <!-- <div x-text="destination.destination"></div> -->
+            <!-- <label for="Select destination">Select destination:</label>
            <select class="ui dropdown" name="destination">
             <template x-for="destination on destinations">
-              <option value="destination.destination"></option>
+              <option :value="destination.destination">o</option>
             </template>
                 
             </select>
-          </div>
+          </div> -->
+        </div>
+
+        <div>
+          <h5 x-text="departure">Departure</h5>
+          <label for="Select departure">Select departute:</label>
+          <select x-model="departure">
+            <template x-for="taxi in departures">
+              <option :value="taxi.departure" x-text="taxi.departure"></option>
+            </template>
+          </select>
+        </div>
+        <div>
+          <h5 x-text="destination">Destination</h5>
+          <label for="Select destination">Select destination:</label>
+          <select x-model="destination">
+            <template x-for="taxi in destinations">
+              <option :value="taxi.destination" x-text="taxi.destination"></option>
+            </template>
+          </select>
         </div>
        
             <div class="field">
