@@ -19,17 +19,17 @@ const api = (app, db) => {
     app.post('/api/signup', async function (req, res) {
         try {
             const { name, surname, username, password, role } = req.body
-                const salt =  await bcrypt.genSalt(saltRounds);
-                const hash = await bcrypt.hash(password, salt)
-                const user = await db.oneOrNone('select * from users where username = $1', [username])
-                await db.oneOrNone(`update users set role='driver' where username = $1`, [username])
-                if (user == null) {
-                   await db.none('insert into users (name, surname, username, password) values ($1, $2, $3, $4)', [name, surname, username, hash]);
+            const salt = await bcrypt.genSalt(saltRounds);
+            const hash = await bcrypt.hash(password, salt)
+            const user = await db.oneOrNone('select * from users where username = $1', [username])
+            await db.oneOrNone(`update users set role='driver' where username = $1`, [username])
+            if (user == null) {
+                await db.none('insert into users (name, surname, username, password) values ($1, $2, $3, $4)', [name, surname, username, hash]);
                 res.json({
                     message: 'user registered',
                     data: user
                 })
-            }else{
+            } else {
                 res.json({
                     message: 'User already exist please login with the username and password',
                     status: 401
@@ -49,21 +49,21 @@ const api = (app, db) => {
                     status: 401
                 })
             }
-            if(theUser !== null){
+            if (theUser !== null) {
                 const decrypt = bcrypt.compare(password, theUser.password)
-                    if (!decrypt) {
-                        res.json({
-                            message: 'Wrong password',
-                            status: 402
-                        })
-                }else{
+                if (!decrypt) {
+                    res.json({
+                        message: 'Wrong password',
+                        status: 402
+                    })
+                } else {
                     const token = jwt.sign({
-                    username: theUser.username
-                }, process.env.SECRET_TOKEN);
-                res.json({
-                    data: theUser, token,
-                    message: `${username} is logged in`
-                });
+                        username: theUser.username
+                    }, process.env.SECRET_TOKEN);
+                    res.json({
+                        data: theUser, token,
+                        message: `${username} is logged in`
+                    });
                 }
             }
         } catch (error) {
@@ -72,7 +72,7 @@ const api = (app, db) => {
     });
     app.post('/api/taxis', async function (req, res) {
         try {
-            const {user_destination, user_departure} = req.body;
+            const { user_destination, user_departure } = req.body;
             const destination_taxis = taxis.filter(taxi => {
                 return taxi.destination === user_destination && taxi.departure === user_departure
             });
@@ -85,26 +85,26 @@ const api = (app, db) => {
             console.log(error);
         }
     });
-    app.get('/api/routes', async function (req, res){
+    app.get('/api/routes', async function (req, res) {
 
         const routes = await db.manyOrNone(`select * from routes`);
         console.log(routes);
-        if(!routes){
+        if (!routes) {
             res.json({
                 message: 'No routes for that destination',
                 status: 401
             })
-        }else{
+        } else {
             res.json({
                 message: `there are ${routes.length} available routes`,
                 data: routes
             });
         }
     });
-    app.post('/api/owner', async function(req, res) {
+    app.post('/api/owner', async function (req, res) {
         try {
-            const { reg_number,qty, owner_id } = req.body;
-            await db.none('insert into taxi_data( reg_number,qty,owner_id) values($1,$2,$3)', [reg_number,qty,owner_id]);
+            const { reg_number, qty, owner_id } = req.body;
+            await db.none('insert into taxi_data( reg_number,qty,owner_id) values($1,$2,$3)', [reg_number, qty, owner_id]);
             res.json({
                 status: 'success'
             })
@@ -116,15 +116,16 @@ const api = (app, db) => {
             })
         }
     });
-    app.post('/api/driver', async function(req, res) {
+    // driver
+    app.post('/api/driver', async function (req, res) {
         try {
             const Routes = await db.manyOrNone('select departure, destination) from routes')
             const TaxiData = await db.manyOrNone(`select reg_number, qty from taxi_data`)
-            console.log('routes'+Routes);
-            console.log('taxidata:'+TaxiData);
+            console.log('routes' + Routes);
+            console.log('taxidata:' + TaxiData);
             res.json({
                 status: 'success',
-                data:Routes,TaxiData
+                data: Routes, TaxiData
             })
         } catch (err) {
             console.log(err);
