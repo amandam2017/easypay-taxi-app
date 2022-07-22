@@ -22,6 +22,7 @@ const Login = ()=>{
         loggedin: false,
         showroutes:false,
         main_screen :false,
+        role:'',
 
         hideLogin() {
             this.loggedin = false
@@ -39,7 +40,8 @@ const Login = ()=>{
             .post(`${remote_url}/api/login`, {
                 
                 username: this.user.Username,
-                password: this.user.Password
+                password: this.user.Password,
+                role:this.role
 
             })
             

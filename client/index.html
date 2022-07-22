@@ -48,10 +48,10 @@
               <button class="ui secondary button" @click="loggedin =! loggedin,hideRegister()">sign in as a passenger</button>
             </div>
             <div class="field">
-              <button class="ui secondary button" @click="driver()">sign in as a driver</button>
+              <button class="ui secondary button" @click="loggedin =! loggedin,hideRegister()">sign in as a driver</button>
             </div>
             <div class="field">
-              <button class="ui secondary button" @click="">sign in as a owner</button>
+              <button class="ui secondary button" @click="loggedin =! loggedin,hideRegister()">sign in as a owner</button>
             </div>
           </div>
           
@@ -100,10 +100,10 @@
           <label for="">password</label>
           <input x-model="user.password" type="password" placeholder="***">
         </div>
-        <div class="field">
+        <!-- <div class="field">
           <label for="">role</label>
           <input x-model="user.role" type="text" placeholder="owner">
-        </div>
+        </div> -->
       </div>
       <button class="ui secondary button" @click="signup()">Submit</button>
       <!-- </div> -->

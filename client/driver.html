@@ -14,7 +14,26 @@
       <h1 class="ui header">Hello Driver(display drivers username)</h1>
       <span>To check coming taxis on your route enter your departure and destination below</span>
       <div class="row">
-        <div class="two fields" x-show="show_driver">
+        <div class="two fields">
+          <!-- <div class="field">
+           <label for="Select departure">Select departure:</label>
+           <select class="ui dropdown" name="departure">
+            <template x-for="departure in departures">
+              <option value="departure.driver()"></option>
+            </template>
+            </select>
+          </div> -->
+          <!-- <div class="field">
+            <div x-text="destinations"></div> -->
+            <!-- <div x-text="destination.destination"></div> -->
+            <!-- <label for="Select destination">Select destination:</label>
+           <select class="ui dropdown" name="destination">
+            <template x-for="destination on destinations">
+              <option :value="destination.destination">o</option>
+            </template>
+                
+            </select>
+          </div> -->
 
         <div class="field">
           <label for="Select departure">Select departute:</label>

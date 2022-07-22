@@ -22,7 +22,7 @@ const api = (app, db) => {
                 const salt =  await bcrypt.genSalt(saltRounds);
                 const hash = await bcrypt.hash(password, salt)
                 const user = await db.oneOrNone('select * from users where username = $1', [username])
-                await db.oneOrNone(`update users set role='driver' where username = $1`, [username])
+                // await db.oneOrNone(`update users set role='driver' where username = $1`, [username])
                 if (user == null) {
                    await db.none('insert into users (name, surname, username, password) values ($1, $2, $3, $4)', [name, surname, username, hash]);
                 res.json({
@@ -41,9 +41,12 @@ const api = (app, db) => {
     });
     app.post('/api/login', async function (req, res, next) {
         try {
-            const { username, password } = req.body;
+            const { username, password, role } = req.body;
+
             // console.log(username, password);
             const theUser = await db.oneOrNone(`select * from users where username = $1`, [username]);
+            const updateRole= await db.oneOrNone(`update users set role=user.role where username = $1`, [username])
+            console.log(updateRole);
             if (theUser == null) {
                 res.json({
                     message: 'User does not exist please sign up below',
@@ -62,7 +65,7 @@ const api = (app, db) => {
                     username: theUser.username
                 }, process.env.SECRET_TOKEN);
                 res.json({
-                    data: theUser, token,
+                    data: theUser, token,updateRole,
                     message: `${username} is logged in`
                 });
                 }
@@ -136,6 +139,23 @@ const api = (app, db) => {
                 status: 'error',
                 error: err.message
             })
+        }
+    });
+
+    app.post('/api/roles', async function (req, res) {
+        try {
+            // const { username} = req.body
+            const username = await db.manyOrNone(`select * from users`)
+            const updateRole= await db.oneOrNone(`update users set role='driver' where username = $1`, [username])
+            console.log(updateRole);
+            
+                res.json({
+                    message: `user ${username} is  a role`,
+                    data: updateRole
+                })
+            
+        } catch (error) {
+            console.log(error);
         }
     });
 }
