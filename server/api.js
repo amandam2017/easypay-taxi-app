@@ -45,7 +45,7 @@ const api = (app, db) => {
 
             // console.log(username, password);
             const theUser = await db.oneOrNone(`select * from users where username = $1`, [username]);
-            const updateRole= await db.oneOrNone(`update users set role=user.role where username = $1`, [username])
+            const updateRole= await db.oneOrNone(`update users set role=role where username = $1`, [username.role])
             console.log(updateRole);
             if (theUser == null) {
                 res.json({
@@ -65,7 +65,8 @@ const api = (app, db) => {
                     username: theUser.username
                 }, process.env.SECRET_TOKEN);
                 res.json({
-                    data: theUser, token,updateRole,
+                    data: theUser, token,
+                    role:updateRole,
                     message: `${username} is logged in`
                 });
                 }
