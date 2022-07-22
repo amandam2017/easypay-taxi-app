@@ -2,8 +2,7 @@ import axios from 'axios'
 import Driver from './driver'
 import Login from './login'
 import Routes from './routes'
-//const localUrl = 'http://localhost:2000'
-//const remote_url = 'https://easypay-taxi-app.herokuapp.com'
+
 const remote_url=import.meta.env.VITE_SERVER_URL
 const Taxi = ()=>{
     return{
@@ -11,7 +10,7 @@ const Taxi = ()=>{
         ...Routes(),
         ...Driver(),
         landing:true, 
-        register: false, loggedin: false,
+       // register: false, loggedin: false,
         hideLogin() {
             this.loggedin = false
             this.register = true

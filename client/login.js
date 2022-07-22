@@ -4,6 +4,11 @@ import axios from 'axios'
 const remote_url=import.meta.env.VITE_SERVER_URL
 const Login = ()=>{
     return{
+        init(){
+            
+            this.logging()
+
+        },
         landing:true, 
         user:{
             
@@ -14,8 +19,10 @@ const Login = ()=>{
         feedback_message:'',
         error_message: '',
         register: false, 
-        loggedin: true,
+        loggedin: false,
         showroutes:false,
+        main_screen :false,
+        role:'',
 
         hideLogin() {
             this.loggedin = false
@@ -28,12 +35,13 @@ const Login = ()=>{
           },
           
 
-    login() {
+    logging() {
         axios
             .post(`${remote_url}/api/login`, {
                 
                 username: this.user.Username,
-                password: this.user.Password
+                password: this.user.Password,
+                role:this.role
 
             })
             
@@ -44,7 +52,10 @@ const Login = ()=>{
                 this.error_message = results.data.message
                     this.loggedin = false,
                     this.register = true
-                
+                    this.showroutes = false
+                setTimeout(() =>{
+                    this.error_message = ''
+                },3000 )
             }
 
             else{

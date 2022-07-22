@@ -16,7 +16,7 @@
       <div class="landing center-text">
           <img src="./images/easypay.png" alt="..."  class="center">
         </div>
-        <a><button class="ui secondary button" @click="loggedin =!loggedin ,register=false,landing=false">Let's get started</button></a>
+        <a><button class="ui secondary button" @click="main_screen =!main_screen,login=false,register=false,landing=false">Let's get started</button></a>
          <!-- <a href="./index.html"><button class="ui secondary button" @click="">Let's get started</button></a> -->
         <div class="row">
           <div class="footer">
@@ -38,6 +38,27 @@
       </div>
   </div>
   <!-- <div id="grad"> -->
+
+    <div class="row" x-show="main_screen">
+
+      <h1 class="ui header">Easy Pay</h1>
+        <div class="ui form">
+          <div class="three fields">
+            <div class="field">
+              <button class="ui secondary button" @click="loggedin =! loggedin,hideRegister()">sign in as a passenger</button>
+            </div>
+            <div class="field">
+              <button class="ui secondary button" @click="loggedin =! loggedin,hideRegister()">sign in as a driver</button>
+            </div>
+            <div class="field">
+              <button class="ui secondary button" @click="loggedin =! loggedin,hideRegister()">sign in as a owner</button>
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+
     <div class="row" x-show="loggedin">
 
       <h1 class="ui header">Easy Pay</h1>
@@ -52,10 +73,10 @@
               <input type="password" x-model="user.Password">
             </div>
           </div>
-          <button class="ui secondary button" @click="login()">Login</button>
+          <button class="ui secondary button" @click="logging()">Login</button>
           <a><button class="ui secondary button" @click="hideLogin()">no account? register here</button></a>
         </div>
-        <!-- <h4 @click="hideRegister()" class="btn btn-link"> login here</h4> -->
+        
       </div>
     <!-- </div> -->
 <!-- <div id="grad"> -->
@@ -79,19 +100,19 @@
           <label for="">password</label>
           <input x-model="user.password" type="password" placeholder="***">
         </div>
-        <div class="field">
+        <!-- <div class="field">
           <label for="">role</label>
           <input x-model="user.role" type="text" placeholder="owner">
-        </div>
+        </div> -->
       </div>
       <button class="ui secondary button" @click="signup()">Submit</button>
-      <div>
-        <button class="ui secondary button" @click="login(), loggedin = true">Login here:</button>
-      </div>
       <!-- </div> -->
+      <button @click="hideRegister()" class="btn btn-link"> login here></button>
+      
     </div>
   </div>
 <!-- </div> -->
+
 <!-- <div id="grad"> -->
   <div x-show="showroutes" class="passenger">
     <div>
@@ -99,20 +120,39 @@
       <button class="ui secondary button" @click="logout()">Logout</button>
     </div>
     <div class="row">
+      <div class="two fields">
 
-      <div class="ui form">
+        <div class="field">
+          <label for="Select departure">Select where You are:</label>
+          <select x-model="route.user_departure">
+            <template x-for="taxi in departures">
+              <option :value="taxi.departure" x-text="taxi.departure"></option>
+            </template>
+          </select>
+        </div>
+        <div class="field"> 
+          <label for="Select destination">And where you're going:</label>
+          <select x-model="route.user_destination">
+            <template x-for="taxi in destinations">
+              <option :value="taxi.destination" x-text="taxi.destination"></option>
+            </template>
+          </select>
+        </div>
+      </div>
+      <!-- <div class="ui form">
         <div class="two fields">
           <div class="field">
             <label for="">Enter Departure</label>
-            <input x-model="routes.user_departure" type="text">
+            <input x-model="route.user_departure" type="text">
           </div>
           <div class="field">
             <label for="">Enter Destination</label>
-            <input x-model="routes.user_destination" type="text">
+            <input x-model="route.user_destination" type="text">
           </div>
         </div>
-        <button @click="findTaxiByRoute()" class="ui secondary button">Search</button>
-      </div>
+        
+      </div> -->
+      <button @click="findTaxiByRoute()" class="ui secondary button">Search</button>
       <div class="row">
         <h2>Taxis on Route: <span x-text="taxis.length"></span></h2>
         <template x-for="taxi in taxis">
