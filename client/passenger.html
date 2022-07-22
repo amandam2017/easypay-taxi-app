@@ -32,6 +32,9 @@
               </template>
             </select>
           </div>
+          <div class="field">
+            You are in <h1 x-text="departure"></h1>Going to <h1 x-text="destination"></h1>
+          </div>
         </div>
         <button @click="findTaxiByRoute()" class="ui secondary button">Search</button>
         <template x-for="taxi in taxis">

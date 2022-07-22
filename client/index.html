@@ -125,54 +125,30 @@
     </div>
     <div class="row">
       <div class="two fields">
+          
 
         <div class="field">
-          <label for="Select departure">Select where You are:</label>
-          <select x-model="route.user_departure">
+          <label for="Select departure">Select departute:</label>
+          <select x-model="departure">
             <template x-for="taxi in departures">
               <option :value="taxi.departure" x-text="taxi.departure"></option>
             </template>
           </select>
         </div>
         <div class="field"> 
-          <label for="Select destination">And where you're going:</label>
-          <select x-model="route.user_destination">
+          <label for="Select destination">Select destination:</label>
+          <select x-model="destination">
             <template x-for="taxi in destinations">
               <option :value="taxi.destination" x-text="taxi.destination"></option>
             </template>
           </select>
         </div>
       </div>
-      <!-- <div class="ui form">
-        <div class="two fields">
-          <div class="field">
-            <label for="">Enter Departure</label>
-            <input x-model="route.user_departure" type="text">
-          </div>
-          <div class="field">
-            <label for="">Enter Destination</label>
-            <input x-model="route.user_destination" type="text">
-          </div>
-        </div>
-        
-      </div> -->
-      <button @click="findTaxiByRoute()" class="ui secondary button">Search</button>
-      <div class="row">
-        <h2>Taxis on Route: <span x-text="taxis.length"></span></h2>
-        <template x-for="taxi in taxis">
-          <div class="card four fields card-md-6 shadow text-center" style="width: 18rem;">
-            <div class="field inner">
-              <img :src="`./images/${taxi.img}`" class="card-img-top" alt="...">
+       
+            <div class="field">
+              You are in <h1 x-text="departure"></h1>Going to <h1 x-text="destination"></h1>
             </div>
-            <!-- <ul class="list-group-item"><span class="card-text" x-text="taxi.img"></span></ul> -->
-            <div class="field list-group-item">Taxi will be departing from: <span class="card-text" x-text="taxi.departure"></span></div>
-            <div class="field list-group-item">Your destination is: <span class="card-text" x-text="taxi.destination"></span></div>
-            <div class="field list-group-item">Price: R<span class="card-text" x-text="taxi.price"></span></div>
-            <div class="field list-group-item">Taxi Registration Number: <span class="card-text" x-text="taxi.reg_number"></span></div>
-          </div>
-        </template>
-      </div>
-      <div>
+        <div>
       </div>
     </div>
   </div>
