@@ -4,7 +4,7 @@ create table users(
     surname text not null,
     username text not null,
     password text not null,
-    role text default 'passenger' not null
+    role text not null
 );
 
 create table taxi_data(
