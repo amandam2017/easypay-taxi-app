@@ -45,7 +45,9 @@ const api = (app, db) => {
 
             // console.log(username, password);
             const theUser = await db.oneOrNone(`select * from users where username = $1`, [username]);
-            const updateRole= await db.oneOrNone(`update users set role=role where username = $1`, [username.role])
+            // console.log(theUser);
+            // const updateRole= await db.oneOrNone(`update users set role='driver' where username = $1`, [username])
+            const updateRole= await db.oneOrNone(`update users set role=role where username = $1`, [role])
             console.log(updateRole);
             if (theUser == null) {
                 res.json({
@@ -79,12 +81,15 @@ const api = (app, db) => {
         try {
             const {user_destination, user_departure} = req.body;
             // console.log(user_destination);
+            const taxis = await db.manyOrNone(`select * from routes`);
+            // console.log(taxis);
+
             const destination_taxis = taxis.filter(taxi => {
                 // console.log(taxis);
                 return taxi.destination === user_destination && taxi.departure === user_departure
             });
-            console.log(req.body);
-            console.log(destination_taxis);
+            // console.log(req.body);
+            // console.log(destination_taxis);
             res.json({
                 data: destination_taxis
             });
@@ -96,7 +101,7 @@ const api = (app, db) => {
         // const for_dropdown = await db.manyOrNone(`select destination`)
         // console.log(for_dropdown);
         const routes = await db.manyOrNone(`select * from routes`);
-        console.log(routes);
+        // console.log(routes);
         if(!routes){
             res.json({
                 message: 'No routes for that destination',

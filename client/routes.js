@@ -15,7 +15,7 @@ const Routes = ()=>{
         
         findTaxiByRoute(){
             axios
-            .get(`${remote_url}/api/routes`, this.route)
+            .post(`${remote_url}/api/taxis`)
     
             .then(results=>{
 

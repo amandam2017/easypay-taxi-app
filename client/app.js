@@ -26,7 +26,7 @@ const Taxi = ()=>{
             surname:'',
             username:'',
             password:'',
-            role:''
+            role:'Driver'
         },
         feedback_message:'',
 
