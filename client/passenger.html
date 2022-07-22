@@ -11,82 +11,47 @@
 <body>
   <div x-data="taxisapis">
     <div class="ui four column doubling stackable grid container">
-      <h1 class="ui header">Hello User</h1>
-      <span>To check coming taxis on your route enter your departure and destination below</span>
       <div class="row">
-        <div class="ui form">
-          <div class="three fields">
-            <div class="field">
-              <label for="">Enter Departure</label>
-              <input x-model="routes.user_departure" type="text">
-            </div>
-            <div class="field">
-              <label for="">Enter Destination</label>
-              <input x-model="routes.user_destination" type="text">
-            </div>
-            
-            <button @click="findTaxiByRoute()" class="ui secondary button">Search</button>
-            <section class="vh-100" style="background-color: #4B515D;">
-              <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-md-8 col-lg-6 col-xl-4">
-                  <div class="card" style="color: #4B515D; border-radius: 35px;">
-                    <div class="card-body p-4">
-                      <div class="d-flex">
-                        <h6 class="flex-grow-1">Warsaw</h6>
-                        <h6>15:07</h6>
-                      </div>
-                      <div class="d-flex flex-column text-center mt-5 mb-4">
-                        <h6 class="display-4 mb-0 font-weight-bold" style="color: #1C2331;"> 13°C </h6>
-                        <span class="small" style="color: #868B94">Stormy</span>
-                      </div>
-              <div class="field">
-                <h2>Taxis on Route: <span x-text="taxis.length"></span></h2>
-                <template x-for="taxi in taxis">
-                  <div class="d-flex align-items-center">
-                      <img x-bind:src="`./images/${taxi.png}`"  width="100px">
-                      <i class="fas fa-wind fa-fw" style="color: #868B94;"></i> <span class="ms-1" x-text="taxi.departure"></span>
-                      <i class="fas fa-wind fa-fw" style="color: #868B94;"></i> <span class="ms-1" x-text="taxi.destination"></span>
-                      R<i class="fas fa-tint fa-fw" style="color: #868B94;"></i> <span x-text="taxi.price"></span>
-                      <i class="fas fa-tint fa-fw" style="color: #868B94;"></i> <span x-text="taxi.reg_number"></span>
-                  </div>
-                </template>
-                
-    
-                </div>
-    
-              </div>
-              </div>
-            </div>
-          </div>
-              </div>
-            </section>
-          </div>
-        </div>
-
-
-  <div class="container py-5 h-100">
-
-    
-       
-
-         
-
+        <h2>Taxis on Route: <span x-text="taxis.length"></span></h2>
+        <div class="two fields">
           
-
-            
+          
+          <div class="field">
+            <label for="Select departure">Select departute:</label>
+            <select x-model="departure">
+              <template x-for="taxi in departures">
+                <option :value="taxi.departure" x-text="taxi.departure"></option>
+              </template>
+            </select>
+          </div>
+          <div class="field"> 
+            <label for="Select destination">Select destination:</label>
+            <select x-model="destination">
+              <template x-for="taxi in destinations">
+                <option :value="taxi.destination" x-text="taxi.destination"></option>
+              </template>
+            </select>
           </div>
         </div>
-
+        <button @click="findTaxiByRoute()" class="ui secondary button">Search</button>
+        <template x-for="taxi in taxis">
+          <div class="card four fields card-md-6 shadow text-center" style="width: 18rem;">
+            <div class="field inner">
+              <img :src="`./images/${taxi.img}`" class="card-img-top" alt="...">
+            </div>
+            <!-- <ul class="list-group-item"><span class="card-text" x-text="taxi.img"></span></ul> -->
+            <div class="field list-group-item">Taxi will be departing from: <span class="card-text" x-text="taxi.departure"></span></div>
+            <div class="field list-group-item">Your destination is: <span class="card-text" x-text="taxi.destination"></span></div>
+            <div class="field list-group-item">Price: R<span class="card-text" x-text="taxi.price"></span></div>
+            <div class="field list-group-item">Taxi Registration Number: <span class="card-text" x-text="taxi.reg_number"></span></div>
+          </div>
+        </template>
       </div>
+
     </div>
 
   </div>
-</section>
-
-      </div>
-    </div>
-
-  </div>
+  
   <script type="module" src="./main.js"></script>
 </body>
 

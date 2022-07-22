@@ -13,7 +13,8 @@ const Login = ()=>{
         user:{
             
             Username:'',
-            Password:''
+            Password:'',
+            role:''
 
         },
         feedback_message:'',
@@ -22,7 +23,6 @@ const Login = ()=>{
         loggedin: false,
         showroutes:false,
         main_screen :false,
-        role:'',
 
         hideLogin() {
             this.loggedin = false
@@ -41,7 +41,7 @@ const Login = ()=>{
                 
                 username: this.user.Username,
                 password: this.user.Password,
-                role:this.role
+                role:this.user.role
 
             })
             
