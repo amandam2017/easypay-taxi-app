@@ -69,3 +69,7 @@ li a:hover {
   position: absolute;
   background-repeat: no-repeat;
 }
+
+.passenger, .driver{
+  border: 1px solid;
+}
