@@ -6,6 +6,8 @@ import Alpine from 'alpinejs'
 import './login'
 import './routes'
 import './driver'
+// import './map'
+
 import Taxi from './app'
 import persist from '@alpinejs/persist'
 

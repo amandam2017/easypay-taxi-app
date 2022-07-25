@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const taxis = require('./taxi_data');
+// const taxis = require('./taxi_data');
 const api = (app, db) => {
     const getUsers = async () => await db.manyOrNone('select * from users')
     app.get('/api/test', function (req, res) {
@@ -23,13 +23,14 @@ const api = (app, db) => {
                 const hash = await bcrypt.hash(password, salt)
                 const user = await db.oneOrNone('select * from users where username = $1', [username])
                 // await db.oneOrNone(`update users set role='driver' where username = $1`, [username])
-                if (user == null) {
-                   await db.none('insert into users (name, surname, username, password) values ($1, $2, $3, $4)', [name, surname, username, hash]);
+                if (!user) {
+                   await db.none('insert into users (name, surname, username, password, role) values ($1, $2, $3, $4, $5)', [name, surname, username, hash, role]);
                 res.json({
-                    message: 'user registered',
-                    data: user
+                    message: 'user successfully registered',
+                    // data: user
                 })
-            }else{
+            }
+            else{
                 res.json({
                     message: 'User already exist please login with the username and password',
                     status: 401
@@ -42,13 +43,10 @@ const api = (app, db) => {
     app.post('/api/login', async function (req, res, next) {
         try {
             const { username, password, role } = req.body;
-
-            // console.log(username, password);
             const theUser = await db.oneOrNone(`select * from users where username = $1`, [username]);
-            // console.log(theUser);
-            // const updateRole= await db.oneOrNone(`update users set role='driver' where username = $1`, [username])
+
             const updateRole= await db.oneOrNone(`update users set role=role where username = $1`, [role])
-            console.log(updateRole);
+            // console.log(updateRole);
             if (theUser == null) {
                 res.json({
                     message: 'User does not exist please sign up below',
@@ -79,17 +77,14 @@ const api = (app, db) => {
     });
     app.post('/api/taxis', async function (req, res) {
         try {
-            const {user_destination, user_departure} = req.body;
-            // console.log(user_destination);
+            const {departure, destination} = req.body;
+   
             const taxis = await db.manyOrNone(`select * from routes`);
-            // console.log(taxis);
 
             const destination_taxis = taxis.filter(taxi => {
-                // console.log(taxis);
-                return taxi.destination === user_destination && taxi.departure === user_departure
+                return taxi.departure === departure && taxi.destination === destination
             });
-            // console.log(req.body);
-            // console.log(destination_taxis);
+ 
             res.json({
                 data: destination_taxis
             });
@@ -98,10 +93,9 @@ const api = (app, db) => {
         }
     });
     app.get('/api/routes', async function (req, res){
-        // const for_dropdown = await db.manyOrNone(`select destination`)
-        // console.log(for_dropdown);
+
         const routes = await db.manyOrNone(`select * from routes`);
-        // console.log(routes);
+
         if(!routes){
             res.json({
                 message: 'No routes for that destination',
@@ -150,7 +144,6 @@ const api = (app, db) => {
 
     app.post('/api/roles', async function (req, res) {
         try {
-            // const { username} = req.body
             const username = await db.manyOrNone(`select * from users`)
             const updateRole= await db.oneOrNone(`update users set role='driver' where username = $1`, [username])
             console.log(updateRole);

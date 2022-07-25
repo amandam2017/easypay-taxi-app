@@ -9,7 +9,10 @@ const Taxi = ()=>{
         ...Login(),
         ...Routes(),
         ...Driver(),
-        landing:true, 
+        landing:true,
+        init(){
+            this.driver()
+        },
        // register: false, loggedin: false,
         hideLogin() {
             this.loggedin = false
@@ -46,6 +49,12 @@ const Taxi = ()=>{
                 this.feedback_message = result.data.message
 
             })
+
+            this.user.name = ''
+            this.user.surname = ''
+            this.user.username = ''
+            this.user.password = ''
+            this.user.role = ''
     }
 }
 }
