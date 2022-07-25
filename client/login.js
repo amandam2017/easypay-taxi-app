@@ -21,7 +21,7 @@ const Login = ()=>{
         error_message: '',
         register: false, 
         loggedin: false,
-        showroutes:false,
+        driver_screen:false,
         main_screen :false,
         passenger_screen: false,
 
@@ -49,20 +49,32 @@ const Login = ()=>{
             .then(results => {
             console.log(results.data);
             
-            if (results.data.message == 'User does not exist please sign up below') {
-                this.error_message = results.data.message
-                    this.loggedin = false,
-                    this.register = true
-                    this.showroutes = false
-                setTimeout(() =>{
-                    this.error_message = ''
-                },3000 )
+            // if (results.data.message == 'User does not exist please sign up below') {
+            //     this.error_message = results.data.message
+            //         this.loggedin = false,
+            //         this.register = true
+            //         this.driver_screen = false
+            //     setTimeout(() =>{
+            //         this.error_message = ''
+            //     },3000 )
+            // }
+
+            if(this.role == 'Passenger'){
+                this.passenger_screen = true,
+                this.driver_screen = false,
+                this.loggedin = false,
+                this.feedback_message = results.data.message
+            }
+
+            if(this.role == 'Driver'){
+                // this.passenger_screen = false,
+                this.driver_screen = true,
+                this.loggedin = false,
+                this.feedback_message = results.data.message
             }
 
             else{
-                this.showroutes = true,
-                this.loggedin = false,
-                this.feedback_message = results.data.message
+                this.loggedin = true  
     
             }
             })
@@ -75,7 +87,7 @@ const Login = ()=>{
         localStorage.clear()
         this.login = true
         this.register = false
-        this.showroutes = false
+        this.driver = false
         this.landing = true
 
   

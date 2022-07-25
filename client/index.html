@@ -100,7 +100,7 @@
 			</div>
 		</div>
 
-		<div x-if="user.role === 'passenger'" x-show="passenger_screen" class="row passenger">
+		<div x-show="passenger_screen" class="row passenger">
 			<h1>passenger screen</h1>
 			<h2>Taxis on Route: <span x-text="taxis.length"></span></h2>
 			<div class="two fields">
@@ -142,7 +142,7 @@
 			
 		  </div>
 	
-		<div x-show="showroutes" class="driver">
+		<div x-show="driver_screen" class="driver">
 			<div>
 				<span x-text="feedback_message"></span>
 				<button class="ui secondary button" @click="logout()">Logout</button>
