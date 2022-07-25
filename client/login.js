@@ -14,7 +14,7 @@ const Login = ()=>{
             
             Username:'',
             Password:'',
-            role:''
+            // role:''
 
         },
         feedback_message:'',
@@ -42,31 +42,31 @@ const Login = ()=>{
                 
                 username: this.user.Username,
                 password: this.user.Password,
-                role:this.user.role
+                // role:this.user.role
 
             })
             
             .then(results => {
-            console.log(results.data);
+            console.log(results.data.role);
             
-            // if (results.data.message == 'User does not exist please sign up below') {
-            //     this.error_message = results.data.message
-            //         this.loggedin = false,
-            //         this.register = true
-            //         this.driver_screen = false
-            //     setTimeout(() =>{
-            //         this.error_message = ''
-            //     },3000 )
-            // }
+            if (results.data.message == 'User does not exist please sign up below') {
+                this.error_message = results.data.message
+                    this.loggedin = false,
+                    this.register = true
+                    this.driver_screen = false
+                setTimeout(() =>{
+                    this.error_message = ''
+                },3000 )
+            }
 
-            if(this.role == 'Passenger'){
+            if(results.data.role == 'passenger'){
                 this.passenger_screen = true,
                 this.driver_screen = false,
                 this.loggedin = false,
                 this.feedback_message = results.data.message
             }
 
-            if(this.role == 'Driver'){
+            if(results.data.role == 'Driver'){
                 // this.passenger_screen = false,
                 this.driver_screen = true,
                 this.loggedin = false,
