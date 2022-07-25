@@ -100,7 +100,7 @@
 			</div>
 		</div>
 
-		<div class="row passenger">
+		<div x-if="user.role === 'passenger'" x-show="passenger_screen" class="row passenger">
 			<h1>passenger screen</h1>
 			<h2>Taxis on Route: <span x-text="taxis.length"></span></h2>
 			<div class="two fields">
@@ -149,8 +149,6 @@
 			</div>
 			<div class="row">
 				<div class="two fields">
-
-
 					<div class="field">
 						<label for="Select departure">Select departute:</label>
 						<select x-model="departure">
