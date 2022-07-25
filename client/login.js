@@ -23,6 +23,7 @@ const Login = ()=>{
         loggedin: false,
         showroutes:false,
         main_screen :false,
+        passenger_screen: false,
 
         hideLogin() {
             this.loggedin = false
