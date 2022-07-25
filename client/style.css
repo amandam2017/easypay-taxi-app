@@ -54,3 +54,18 @@ li a {
 li a:hover {
   background-color: #111;
 }
+
+/* added styles for messages */
+.feedback_message{
+  color:green;
+  font-size: 25px;
+  font-style: italic;
+}
+
+/* MAP STYLES ADDED BELOW */
+#map{
+  width:100%;
+  height: 400px;
+  position: absolute;
+  background-repeat: no-repeat;
+}

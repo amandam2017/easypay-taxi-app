@@ -21,12 +21,12 @@ const api = (app, db) => {
             const { name, surname, username, password, role } = req.body
                 const salt =  await bcrypt.genSalt(saltRounds);
                 const hash = await bcrypt.hash(password, salt)
-                const user = await db.oneOrNone('select * from users where username = $1', [username])
+                const user = await db.manyOrNone('select * from users where username = $1', [username])
                 // await db.oneOrNone(`update users set role='driver' where username = $1`, [username])
                 if (user == null) {
-                   await db.none('insert into users (name, surname, username, password) values ($1, $2, $3, $4)', [name, surname, username, hash]);
+                   await db.none('insert into users (name, surname, username, password, role) values ($1, $2, $3, $4, $5)', [name, surname, username, hash, role]);
                 res.json({
-                    message: 'user registered',
+                    message: 'user successfully registered',
                     data: user
                 })
             }else{
@@ -79,17 +79,17 @@ const api = (app, db) => {
     });
     app.post('/api/taxis', async function (req, res) {
         try {
-            const {user_destination, user_departure} = req.body;
-            // console.log(user_destination);
+            const {departure, destination} = req.body;
+            // console.log(destination);
             const taxis = await db.manyOrNone(`select * from routes`);
             // console.log(taxis);
 
             const destination_taxis = taxis.filter(taxi => {
                 // console.log(taxis);
-                return taxi.destination === user_destination && taxi.departure === user_departure
+                return taxi.departure === departure && taxi.destination === destination
             });
             // console.log(req.body);
-            // console.log(destination_taxis);
+            console.log(destination_taxis);
             res.json({
                 data: destination_taxis
             });

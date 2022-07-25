@@ -22,10 +22,7 @@
 			<div class="landing center-text">
 				<img src="./images/easypay.png" alt="..." class="center ui medium image">
 			</div>
-			<!-- <a><button class="ui secondary button"
-					@click="main_screen =!main_screen,login=false,register=false,landing=false">Let's get
-					started</button></a> -->
-			<!-- <a href="./index.html"><button class="ui secondary button" @click="">Let's get started</button></a> -->
+			
 			<div class="row">
 				<div class="footer">
 					<div class="contact">
@@ -45,30 +42,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div id="grad"> -->
-
-		<!-- <div class="row" x-show="main_screen">
-
-			<h1 class="ui header">Easy Pay</h1>
-			<div class="ui form">
-				<div class="three fields">
-					<div class="field">
-						<button class="ui secondary button" @click="loggedin =! loggedin,hideRegister()">sign in as a
-							passenger</button>
-					</div>
-					<div class="field">
-						<button class="ui secondary button" @click="loggedin =! loggedin,hideRegister()">sign in as a
-							driver</button>
-					</div>
-					<div class="field">
-						<button class="ui secondary button" @click="loggedin =! loggedin,hideRegister()">sign in as a
-							owner</button>
-					</div>
-				</div>
-
-			</div>
-
-		</div> -->
 
 		<div class="row" x-show="loggedin">
 
@@ -83,20 +56,15 @@
 						<label for="">password</label>
 						<input type="password" x-model="user.Password">
 					</div>
-					<div class="field">
-						<label for="">Role</label>
-						<input type="password" x-model="user.role">
-					</div>
 				</div>
 				<button class="ui secondary button" @click="logging()">Login</button>
 				<a><button class="ui secondary button" @click="hideLogin()">no account? register here</button></a>
 			</div>
 
 		</div>
-		<!-- </div> -->
-		<!-- <div id="grad"> -->
+
 		<div class="row" x-show="register">
-			<span x-text="error_message"></span>
+			<span x-text="feedback_message" class="feedback_message"></span>
 			<div class="ui form">
 				<div class="five fields">
 					<div class="field">
@@ -126,16 +94,13 @@
 					</div>
 				</div>
 				<button class="ui secondary button" @click="signup()">Submit</button>
-				<!-- </div> -->
 				<button @click="hideRegister()" class="btn btn-link"> login here></button>
 				<span x-text="user.role"></span>
 
 			</div>
 		</div>
-		<!-- </div> -->
-
-		<!-- <div id="grad"> -->
-		<div x-show="showroutes" class="passenger">
+	
+		<div x-show="showroutes" class="driver">
 			<div>
 				<span x-text="feedback_message"></span>
 				<button class="ui secondary button" @click="logout()">Logout</button>
