@@ -24,6 +24,7 @@ const Login = ()=>{
         driver_screen:false,
         main_screen :false,
         passenger_screen: false,
+        payment_screen:false,
 
         hideLogin() {
             this.loggedin = false
@@ -52,7 +53,7 @@ const Login = ()=>{
             
             if (results.data.message =='User does not exist please sign up below') {
                 this.error_message = results.data.message
-                    this.loggedin = true
+                    this.loggedin = false
                     this.register = false
                     this.driver_screen = false
                 setTimeout(() =>{
@@ -71,7 +72,7 @@ const Login = ()=>{
             }
 
             if(results.data.role == 'Driver'){
-                // this.passenger_screen = false,
+                this.passenger_screen = false,
                 this.driver_screen = true,
                 this.loggedin = false,
                 this.feedback_message = results.data.message
