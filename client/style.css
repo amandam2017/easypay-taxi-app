@@ -62,6 +62,12 @@ li a:hover {
   font-style: italic;
 }
 
+.error_message{
+  color: red;
+  font-size: 25px;
+  font-style: italic;
+}
+
 /* MAP STYLES ADDED BELOW */
 #map{
   width:100%;

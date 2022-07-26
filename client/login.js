@@ -47,16 +47,20 @@ const Login = ()=>{
             })
             
             .then(results => {
+            console.log(results.data);
             console.log(results.data.role);
             
-            if (results.data.message == 'User does not exist please sign up below') {
+            if (results.data.message =='User does not exist please sign up below') {
                 this.error_message = results.data.message
-                    this.loggedin = false,
-                    this.register = true
+                    this.loggedin = true
+                    this.register = false
                     this.driver_screen = false
                 setTimeout(() =>{
                     this.error_message = ''
                 },3000 )
+            }
+            else{
+                this.error_message = results.data.message
             }
 
             if(results.data.role == 'passenger'){
