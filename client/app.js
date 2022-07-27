@@ -47,7 +47,9 @@ const Taxi = ()=>{
             .then(result => {
                 console.log(result.data);
                 this.feedback_message = result.data.message
-
+                setTimeout(() =>{
+                    this.feedback_message = ''
+                },3000 )
             })
 
             this.user.name = ''

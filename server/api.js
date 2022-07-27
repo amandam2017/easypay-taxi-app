@@ -23,7 +23,7 @@ const api = (app, db) => {
                 const hash = await bcrypt.hash(password, salt)
                 const user = await db.oneOrNone('select * from users where username = $1', [username])
                 // await db.oneOrNone(`update users set role='driver' where username = $1`, [username])
-                if (!user) {
+                if (user == null) {
                    await db.none('insert into users (name, surname, username, password, role) values ($1, $2, $3, $4, $5)', [name, surname, username, hash, role]);
                 res.json({
                     message: 'user successfully registered',
@@ -42,10 +42,10 @@ const api = (app, db) => {
     });
     app.post('/api/login', async function (req, res, next) {
         try {
-            const { username, password, role } = req.body;
+            const { username, password } = req.body;
             const theUser = await db.oneOrNone(`select * from users where username = $1`, [username]);
 
-            const updateRole= await db.oneOrNone(`update users set role=role where username = $1`, [role])
+            // const updateRole= await db.oneOrNone(`update users set role=role where username = $1`, [role])
             // console.log(updateRole);
             if (theUser == null) {
                 res.json({
@@ -66,7 +66,7 @@ const api = (app, db) => {
                 }, process.env.SECRET_TOKEN);
                 res.json({
                     data: theUser, token,
-                    role:updateRole,
+                    role:theUser.role,
                     message: `${username} is logged in`
                 });
                 }

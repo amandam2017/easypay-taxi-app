@@ -14,16 +14,17 @@ const Login = ()=>{
             
             Username:'',
             Password:'',
-            role:''
+            // role:''
 
         },
         feedback_message:'',
         error_message: '',
         register: false, 
         loggedin: false,
-        showroutes:false,
+        driver_screen:false,
         main_screen :false,
         passenger_screen: false,
+        payment_screen:false,
 
         hideLogin() {
             this.loggedin = false
@@ -42,27 +43,43 @@ const Login = ()=>{
                 
                 username: this.user.Username,
                 password: this.user.Password,
-                role:this.user.role
+                // role:this.user.role
 
             })
             
             .then(results => {
             console.log(results.data);
+            console.log(results.data.role);
             
-            if (results.data.message == 'User does not exist please sign up below') {
+            if (results.data.message =='User does not exist please sign up below') {
                 this.error_message = results.data.message
-                    this.loggedin = false,
-                    this.register = true
-                    this.showroutes = false
+                    this.loggedin = false
+                    this.register = false
+                    this.driver_screen = false
                 setTimeout(() =>{
                     this.error_message = ''
                 },3000 )
             }
-
             else{
-                this.showroutes = true,
+                this.error_message = results.data.message
+            }
+
+            if(results.data.role == 'passenger'){
+                this.passenger_screen = true,
+                this.driver_screen = false,
                 this.loggedin = false,
                 this.feedback_message = results.data.message
+            }
+
+            if(results.data.role == 'Driver'){
+                this.passenger_screen = false,
+                this.driver_screen = true,
+                this.loggedin = false,
+                this.feedback_message = results.data.message
+            }
+
+            else{
+                this.loggedin = true  
     
             }
             })
@@ -75,7 +92,7 @@ const Login = ()=>{
         localStorage.clear()
         this.login = true
         this.register = false
-        this.showroutes = false
+        this.driver = false
         this.landing = true
 
   
