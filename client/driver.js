@@ -4,14 +4,16 @@ const remote_url = import.meta.env.VITE_SERVER_URL
 const Driver = () => {
     return {
         init(){
-            
+           
             // this.driver()
 
         },
+        routes: [],
         departures: [],
         destinations: [],
         destination :'',
         departure :'',
+        // count = 0,
 
         driver() {
             axios
@@ -24,7 +26,7 @@ const Driver = () => {
 
                     this.destinations = results.data.data;
                     this.departures = results.data.data;
-
+                    this.routes = results.data.data
                     console.log(this.destinations);
 
                     // console.log(this.departures);
@@ -36,6 +38,12 @@ const Driver = () => {
         }
 
     }
+//     passengerIncrement() {
+//          return this.count++
+//     },
+//     passengerDecrement() {
+//         return this.count--
+//    }
 }
 
 

@@ -166,7 +166,7 @@
 				<button class="ui secondary button" @click="logout()">Logout</button>
 			</div>
 			<div class="row">
-				<div class="two fields">
+				<div class="three fields">
 					<div class="field">
 						<label for="Select departure">Select departute:</label>
 						<select x-model="departure">
@@ -188,8 +188,53 @@
 				<div class="field">
 					You are in <h1 x-text="departure"></h1>Going to <h1 x-text="destination"></h1>
 				</div>
-				<div>
-				</div>
+				<div class="field">
+					<table id="taxis">
+					  <tr>
+						  <th>Departure</th>
+						  <th>Destination</th>
+						  <th>Passengers in Queue</th>
+						  <th>Passengers in Route</th>
+						  <th>Taxi Trips</th>
+						  <th>Taxi Price</th>
+						  <th>Total Fare</th>
+					  </tr>
+					  <template x-for="taxi in routes">
+						  <tr>
+							  <td> <span  x-text="taxi.departure"></span></td>
+							  <td> <span  x-text="taxi.destination"></span> </td>
+							  <td>
+								<button class="button" @click="taxi.passengerCountUp()++"><i
+									class="fa-solid fa-circle-plus"></i></button>
+									<span x-text="taxi.count">      
+											
+									</span>
+									<button class="button" x-bind:disabled = "taxi.count <= 0"  @click="taxi.passengerCountDown()--"><i
+										class="fa-solid fa-circle-minus"></i></button>
+									   </td>
+							  <td>
+								  <button class="button" @click="taxi.passengerCountUp()++"><i
+									  class="fa-solid fa-circle-plus"></i></button>
+									  <span x-text="taxi.count">      
+											  
+									  </span>
+									  <button class="button" x-bind:disabled = "taxi.count <= 0"  @click="taxi.passengerCountDown()--"><i
+										  class="fa-solid fa-circle-minus"></i></button>
+										 </td>
+							  <td> 
+								
+									  <button class="button" x-bind:disabled = "taxi.count < 15"  @click="route.leaveRank()"><i
+										  class="leave">Leave</i></button>
+									  <span x-text="taxi.trips"></span>
+								 
+							  </td>
+							  <td> R<span x-text="taxi.price.toFixed(2)">0</span></td>
+							  <td> R<span x-text="taxi.totalFare().toFixed(2)">0</span></td>
+		  
+						  </tr>  
+					  </template>
+				  </table>
+				  </div>
 			</div>
 		</div>
 

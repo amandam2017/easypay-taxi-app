@@ -64,7 +64,7 @@ const Login = ()=>{
                 this.error_message = results.data.message
             }
 
-            if(results.data.role == 'passenger'){
+            if(results.data.role == 'Passenger'){
                 this.passenger_screen = true,
                 this.driver_screen = false,
                 this.loggedin = false,

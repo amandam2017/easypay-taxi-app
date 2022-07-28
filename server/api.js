@@ -6,7 +6,7 @@ const api = (app, db) => {
     const getUsers = async () => await db.manyOrNone('select * from users')
     app.get('/api/test', function (req, res) {
         res.json({
-            name: 'tshifhiwa'
+            name: 'hlomla'
         });
     });
     app.get('/api/users', async function (req, res) {
