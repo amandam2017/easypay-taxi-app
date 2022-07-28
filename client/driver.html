@@ -40,46 +40,53 @@
           <!-- <span>Results here:</span> -->
         </div>
 
-        <!-- </div> -->
-        <div class="field">
-          <table id="taxis">
-            <tr>
-                <th>Departure</th>
-                <th>Destination</th>
-                <th>Passenger Queue</th>
-                <th>Taxi Trips</th>
-                <th>Taxi Fare</th>
-                <th>Total Fare</th>
-                <th>Taxis Available</th>
-            </tr>
-            <template x-for="route in routes">
-                <tr>
-                    <td> <strong>Cape Town</strong></td>
-                    <td> <span  x-text="route.rank"></span> </td>
-                    <td>
-                        <button class="button" @click="route.passengerCountUp()"><i
-                            class="fa-solid fa-circle-plus"></i></button>
-                            <span x-text="route.count">      
-                                    
-                            </span>
-                            <button class="button" x-bind:disabled = "route.count <= 0"  @click="route.passengerCountDown()"><i
-                                class="fa-solid fa-circle-minus"></i></button>
-                               </td>
-                    <td> 
-                      
-                            <button class="button" x-bind:disabled = "route.count < 5"  @click="route.leaveRank()"><i
-                                class="leave">Leave</i></button>
-                            <span x-text="route.trips"></span>
-                       
-                    </td>
-                    <td> R<span x-text="route.price.toFixed(2)">0</span></td>
-                    <td> R<span x-text="route.totalFare().toFixed(2)">0</span></td>
-                    <td> <span x-text="route.taxis "></span></td>
-
-                </tr>  
-            </template>
-        </table>
-        </div>
+				<div class="field">
+					<table id="taxis">
+					  <tr>
+						  <th>Departure</th>
+						  <th>Destination</th>
+						  <th>Passengers in Queue</th>
+						  <th>Passengers in Route</th>
+						  <th>Taxi Trips</th>
+						  <th>Taxi Price</th>
+						  <th>Total Fare</th>
+					  </tr>
+					  <template x-for="taxi in routes">
+						  <tr>
+							  <td> <span  x-text="taxi.departure"></span></td>
+							  <td> <span  x-text="taxi.destination"></span> </td>
+							  <td>
+								<button class="button" @click="taxi.passengerCountUp()++"><i
+									class="fa-solid fa-circle-plus"></i></button>
+									<span x-text="taxi.count">      
+											
+									</span>
+									<button class="button" x-bind:disabled = "taxi.count <= 0"  @click="taxi.passengerCountDown()--"><i
+										class="fa-solid fa-circle-minus"></i></button>
+									   </td>
+							  <td>
+								  <button class="button" @click="taxi.passengerCountUp()++"><i
+									  class="fa-solid fa-circle-plus"></i></button>
+									  <span x-text="taxi.count">      
+											  
+									  </span>
+									  <button class="button" x-bind:disabled = "taxi.count <= 0"  @click="taxi.passengerCountDown()--"><i
+										  class="fa-solid fa-circle-minus"></i></button>
+										 </td>
+							  <td> 
+								
+									  <button class="button" x-bind:disabled = "taxi.count < 15"  @click="route.leaveRank()"><i
+										  class="leave">Leave</i></button>
+									  <span x-text="taxi.trips"></span>
+								 
+							  </td>
+							  <td> R<span x-text="taxi.price.toFixed(2)">0</span></td>
+							  <td> R<span x-text="taxi.totalFare().toFixed(2)">0</span></td>
+		  
+						  </tr>  
+					  </template>
+				  </table>
+				  </div>
       </div>
     </div>
 
