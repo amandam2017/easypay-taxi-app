@@ -4,10 +4,9 @@ const remote_url=import.meta.env.VITE_SERVER_URL
 const Routes = ()=>{
     return{
         taxis: [],
-        // route:{
             departure:'',
             destination:'',
-        // },
+
         init(){
             findTaxiByRoute()
         },

@@ -45,8 +45,6 @@ const api = (app, db) => {
             const { username, password } = req.body;
             const theUser = await db.oneOrNone(`select * from users where username = $1`, [username]);
 
-            // const updateRole= await db.oneOrNone(`update users set role=role where username = $1`, [role])
-            // console.log(updateRole);
             if (theUser == null) {
                 res.json({
                     message: 'User does not exist please sign up below',
@@ -123,15 +121,20 @@ const api = (app, db) => {
             })
         }
     });
-    app.post('/api/driver', async function(req, res) {
+
+    app.post('/api/driver', async function (req, res) {
         try {
-            const Routes = await db.manyOrNone('select departure, destination) from routes')
+            const {no_of_cashpaid_passenger} = req.body
+            const { departure, destination } = req.body;
+            const Routes = await db.manyOrNone(`select departure, destination from routes WHERE departure = $1 AND destination = $2`,[departure, destination])
             const TaxiData = await db.manyOrNone(`select reg_number, qty from taxi_data`)
-            console.log('routes'+Routes);
-            console.log('taxidata:'+TaxiData);
+            const price = await db.oneOrNone(`select price from routes WHERE departure = $1 AND destination = $2`,[departure, destination])
+            console.log('money '+price);
+            console.log('routes' + Routes);
+            console.log('taxidata:' + TaxiData);
             res.json({
                 status: 'success',
-                data:Routes,TaxiData
+                data: Routes, TaxiData, price
             })
         } catch (err) {
             console.log(err);
@@ -139,22 +142,6 @@ const api = (app, db) => {
                 status: 'error',
                 error: err.message
             })
-        }
-    });
-
-    app.post('/api/roles', async function (req, res) {
-        try {
-            const username = await db.manyOrNone(`select * from users`)
-            const updateRole= await db.oneOrNone(`update users set role='driver' where username = $1`, [username])
-            console.log(updateRole);
-            
-                res.json({
-                    message: `user ${username} is  a role`,
-                    data: updateRole
-                })
-            
-        } catch (error) {
-            console.log(error);
         }
     });
 }

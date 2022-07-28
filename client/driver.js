@@ -4,7 +4,7 @@ const remote_url = import.meta.env.VITE_SERVER_URL
 const Driver = () => {
     return {
         init(){
-           
+            this.displayTotal()
             // this.driver()
 
         },
@@ -13,7 +13,9 @@ const Driver = () => {
         destinations: [],
         destination :'',
         departure :'',
-        // count = 0,
+        count: 0,
+        no_of_cashpaid_passenger:'',
+        price:'',
 
         driver() {
             axios
@@ -29,21 +31,32 @@ const Driver = () => {
                     this.routes = results.data.data
                     console.log(this.destinations);
 
-                    // console.log(this.departures);
-
-                //   this.destinations=results.data.data
                 })
 
                 .catch(error => console.error(error))
-        }
+        },
+        passengerIncrement() {
+            return this.count++
+        },
+        passengerDecrement() {
+            return this.count--
+        },
+        displayTotal(){
+            axios
+            .post(`${remote_url}/api/driver`,{
+                departure:this.departure,
+                destination:this.destination,
+                no_of_cashpaid_passenger:this.no_of_cashpaid_passenger
+            })
+            .then(result =>{
+                console.log(result.data);
+                this.price = result.data.price.price * this.no_of_cashpaid_passenger          
 
+            })
+
+        }
     }
-//     passengerIncrement() {
-//          return this.count++
-//     },
-//     passengerDecrement() {
-//         return this.count--
-//    }
+    
 }
 
 

@@ -13,5 +13,6 @@ import persist from '@alpinejs/persist'
 
 window.Alpine = Alpine
 Alpine.plugin(persist)
+// font-awesome.plugin()
 Alpine.data('taxisapis',Taxi)
 Alpine.start()

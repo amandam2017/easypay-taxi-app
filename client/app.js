@@ -13,7 +13,7 @@ const Taxi = ()=>{
         init(){
             this.driver()
         },
-       // register: false, loggedin: false,
+
         hideLogin() {
             this.loggedin = false
             this.register = true

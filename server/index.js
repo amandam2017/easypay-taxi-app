@@ -33,7 +33,7 @@ const DATABASE_URL = process.env.DATABASE_URL;
 const pgp = PgPromise({});
 
 const config = {
-	connectionString: process.env.DATABASE_URL || 'postgres://okuhle:okuhle@localhost:5432/easy_pay_taxi ',
+	connectionString: process.env.DATABASE_URL || 'postgres://amanda:@262632@localhost:5432/easy_pay_taxi ',
 	// max: 30,
 	ssl:{ rejectUnauthorized : false}
  };
