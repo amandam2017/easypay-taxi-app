@@ -94,7 +94,7 @@ li a:hover {
 
 /* MAP STYLES ADDED BELOW */
 #map{
-  width:100%;
+  width:75%;
   height: 400px;
   position: absolute;
   background-repeat: no-repeat;

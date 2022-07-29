@@ -6,7 +6,7 @@ const api = (app, db) => {
     const getUsers = async () => await db.manyOrNone('select * from users')
     app.get('/api/test', function (req, res) {
         res.json({
-            name: 'hlomla'
+            name: 'tshifhiwa'
         });
     });
     app.get('/api/users', async function (req, res) {
@@ -40,6 +40,27 @@ const api = (app, db) => {
             console.log(error);
         }
     });
+
+    const authanticateToken = (req, res, next) => {
+        // inside this function we want to get the token that is generated/sent to us and to verify if this is the correct user.
+        const authHeader = req.headers['authorization']
+        // console.log({authHeader});
+        const token = authHeader && authHeader.split(" ")[1]
+        // if theres no token tell me
+        if (token === null) return res.sendStatus(401)
+        // if there is then verify if its the correct user using id if not return the error
+        jwt.verify(token, process.env.SECRET_TOKEN, (err, username) => {
+            // console.log(err);
+            if (err) return res.sendStatus(403)
+            console.log('show error' + err);
+    
+            req.username = username
+            console.log(username);
+            next()
+        })
+    
+    }
+    
     app.post('/api/login', async function (req, res, next) {
         try {
             const { username, password } = req.body;
@@ -73,6 +94,8 @@ const api = (app, db) => {
             console.log(error);
         }
     });
+
+     
     app.post('/api/taxis', async function (req, res) {
         try {
             const {departure, destination} = req.body;

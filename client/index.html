@@ -163,6 +163,7 @@
 		<div x-show="driver_screen" class="driver">
 			<div>
 				<span x-text="feedback_message"></span>
+			<span x-text="access_token"></span>
 				<button class="ui secondary button" @click="logout()">Logout</button>
 			</div>
 			<div class="row">
@@ -188,7 +189,7 @@
 				<div class="field">
 					You are in <h1 x-text="departure"></h1>Going to <h1 x-text="destination"></h1>
 				</div>
-				<div class="field">
+				<!-- <div class="field">
 					<table id="taxis">
 					  <tr>
 						  <th>Departure</th>
@@ -234,7 +235,7 @@
 						  </tr>  
 					  </template>
 				  </table>
-				  </div>
+				  </div> -->
 			</div>
 			<div class="row">
 				<div class="field">

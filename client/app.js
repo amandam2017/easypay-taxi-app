@@ -9,7 +9,7 @@ const Taxi = ()=>{
         ...Login(),
         ...Routes(),
         ...Driver(),
-        landing:true,
+        // landing:true,
         init(){
             this.driver()
         },
