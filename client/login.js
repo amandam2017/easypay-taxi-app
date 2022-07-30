@@ -98,36 +98,36 @@ const Login = ()=>{
             // if(results.data.role == 'Passenger' || results.data.role == 'Driver'){
             //     this.get_token = results.data.token 
                 
-                // if(results.data.role == 'Passenger'){
-                //     this.access_token = results.data.token,
-                //     console.log('token?? '+this.access_token);
-                //     localStorage.setItem('access_key_pass', this.access_token)
-                //     // .then(()=>{
-                //         this.passenger_screen = true
+                if(results.data.role == 'Passenger'){
+                    this.access_token = results.data.token,
+                    console.log('token?? '+this.access_token);
+                    localStorage.setItem('access_key_pass', this.access_token)
+                    // .then(()=>{
+                        this.passenger_screen = true
                         
-                //         this.driver_screen = false,
-                //         this.loggedin = false,
-                //         this.landing = false,
-                //         this.feedback_message = results.data.message
-                //     // })
-                // }
+                        this.driver_screen = false,
+                        this.loggedin = false,
+                        this.landing = false,
+                        this.feedback_message = results.data.message
+                    // })
+                }
     
-                // if(results.data.role == 'Driver'){
-                //     this.passenger_screen = false,
-                //     this.driver_screen = true,
-                //     this.loggedin = false,
-                //     this.landing = false,
-                //     this.access_token = results.data.token,
-                //     localStorage.setItem('access_key_driver', this.access_token)
-                //     this.feedback_message = results.data.message
+                if(results.data.role == 'Driver'){
+                    this.passenger_screen = false,
+                    this.driver_screen = true,
+                    this.loggedin = false,
+                    this.landing = false,
+                    this.access_token = results.data.token,
+                    localStorage.setItem('access_key_driver', this.access_token)
+                    this.feedback_message = results.data.message
     
-                // }
+                }
             // }
 
             
 
             else{
-                this.loggedin = true  
+                this.loggedin = false  
     
             }
             })

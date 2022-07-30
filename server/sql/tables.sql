@@ -30,7 +30,14 @@ create table routes(
     departure text not null,
     destination text not null
 );
-
+create table card_payment(
+    id serial not null primary key,
+    firstname text not null,
+    card_number varchar not null,
+    exp_month text not null,
+    exp_year int not null,
+    cvv int not null
+);
 -- create table taxi_trips(
 --     id serial not null primary key,
 --     reg_number varchar not null,
