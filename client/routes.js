@@ -22,12 +22,16 @@ const Routes = () => {
         },
 
         findTaxiByRoute() {
+            const access_token = localStorage.getItem('access_key_pass')
             axios
                 .post(`${remote_url}/api/taxis`, {
-                    departure: this.departure,
+                    Headers:{
+                        "Authorization" : `Bearer ${access_token}`,
+                     departure: this.departure,
                     destination: this.destination
+                    }
+                   
                 })
-
                 .then(result => {
                     console.log(result.data.data);
                     console.log(result.data.price);
@@ -39,6 +43,7 @@ const Routes = () => {
 
         },
         payhere() {
+            
             const entry = {
                 firstname: this.firstname, card_number: this.card_number, exp_month: this.exp_month, exp_year: this.exp_year, cvv: this.cvv,
             }
@@ -49,9 +54,14 @@ const Routes = () => {
             }
 else{
 
-
+const access_token = localStorage.getItem('access_key_pass')
             axios
-                .post(`${remote_url}/api/card_payments`, entry)
+                .post(`${remote_url}/api/card_payments`, entry,{
+                    Headers:{
+                        "Authorization" : `Bearer ${access_token}`,
+                    }
+
+                })
                 .then(results => {
                     console.log(results.data);
                     this.success_pay = true
@@ -62,17 +72,7 @@ else{
                      this.passenger_name = localStorage.getItem('user_name')
                      console.log(this.passenger_name);
                 })
-                // .then(() => {
-                //     this.success_pay = true
-                //     this.payment_screen=false
-                //     this.this_info = results.data
-                //      this.error_message = results.data.message
-                //      this.error = false
-                //      this.passenger_name = localStorage.getItem('user_name')
-                //      console.log(this.passenger_name);
-                // })
-
-                // .catch(error => console.error(error))
+                .catch(error => console.error(error))
 
 
 
