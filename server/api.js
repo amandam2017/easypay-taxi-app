@@ -113,7 +113,7 @@ const api = (app, db) => {
             console.log(error);
         }
     });
-    app.get('/api/routes', async function (req, res) {
+    app.get('/api/routes',  async function (req, res) {
 
         const routes = await db.manyOrNone(`select * from routes`);
 
@@ -145,7 +145,7 @@ const api = (app, db) => {
         }
     });
 
-    app.post('/api/driver', async function (req, res) {
+    app.post('/api/driver',authanticateToken, async function (req, res) {
         try {
             const { no_of_cashpaid_passenger } = req.body
             const { departure, destination } = req.body;
@@ -175,7 +175,7 @@ await db.none('insert into card_payment(firstname,card_number ,exp_month,exp_yea
             res.json({
                 message: 'payment made',
                 status: 'success',
-                //data:paycard
+                //                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     data:paycard
             })
         } catch (err) {
             console.log(err);

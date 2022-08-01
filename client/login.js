@@ -8,11 +8,11 @@ const Login = ()=>{
         init(){
              
             // this.logging()
-            if(localStorage['access_key_driver'] !== undefined) {
-                this.access_token = localStorage.getItem('access_key_driver')
-                this.driver_screen,
-                this.logging()
-            }
+            // if(localStorage['access_key_driver'] !== undefined) {
+            //     this.access_token = localStorage.getItem('access_key_driver')
+            //     this.driver_screen,
+            //     this.logging()
+            // }
 
             // if(localStorage['access_key_driver'||'access_key_pass'] !== undefined) {
             //     this.access_token = localStorage.getItem('access_key_driver'||'access_key_pass')

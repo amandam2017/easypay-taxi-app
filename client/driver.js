@@ -18,6 +18,7 @@ const Driver = () => {
         price:'',
 
         driver() {
+          //  const token = localStorage.getItem('access_key_driver')
             axios
                 .get(`${remote_url}/api/routes`, {
 
@@ -41,12 +42,17 @@ const Driver = () => {
         passengerDecrement() {
             return this.count--
         },
+        
         displayTotal(){
-            axios
-            .post(`${remote_url}/api/driver`,{
+            const token = localStorage.getItem('access_key_driver')
+            axios.post(`${remote_url}/api/driver`,
+            {
+             headers: {
+                "Authorization" : `Bearer ${token}`,
                 departure:this.departure,
                 destination:this.destination,
                 no_of_cashpaid_passenger:this.no_of_cashpaid_passenger
+              }
             })
             .then(result =>{
                 console.log(result.data);
