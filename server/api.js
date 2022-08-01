@@ -96,7 +96,7 @@ const api = (app, db) => {
     });
 
 
-    app.post('/api/taxis',authanticateToken, async function (req, res) {
+    app.post('/api/taxis', async function (req, res) {
         try {
             const { departure, destination } = req.body;
 
@@ -113,7 +113,7 @@ const api = (app, db) => {
             console.log(error);
         }
     });
-    app.get('/api/routes', authanticateToken, async function (req, res) {
+    app.get('/api/routes', async function (req, res) {
 
         const routes = await db.manyOrNone(`select * from routes`);
 
@@ -167,7 +167,7 @@ const api = (app, db) => {
             })
         }
     });
-    app.post('/api/card_payments',authanticateToken, async function (req, res) {
+    app.post('/api/card_payments', async function (req, res) {
         const { firstname, card_number, exp_month, exp_year, cvv } = req.body;
         try {
 await db.none('insert into card_payment(firstname,card_number ,exp_month,exp_year, cvv) values ($1, $2,$3,$4,$5)', [firstname, card_number, exp_month, exp_year, cvv]);

@@ -93,8 +93,8 @@ describe('The EASY_PAY_TAXI API', function () {
     });
     //-------------API tests-----------------------//
     it('you should be able to find all the Stellenbosch departure routes', async () => {
-        const result = await db.one('select count(*) from routes where departure = $1', 'Stellenbosch');
-        assert.equal(6, result.count);
+        const result = await db.one('select count(*) from routes where departure = $1', 'Kuilsriver');
+        assert.equal(2, result.count);
     });
     it('you should be able to find all the cape town destination routes', async () => {
         const result = await db.one('select count(*) from routes where destination = $1', 'CapeTown');
@@ -115,7 +115,7 @@ describe('The EASY_PAY_TAXI API', function () {
         const response = await supertest(app)
             .post('/api/taxis')
             .send({
-                departure: "Kuilsriver",
+                departure: "Stellenbosch",
                 destination: "Cape Town"
             });
         const destination_taxis = response.body.data;
