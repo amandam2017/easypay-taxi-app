@@ -73,13 +73,14 @@ const Login = ()=>{
             // console.log(results.data.token);
             .then(results => {
                 this.access_token = results.data.token
-                if(results.data.role == 'Driver' && this.access_token){
-                    localStorage.setItem('access_key_driver', results.data.token)
-                    this.driver_screen = true,
-                    this.landing = false
+                // if(results.data.role == 'Driver' && this.access_token){
+                //     localStorage.setItem('access_key_driver', results.data.token)
+                //     localStorage.setItem('user_name', results.data.message)
+                //     this.driver_screen = true,
+                //     this.landing = false
                     
-                    // this.access_token = results.data.token
-                }
+                //     // this.access_token = results.data.token
+                // }
                 // console.log(this.access_token);
             
             if (results.data.message =='User does not exist please sign up below') {
@@ -102,24 +103,26 @@ const Login = ()=>{
                     this.access_token = results.data.token,
                     console.log('token?? '+this.access_token);
                     localStorage.setItem('access_key_pass', this.access_token)
+                    localStorage.setItem('user_name', results.data.message)
+
                     // .then(()=>{
                         this.passenger_screen = true
                         
                         this.driver_screen = false,
                         this.loggedin = false,
                         this.landing = false,
-                        this.feedback_message = results.data.message
-                    // })
+                        this.feedback_message = `${results.data.message} is logged in`
                 }
     
                 if(results.data.role == 'Driver'){
+                    localStorage.setItem('user_name', results.data.message)
                     this.passenger_screen = false,
                     this.driver_screen = true,
                     this.loggedin = false,
                     this.landing = false,
                     this.access_token = results.data.token,
                     localStorage.setItem('access_key_driver', this.access_token)
-                    this.feedback_message = results.data.message
+                    this.feedback_message = `${results.data.message} is logged in`
     
                 }
             // }
@@ -150,3 +153,18 @@ const Login = ()=>{
 }
 
 export default Login
+
+
+// if(results.data.role == 'Driver' && this.access_token){
+//     localStorage.setItem('access_key_driver', results.data.token)
+//     // localStorage.setItem('user_name', results.data.message)
+//     this.driver_screen = true,
+//     this.landing = false
+// }
+
+// if(results.data.role == 'Passenger' && this.access_token){
+//     localStorage.setItem('access_key_pass', results.data.token)
+//     // localStorage.setItem('user_name', results.data.message)
+//     this.passenger_screen = true,
+//     this.landing = false
+// }

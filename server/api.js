@@ -86,7 +86,7 @@ const api = (app, db) => {
                     res.json({
                         data: theUser, token,
                         role: theUser.role,
-                        message: `${username} is logged in`
+                        message: `${username}`
                     });
                 }
             }

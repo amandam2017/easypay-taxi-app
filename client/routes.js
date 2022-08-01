@@ -15,6 +15,7 @@ const Routes = () => {
         error: false,
         passengers: 0,
         payment_screen:false,
+        passenger_name:'',
 
         init() {
             findTaxiByRoute()
@@ -53,16 +54,25 @@ else{
                 .post(`${remote_url}/api/card_payments`, entry)
                 .then(results => {
                     console.log(results.data);
-                })
-                .then(() => {
                     this.success_pay = true
                     this.payment_screen=false
                     this.this_info = results.data
                      this.error_message = results.data.message
                      this.error = false
+                     this.passenger_name = localStorage.getItem('user_name')
+                     console.log(this.passenger_name);
                 })
+                // .then(() => {
+                //     this.success_pay = true
+                //     this.payment_screen=false
+                //     this.this_info = results.data
+                //      this.error_message = results.data.message
+                //      this.error = false
+                //      this.passenger_name = localStorage.getItem('user_name')
+                //      console.log(this.passenger_name);
+                // })
 
-                .catch(error => console.error(error))
+                // .catch(error => console.error(error))
 
 
 

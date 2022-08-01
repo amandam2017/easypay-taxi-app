@@ -152,7 +152,7 @@
             </template>
             <br>
             <div>
-                <button class="ui secondary button" @click="payment_screen=true,landing=false,passenger_screen=false">make payment</button>
+                <button class="ui secondary button" @click="payment_screen=true,landing=false,passenger_screen=false">Make Payment</button>
               </div>
               <div class="row">
                 <div id="map">
@@ -318,7 +318,7 @@
 		  </div>
 		  <div x-show="success_pay" class="success_pay">
 			<div class="field">
-				<strong>hii</strong> <h1 x-text="user.name"></h1> <h1 x-text="user.surname"></h1>
+				<h1 x-text="passenger_name"></h1>
 			</div>
 			<div class="landing center-text">
 				<img src="./images/payment.png" alt="..." class="center ui medium image">
