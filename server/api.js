@@ -145,7 +145,7 @@ const api = (app, db) => {
         }
     });
 
-    app.post('/api/driver',authanticateToken, async function (req, res) {
+    app.post('/api/driver', async function (req, res) {
         try {
             const { no_of_cashpaid_passenger } = req.body
             const { departure, destination } = req.body;

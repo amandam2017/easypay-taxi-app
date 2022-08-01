@@ -167,8 +167,7 @@
 		<div x-show="driver_screen" class="driver">
 			<div>
 				<span x-text="feedback_message"></span>
-			<span x-text="access_token"></span>
-				<button class="ui secondary button" @click="logout()">Logout</button>
+			<!-- <span x-text="access_token"></span> -->
 			</div>
 			<div class="row">
 				<div class="three fields">
@@ -241,28 +240,27 @@
 				  </table>
 				  </div> -->
 			</div>
-			<div class="row">
 				<div class="field">
 					<label for="payment_method">How many passengers paid in cash?</label>
 					<input x-model="no_of_cashpaid_passenger" type="number" min="1" step="any">
 					<button @click="displayTotal()">Cash Total</button>
 				</div>
-				Amount<span x-text="price"></span>
-			</div>
+				Expected Cash Amount:<span x-text="price"></span>
 			<table>
 				<tr>
-					 <td><strong> Passengers on taxi:</strong></td>
-		
+					<td><strong> Passengers on taxi:</strong></td>
+					
 					<td><span class="" x-text="passengers"><strong>0</strong></span>
 					</td>
 					<td>
 						<button @click="passengers--">-</button>
 						<button @click="passengers++">+</button>
-		
-		
+						
+						
 					</td>
 				</tr>
-			  </table>
+			</table>
+			<button class="ui secondary button" @click="logout()">Logout</button>
 		</div>
 
 		<div x-show="payment_screen" class="pay">
@@ -321,7 +319,7 @@
 				<h1 x-text="passenger_name"></h1>
 			</div>
 			<div class="landing center-text">
-				<img src="./images/payment.png" alt="..." class="center ui medium image">
+				<img src="./public/images/Payment.png" alt="..." class="center ui medium image">
 			</div>
 		  </div>
 		<!-- </div> -->

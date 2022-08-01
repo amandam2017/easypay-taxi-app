@@ -14,14 +14,3 @@ insert into routes (img, reg_number, price, departure, destination) values ('tax
 insert into routes (img, reg_number, price, departure, destination) values ('taxi.png', 'CY 123456', 23.50, 'Khayelitsha', 'Kuilsriver');
 insert into routes (img, reg_number, price, departure, destination) values ('taxi.png', 'CAA 155674', 15.50, 'Kuilsriver', 'Mfuleni');
 insert into routes (img, reg_number, price, departure, destination) values ('taxi.png', 'CAA 157683', 15.50,  'Mfuleni','Kuilsriver');
-
-
-
-
-
-
-
-
-
-
-
