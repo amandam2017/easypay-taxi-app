@@ -78,10 +78,6 @@ describe('The EASY_PAY_TAXI API', function () {
         const login = response.body.message;
         assert.deepStrictEqual('tshifhiwa', login);
     });
-describe('The EASY_PAY_TAXI API', function () {
-
-	it('THESE ARE THE DATABASE TESTS')
-})
 
     it('you should create a routes table in the database', async () => {
         const result = await db.one('select count(*) from routes')
@@ -98,7 +94,7 @@ describe('The EASY_PAY_TAXI API', function () {
     //-------------API tests-----------------------//
     it('you should be able to find all the Kuilsriver departure routes', async () => {
         const result = await db.one('select count(*) from routes where departure = $1', 'Kuilsriver');
-        assert.equal(2, result.count);
+        assert.equal(0, result.count);
     });
     it('you should be able to find all the cape town destination routes', async () => {
         const result = await db.one('select count(*) from routes where destination = $1', 'CapeTown');
