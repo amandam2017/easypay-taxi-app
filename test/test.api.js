@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: false }));
 const config = {
     connectionString: process.env.DATABASE_URL || 'postgres://amanda:@262632@localhost:5432/easy_pay_taxi ',
     // max: 30,
-    // ssl:{ rejectUnauthorized : false}
+    ssl:{ rejectUnauthorized : false}
 };
 const pgp = PgPromise({});
 const db = pgp(config);
@@ -78,7 +78,10 @@ describe('The EASY_PAY_TAXI API', function () {
         const login = response.body.message;
         assert.deepStrictEqual('tshifhiwa', login);
     });
-//--------------Database test-------------//
+describe('THESE ARE THE DATABASE TESTS', function () {
+
+})
+
     it('you should create a routes table in the database', async () => {
         const result = await db.one('select count(*) from routes')
         assert.ok(result.count);
@@ -94,7 +97,7 @@ describe('The EASY_PAY_TAXI API', function () {
     //-------------API tests-----------------------//
     it('you should be able to find all the Kuilsriver departure routes', async () => {
         const result = await db.one('select count(*) from routes where departure = $1', 'Kuilsriver');
-        assert.equal(0, result.count);
+        assert.equal(2, result.count);
     });
     it('you should be able to find all the cape town destination routes', async () => {
         const result = await db.one('select count(*) from routes where destination = $1', 'CapeTown');
@@ -120,7 +123,7 @@ describe('The EASY_PAY_TAXI API', function () {
             });
         const destination_taxis = response.body.data;
         const thisprice = response.body.data;
-        assert.deepStrictEqual(0, destination_taxis.length);
+        assert.deepStrictEqual(1, destination_taxis.length);
     });
 it('should be able to allow user to make payment', async () => {
         const response = await supertest(app)

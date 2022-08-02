@@ -22,14 +22,14 @@ const Routes = () => {
         },
 
         findTaxiByRoute() {
-            const access_token = localStorage.getItem('access_key_pass')
+            // const access_token = localStorage.getItem('access_key_pass')
             axios
                 .post(`${remote_url}/api/taxis`, {
-                    Headers:{
-                        "Authorization" : `Bearer ${access_token}`,
+                    // Headers:{
+                        // "Authorization" : `Bearer ${access_token}`,
                      departure: this.departure,
                     destination: this.destination
-                    }
+                    // }
                    
                 })
                 .then(result => {
