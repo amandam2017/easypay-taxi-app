@@ -78,8 +78,9 @@ describe('The EASY_PAY_TAXI API', function () {
         const login = response.body.message;
         assert.deepStrictEqual('tshifhiwa', login);
     });
-describe('THESE ARE THE DATABASE TESTS', function () {
+describe('The EASY_PAY_TAXI API', function () {
 
+	it('THESE ARE THE DATABASE TESTS')
 })
 
     it('you should create a routes table in the database', async () => {
@@ -123,7 +124,7 @@ describe('THESE ARE THE DATABASE TESTS', function () {
             });
         const destination_taxis = response.body.data;
         const thisprice = response.body.data;
-        assert.deepStrictEqual(1, destination_taxis.length);
+        assert.deepStrictEqual(0, destination_taxis.length);
     });
 it('should be able to allow user to make payment', async () => {
         const response = await supertest(app)
