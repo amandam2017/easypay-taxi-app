@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<link rel="icon" type="image/svg+xml" href="/easypay-taxi-app/assets/favicon.17e50649.svg" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+   integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+   crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+    integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+    crossorigin=""></script>
+	<title>Vite App</title>
+  <script type="module" crossorigin src="/easypay-taxi-app/assets/index.780621fe.js"></script>
+  <link rel="stylesheet" href="/easypay-taxi-app/assets/index.6b44ad9b.css">
+</head>
+
+<body>
+	<div class="container" x-data="taxisapis">
+		<div class="navigation ui menu">
+			<a :class="`ui ${landing ? 'active' : ''} item`" href="./index.html">
+				Home
+			  </a>
+			<div class="right menu">
+				<a :class="`ui ${loggedin ? 'active' : ''} item`" @click="loggedin =! loggedin,hideRegister(), landing=false">SignIn</a>
+				<a :class="`ui ${loggedin ? 'active' : ''} item`" @click="loggedin =! loggedin,hideLogin(), landing=false">SignUp</a>
+			</div>
+		</div>
+		<div class="row space" x-show="landing">
+			<div class="landing center-text">
+				<img src="./images/easypay.png" alt="..." class="center ui medium image">
+			</div>
+			
+			<div class="row">
+				<div class="footer">
+					<div class="contact">
+						<strong>Contact us at:</strong>
+						(021)-555-2000
+						<strong>twitter /fb /insta </strong> @easy_taxi
+					</div>
+					<div class="address">
+						Easy Taxi Station
+						<br>
+						Drive Road
+						<br>
+						Taxi Town
+						<br>
+						7890
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" x-show="loggedin">
+			<span x-text="error_message" class="feedback_message"></span>
+			<h1 class="ui header">Easy Pay</h1>
+			<div class="ui form">
+				<div class="two fields">
+					<div class="field">
+						<label for="">username</label>
+						<input type="text" x-model="user.Username">
+					</div>
+					<div class="field">
+						<label for="">password</label>
+						<input type="password" x-model="user.Password">
+					</div>
+				</div>
+				<button class="ui secondary button" @click="logging()">Login</button>
+				<a><button class="ui secondary button" @click="hideLogin()">no account? register here</button></a>
+			</div>
+
+		</div>
+
+		<div class="row" x-show="register">
+			<span x-text="feedback_message" class="feedback_message"></span>
+			<div class="ui form">
+				<div class="five fields">
+					<div class="field">
+						<label for="">name</label>
+						<input x-model="user.name" type="text" placeholder="amanda">
+					</div>
+					<div class="field">
+						<label for="">surname</label>
+						<input x-model="user.surname" type="text" placeholder="maarman">
+					</div>
+					<div class="field">
+						<label for="">username</label>
+						<input x-model="user.username" type="text" placeholder="ama123">
+					</div>
+					<div class="field">
+						<label for="">password</label>
+						<input x-model="user.password" type="password" placeholder="***">
+					</div>
+					<div class="field">
+						<label>Role</label>
+						<select class="ui dropdown" x-model="user.role">
+							<option>Driver</option>
+							<option>Owner</option>
+							<option>Passenger</option>
+						</select>
+
+					</div>
+				</div>
+				<button class="ui secondary button" @click="signup()">Submit</button>
+				<button @click="hideRegister()" class="btn btn-link"> login here></button>
+				<span x-text="user.role"></span>
+
+			</div>
+		</div>
+
+		<div x-show="passenger_screen" class="row ui form passenger">
+            <!-- <h1>passenger screen</h1> -->
+			<div>
+				<p class="header" x-text="feedback_message"></p>
+			</div>
+            <h2 class="header">Taxis on Route: <span x-text="taxis.length"></span></h2>
+            <div class="two fields">
+				<div class="field">
+					<label for="Select departure">Select departute:</label>
+					<select x-model="departure">
+						<template x-for="taxi in departures">
+							<option :value="taxi.departure" x-text="taxi.departure"></option>
+						</template>
+					</select>
+				</div>
+				<div class="field">
+					<label for="Select destination">Select destination:</label>
+					<select x-model="destination">
+						<template x-for="taxi in destinations">
+							<option :value="taxi.destination" x-text="taxi.destination"></option>
+						</template>
+					</select>
+				</div>
+			</div>
+
+			<div class="two fields">
+				<div class="field">
+					You are in <p x-text="departure"></p>
+				</div>
+				<div class="field">
+					Going to<p x-text="destination"></p>
+				</div>
+				<div class="field">
+					<button @click="findTaxiByRoute()" class="ui secondary button">Search</button>
+					<div class="field">
+						Taxi fare: R<span x-text="price">00.00</span>	
+					</div>
+					<template x-for="taxi in taxis">
+						<div class="card four fields card-md-6 shadow text-center" style="width: 18rem;">
+						  <div class="field inner">
+							<img :src="`./images/${taxi.img}`" class="card-img-top" alt="...">
+						  </div>
+						  <!-- <ul class="list-group-item"><span class="card-text" x-text="taxi.img"></span></ul> -->
+						  <div class="field list-group-item">Taxi will be departing from: <span class="card-text" x-text="taxi.departure"></span></div>
+						  <div class="field list-group-item">Your destination is: <span class="card-text" x-text="taxi.destination"></span></div>
+						  <div class="field list-group-item">Price: R<span class="card-text" x-text="taxi.price"></span></div>
+						  <div class="field list-group-item">Taxi Registration Number: <span class="card-text" x-text="taxi.reg_number"></span></div>
+						</div>
+					  </template>
+				</div>
+
+			</div>
+            <br>
+            <div>
+                <button class="ui secondary button" @click="payment_screen=true,landing=false,passenger_screen=false">Make Payment</button>
+              </div>
+              <div class="row">
+                <div id="map">
+                </div>
+              </div>
+              <br>
+              <!-- <div>
+                <button class="ui secondary button" @click="payment_screen =!passenger_screen">make payment</button>
+              </div> -->
+          </div>
+	
+		<div x-show="driver_screen" class="row driver">
+			<div>
+				<p class="header" x-text="feedback_message"></p>
+			</div>
+			<div class="row ui form">
+				<div class="two fields">
+					<div class="field">
+						<label for="Select departure">Select departute:</label>
+						<select x-model="departure">
+							<template x-for="taxi in departures">
+								<option :value="taxi.departure" x-text="taxi.departure"></option>
+							</template>
+						</select>
+					</div>
+					<div class="field">
+						<label for="Select destination">Select destination:</label>
+						<select x-model="destination">
+							<template x-for="taxi in destinations">
+								<option :value="taxi.destination" x-text="taxi.destination"></option>
+							</template>
+						</select>
+					</div>
+				</div>
+				
+				
+
+				<!-- <div class="field">
+					<table id="taxis">
+					  <tr>
+						  <th>Departure</th>
+						  <th>Destination</th>
+						  <th>Passengers in Queue</th>
+						  <th>Passengers in Route</th>
+						  <th>Taxi Trips</th>
+						  <th>Taxi Price</th>
+						  <th>Total Fare</th>
+					  </tr>
+					  <template x-for="taxi in routes">
+						  <tr>
+							  <td> <span  x-text="taxi.departure"></span></td>
+							  <td> <span  x-text="taxi.destination"></span> </td>
+							  <td>
+								<button class="button" @click="taxi.passengerCountUp()++"><i
+									class="fa-solid fa-circle-plus"></i></button>
+									<span x-text="taxi.count">      
+											
+									</span>
+									<button class="button" x-bind:disabled ="taxi.count <= 0"  @click="taxi.passengerCountDown()--"><i
+										class="fa-solid fa-circle-minus"></i></button>
+									   </td>
+							  <td>
+								  <button class="button" @click="taxi.passengerCountUp()++"><i
+									  class="fa-solid fa-circle-plus"></i></button>
+									  <span x-text="taxi.count">      
+											  
+									  </span>
+									  <button class="button" x-bind:disabled="taxi.count <= 0"  @click="taxi.passengerCountDown()--"><i
+										  class="fa-solid fa-circle-minus"></i></button>
+										 </td>
+							  <td> 
+								
+									  <button class="button" x-bind:disabled ="taxi.count < 15"  @click="route.leaveRank()"><i
+										  class="leave">Leave</i></button>
+									  <span x-text="taxi.trips"></span>
+								 
+							  </td>
+							  <td> R<span x-text="taxi.price.toFixed(2)">0</span></td>
+							  <td> R<span x-text="taxi.totalFare().toFixed(2)">0</span></td>
+		  
+						  </tr>  
+					  </template>
+				  </table>
+				  </div> -->
+			</div>
+			<div class="row ui form">
+				<div class="display_amount three fields">
+					<div class="field">
+						You are in <p x-text="departure"></p>Going to <p x-text="destination"></p>
+					</div>
+					<div class="field">
+						<label for="payment_method">How many passengers paid in cash?</label>
+						<input x-model="no_of_cashpaid_passenger" type="number" min="1" step="any">
+					</div>
+					<div class="field">
+						<button @click="displayTotal()">Cash Total</button>
+					</div>
+					Expected Cash Amount:<span x-text="price"></span>
+
+				</div>
+			</div>
+			<table>
+				<tr>
+					<td><strong> Passengers on taxi:</strong></td>
+					
+					<td><span class="" x-text="passengers"><strong>0</strong></span>
+					</td>
+					<td>
+						<button @click="passengers--">-</button>
+						<button @click="passengers++">+</button>
+						
+						
+					</td>
+				</tr>
+			</table>
+			<button class="ui secondary button" @click="logout()">Logout</button>
+		</div>
+
+		<div x-show="payment_screen" class="pay">
+			<span x-text="error_message" class="feedback_message"></span>
+			<!-- <span x-text="feedback_message" class="feedback_message"></span> -->
+			<h2>card payment method</h2>
+			<div class="row">
+			  <div class="col-75">
+				<div class="container">
+				  <!-- <form action=""> -->
+					<div class="row">
+					  <div class="col-50">
+						<h3>Payment</h3>
+						<label for="fname">Accepted Cards</label>
+						<div class="icon-container">
+						  <i class="fa fa-cc-visa" style="color:navy;"></i>
+						  <i class="fa fa-cc-amex" style="color:blue;"></i>
+						  <i class="fa fa-cc-mastercard" style="color:red;"></i>
+						  <i class="fa fa-cc-discover" style="color:orange;"></i>
+						</div>
+						<label for="cname">Name on Card</label>
+						<input type="text" id="cname" name="cardname" placeholder="hlomla okuhle tapuko" x-model="firstname">
+						<label for="ccnum">Credit card number</label>
+						<input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" x-model="card_number">
+						<label for="expmonth">Exp Month</label>
+						<input type="text" id="expmonth" name="expmonth" placeholder="September" x-model="exp_month">
+						<div class="row">
+						  <div class="col-50">
+							<label for="expyear">Exp Year</label>
+							<input type="text" id="expyear" name="expyear" placeholder="2018" x-model="exp_year">
+						  </div>
+						  <div class="col-50">
+							<label for="cvv">CVV</label>
+							<input type="text" id="cvv" name="cvv" placeholder="352" x-model="cvv">
+						  </div>
+						</div>
+					  </div>
+					</div>
+					<button @click="payhere()" class="ui secondary button">payment</button>
+					<!-- <input type="submit" value="checkout" class="btn"> -->
+				  <!-- </form> -->
+				</div>
+			  </div>
+			  <div class="col-25">
+				<div class="container">
+				  <h4>Taxi fare <span class="price" x-model="price" style="color:black"><i class="fa fa-taxi fare"></i> R<b x-text="price">0.00</b></span>
+				  </h4>
+				  <hr>
+				  <p>Total <span class="price" style="color:black">R<b x-text="price">0.00</b></span></p>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		  <div x-show="success_pay" class="success_pay">
+			<div class="landing center-text">
+				Thank you for the payment <p x-text="passenger_name"></p>
+			</div>
+			<div class="landing center-text">
+				<img src="/easypay-taxi-app/assets/Payment.545628ed.png" alt="..." class="center ui medium image">
+			</div>
+			<button class="ui secondary button" @click="logout()">Logout</button>
+		  </div>
+		<!-- </div> -->
+	</div>
+	
+	<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
+</body>
+
+</html>
