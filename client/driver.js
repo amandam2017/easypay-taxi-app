@@ -37,9 +37,9 @@ const Driver = () => {
             const token = localStorage.getItem('access_key_driver')
             axios
                 .get(`${remote_url}/api/routes`, {
-                    headers: {
-                        "Authorization": `Bearer ${token}`,
-                    }
+                   // headers: {
+                        //"Authorization": `Bearer ${token}`,
+                   // }
                 })
                 .then(results => {
                     // console.log(this.departures = results.data.data2);
@@ -72,7 +72,7 @@ const Driver = () => {
                 .then(result => {
                     console.log(result.data);
                     this.price = result.data.price.price * this.no_of_cashpaid_passenger
-                    this.routes = result.data.price
+                    this.routes = result.data.trips
                     console.log(this.routes + "hsifgigfakshfoi");
                 })
 

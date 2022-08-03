@@ -163,13 +163,14 @@ const api = (app, db) => {
             const { departure, destination } = req.body;
             const Routes = await db.manyOrNone(`select departure, destination from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
             const TaxiData = await db.manyOrNone(`select reg_number, qty from taxi_data`)
-            const price = await db.manyOrNone(`select price,count, total_fare, trips_taken from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
+            const trips = await db.manyOrNone(`select price,count, total_fare, trips_taken from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
+            const price = await db.oneOrNone(`select price from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
             console.log('money ' + price);
             console.log('routes' + Routes);
             console.log('taxidata:' + TaxiData);
             res.json({
                 status: 'success',
-                data: Routes, TaxiData, price
+                data: Routes, TaxiData, price,trips
             })
         } catch (err) {
             console.log(err);
