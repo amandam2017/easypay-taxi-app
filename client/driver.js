@@ -13,6 +13,7 @@ const Driver = () => {
         destinations: [],
         destination: '',
         departure: '',
+        reg_number: '',
         no_of_cashpaid_passenger: '',
         count: 0,
         trips: 0,
@@ -21,11 +22,11 @@ const Driver = () => {
 
         fullTaxi() {
             this.count = this.count - 15
-            this.fare_total += this.price * 15
+            // this.fare_total += this.price * 15
             return this.trips++
         },
         totalTrip() {
-            return this.fare_total
+            return this.fare_total += this.price
         },
         passengerIncrement() {
             return this.count++
@@ -67,13 +68,17 @@ const Driver = () => {
                     destination: this.destination,
                     no_of_cashpaid_passenger: this.no_of_cashpaid_passenger
                     
+
                     //   }
                 })
                 .then(result => {
                     console.log(result.data);
+                    console.log(result.data.data.reg_number);
                     this.price = result.data.price.price * this.no_of_cashpaid_passenger
                     this.routes = result.data.trips
-                    console.log(this.routes + "hsifgigfakshfoi");
+                    this.reg_number = result.data.data.reg_number
+                    // console.log(this.reg_number + "reg number");
+                    // console.log(this.routes + "hsifgigfakshfoi");
                 })
 
         }

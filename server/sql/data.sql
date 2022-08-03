@@ -5,7 +5,7 @@ insert into routes (img, reg_number, price, departure, destination, count, total
 insert into routes (img, reg_number, price, departure, destination, count, total_fare, trips_taken) values ('taxi.png', 'CA 123-456',25.00, 'Stellenbosch', 'Kuilsriver', 0, 0.00, 0);
 insert into routes (img, reg_number, price, departure, destination, count, total_fare, trips_taken) values ('taxi.png', 'CA 156345', 25.00, 'Kuilsriver','Stellenbosch', 0, 0.00, 0);
 insert into routes (img, reg_number, price, departure, destination, count, total_fare, trips_taken) values ('taxi.png', 'CA 785631', 25.00, 'Stellenbosch', 'Kuilsriver', 0, 0.00, 0);
-insert into routes (img, reg_number, price, departure, destination, count, total_fare, trips_taken) values ('taxi.png', 'CA 567294', 23.50, 'j', 0, 0.00, 0);
+insert into routes (img, reg_number, price, departure, destination, count, total_fare, trips_taken) values ('taxi.png', 'CA 567294', 23.50, 'Cape Town','Bellville', 0, 0.00, 0);
 insert into routes (img, reg_number, price, departure, destination, count, total_fare, trips_taken) values ('taxi.png', 'CA 893042', 23.50, 'Bellville', 'Cape Town', 0, 0.00, 0);
 insert into routes (img, reg_number, price, departure, destination, count, total_fare, trips_taken) values ('taxi.png', 'CA 127583', 23.50, 'Cape Town', 'Khayelitsha', 0, 0.00, 0);
 insert into routes (img, reg_number, price, departure, destination, count, total_fare, trips_taken) values ('taxi.png', 'CY 123456', 23.50, 'Bellville', 'Kuilsriver', 0, 0.00, 0);

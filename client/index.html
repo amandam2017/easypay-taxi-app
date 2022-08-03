@@ -114,6 +114,7 @@
 			<div>
 				<p class="header" x-text="feedback_message"></p>
 			</div>
+			
             <h2 class="header">Taxis on Route: <span x-text="taxis.length"></span></h2>
             <div class="two fields">
 				<div class="field">
@@ -179,6 +180,11 @@
 			<div>
 				<p class="header" x-text="feedback_message"></p>
 			</div>
+			<div class="one field">
+				<div class="field">
+					Taxi Registration Number is <span x-text="reg_number"></span>
+				</div>
+			</div>
 			<div class="row ui form">
 				<div class="two fields">
 					<div class="field">
@@ -220,8 +226,8 @@
 						<div class="display_card_amount two fields">
 
 							<div class="field">
-								<label for="payment_method">Number of Passengers who paid electronically</label>
-								<input x-model="no_of_cashpaid_passenger" type="number" min="1" step="any">
+								<label for="cardpayment_method">Number of Passengers who paid electronically</label>
+								<!-- <input x-model="electronic_payment" type="number" min="1" step="any"> -->
 							</div>
 							<div class="field">
 								<button @click="">Electronic Total</button>
@@ -262,7 +268,7 @@
 								 
 							  </td>
 							  <td> R<span x-text="taxi.price.toFixed(2)"></span></td>
-							  <td> R<span x-text="totalTrip().toFixed(2)"></span></td>
+							  <td> R<span x-text="totalTrip()"></span></td>
 							</tr>  
 						</template>
 				  </table>

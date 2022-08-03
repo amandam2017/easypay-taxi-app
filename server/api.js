@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+// const { default: Routes } = require('../client/routes');
 const saltRounds = 10;
 // const taxis = require('./taxi_data');
 const api = (app, db) => {
@@ -129,18 +130,7 @@ const api = (app, db) => {
             });
         }
     });
-    // app.get('/api/routes/:id', async function (req, res) {
-
-    //     const {departure, destination, price} = req.params;
-
-    //     const selectedRoute = await db.manyOrNone(`select departure,destination from routes`, [id]);
-
-    //      {
-    //         res.json({
-    //            data: selectedRoute,
-    //         });
-    //     }
-    // });
+    
     app.post('/api/owner', async function (req, res) {
         try {
             const { reg_number, qty, owner_id } = req.body;
@@ -161,8 +151,9 @@ const api = (app, db) => {
         try {
             const { no_of_cashpaid_passenger } = req.body
             const { departure, destination } = req.body;
-            const Routes = await db.manyOrNone(`select departure, destination from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
-            const TaxiData = await db.manyOrNone(`select reg_number, qty from taxi_data`)
+            const Routes = await db.oneOrNone(`select reg_number from routes WHERE departure = $1 AND destination = $2 `, [departure, destination])
+            // const all = await db.manyOrNone('select * from routes')
+            const TaxiData = await db.manyOrNone(`select reg_number from taxi_data`)
             const trips = await db.manyOrNone(`select price,count, total_fare, trips_taken from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
             const price = await db.oneOrNone(`select price from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
             console.log('money ' + price);
