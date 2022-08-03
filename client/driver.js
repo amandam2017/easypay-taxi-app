@@ -13,7 +13,7 @@ const Driver = () => {
         destinations: [],
         destination: '',
         departure: '',
-        no_of_cashpaid_passenger: 0,
+        no_of_cashpaid_passenger: '',
         count: 0,
         trips: 0,
         fare_total: 0,
@@ -72,7 +72,7 @@ const Driver = () => {
                 .then(result => {
                     console.log(result.data);
                     this.price = result.data.price.price * this.no_of_cashpaid_passenger
-                    this.routes = result.data.price
+                    this.routes = result.data.trips
                     console.log(this.routes + "hsifgigfakshfoi");
                 })
 
