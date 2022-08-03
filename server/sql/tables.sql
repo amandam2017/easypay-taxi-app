@@ -28,7 +28,10 @@ create table routes(
     reg_number varchar not null,
     price int not null,
     departure text not null,
-    destination text not null
+    destination text not null,
+    count int not null,
+    total_fare int not null,
+    trips_taken int not null
 );
 create table card_payment(
     id serial not null primary key,

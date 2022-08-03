@@ -193,20 +193,65 @@
 				<div class="field">
 					You are in <h1 x-text="departure"></h1>Going to <h1 x-text="destination"></h1>
 				</div>
-				<!-- <div class="field">
+				<!-- <button class="button" @click="passengerIncrement()">+<i
+					class="fa-solid fa-circle-plus"></i></button>
+					<span x-text="count">      
+							
+					</span>
+					<button class="button" x-bind:disabled = "count <= 0"  @click="passengerDecrement()">-<i
+						class="fa-solid fa-circle-minus"></i></button> -->
+				<div class="field">
+				
 					<table id="taxis">
 					  <tr>
-						  <th>Departure</th>
-						  <th>Destination</th>
-						  <th>Passengers in Queue</th>
-						  <th>Passengers in Route</th>
+						  <th>Passengers in Taxi</th>
+						  <th>Passengers Requested Status</th>
 						  <th>Taxi Trips</th>
 						  <th>Taxi Price</th>
 						  <th>Total Fare</th>
 					  </tr>
 					  <template x-for="taxi in routes">
 						  <tr>
-							  <td> <span  x-text="taxi.departure"></span></td>
+							  <td>
+								<button class="button" @click="passengerIncrement()">+<i
+									class="fa-solid fa-circle-plus"></i></button>
+									<span x-text="count">      
+											
+									</span>
+								
+									<button class="button" x-bind:disabled = "count <= 0"  @click="passengerDecrement()">-<i
+										class="fa-solid fa-circle-minus"></i></button>
+									   </td>
+							  <td>
+								<div onclick="return false" colspan="4" class="text-center">Pending</div>
+							</td>
+							  <td> 
+								
+									  <button class="button" x-bind:disabled = "count < 15"  @click="fullTaxi()"><i
+										  class="leave">Leave</i></button>
+									  <span x-text="trips"></span>
+								 
+							  </td>
+							  <td> R<span x-text="taxi.price.toFixed(2)"></span></td>
+							  <td> R<span x-text="totalTrip().toFixed(2)"></span></td>
+							  
+							</tr>  
+						</template>
+				  </table>
+				  </div>
+				  <!-- <div class="field">
+					<table id="payments">
+					  <tr>
+						  <th>Cash Payments</th>
+						  <th>Card Payments</th>
+						  <th>No. of Passengers: Paid in Cash</th>
+						  <th>No. of Passengers: Paid with Card</th>
+						   <th>Taxi Trip Amount</th> -->
+						 
+					  <!-- </tr> -->
+					  <!-- <template x-for="taxi in routes">
+						  <tr> -->
+							  <!-- <td> <span  x-text="taxi.departure"></span></td>
 							  <td> <span  x-text="taxi.destination"></span> </td>
 							  <td>
 								<button class="button" @click="taxi.passengerCountUp()++"><i
@@ -214,7 +259,7 @@
 									<span x-text="taxi.count">      
 											
 									</span>
-									<button class="button" x-bind:disabled ="taxi.count <= 0"  @click="taxi.passengerCountDown()--"><i
+									<button class="button" x-bind:disabled = "taxi.count <= 0"  @click="taxi.passengerCountDown()--"><i
 										class="fa-solid fa-circle-minus"></i></button>
 									   </td>
 							  <td>
@@ -223,33 +268,33 @@
 									  <span x-text="taxi.count">      
 											  
 									  </span>
-									  <button class="button" x-bind:disabled="taxi.count <= 0"  @click="taxi.passengerCountDown()--"><i
+									  <button class="button" x-bind:disabled = "taxi.count <= 0"  @click="taxi.passengerCountDown()--"><i
 										  class="fa-solid fa-circle-minus"></i></button>
 										 </td>
 							  <td> 
 								
-									  <button class="button" x-bind:disabled ="taxi.count < 15"  @click="route.leaveRank()"><i
+									  <button class="button" x-bind:disabled = "taxi.count < 15"  @click="route.leaveRank()"><i
 										  class="leave">Leave</i></button>
 									  <span x-text="taxi.trips"></span>
 								 
-							  </td>
-							  <td> R<span x-text="taxi.price.toFixed(2)">0</span></td>
-							  <td> R<span x-text="taxi.totalFare().toFixed(2)">0</span></td>
+							  </td> -->
+							  <!-- <td> R<span x-text="taxi.price.toFixed(2)">0</span></td>
+							  <td> R<span x-text="taxi.totalFare().toFixed(2)">0</span></td> -->
 		  
-						  </tr>  
-					  </template>
-				  </table>
-				  </div> -->
+						  <!-- </tr>  
+					  </template> -->
+				  <!-- </table>
+				  </div> --> 
 			</div>
 			<div class="row">
 				<div class="field">
-					<label for="payment_method">How many passengers paid in cash?</label>
+					<!-- <label for="payment_method">How many passengers paid in cash?</label>
 					<input x-model="no_of_cashpaid_passenger" type="number" min="1" step="any">
-					<button @click="displayTotal()">Cash Total</button>
+					<button @click="displayTotal()">Cash Total</button> -->
 				</div>
-				Amount<span x-text="price"></span>
+				<!-- Amount<span x-text="price"></span> -->
 			</div>
-			<table>
+			<!-- <table>
 				<tr>
 					 <td><strong> Passengers on taxi:</strong></td>
 		
@@ -262,7 +307,7 @@
 		
 					</td>
 				</tr>
-			  </table>
+			  </table> -->
 		</div>
 
 		<div x-show="payment_screen" class="pay">

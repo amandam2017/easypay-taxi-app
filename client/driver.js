@@ -3,20 +3,35 @@ import axios from 'axios'
 const remote_url = import.meta.env.VITE_SERVER_URL
 const Driver = () => {
     return {
-        init(){
+        init() {
             this.displayTotal()
             // this.driver()
-
+            
         },
         routes: [],
         departures: [],
         destinations: [],
-        destination :'',
-        departure :'',
-        count: 0,
-        no_of_cashpaid_passenger:'',
-        price:'',
+        destination: '',
+        departure: '',
+        count : 0,
+        trips: 0,
+        fare_total: 0,
 
+
+        fullTaxi(){
+            this.count = this.count - 15
+            this.fare_total += this.price * 15
+            return this.trips ++
+        },
+        totalTrip(){
+            return this.fare_total
+        },
+        passengerIncrement() {
+            return this.count++
+        },
+        passengerDecrement() {
+            return this.count--
+        },
         driver() {
           const token = localStorage.getItem('access_key_driver')
             axios
@@ -32,6 +47,8 @@ const Driver = () => {
                     this.destinations = results.data.data;
                     this.departures = results.data.data;
                     this.routes = results.data.data
+                    // this.count = results.data.data
+
                     console.log(this.destinations);
 
                 })

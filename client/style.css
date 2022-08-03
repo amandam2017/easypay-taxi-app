@@ -80,7 +80,7 @@ li a:hover {
   padding: 8px;
 }
 
-#taxis tr:nth-child(even){background-color: #dd7230;}
+#taxis tr:nth-child(even){background-color: #023047; color: white;}
 
 /* #taxis tr:hover {background-color: #ddd;} */
 
@@ -91,7 +91,84 @@ li a:hover {
   background-color: #2e1f27;
   color: white;
 }
+/* Styling for Table Increments and Decrements */
+.button {
+  background-color: #03071e; 
+  border: none;
+  color: white;
+  padding: 5px 4px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  border-radius: 12em;
+  cursor: pointer;
+}
 
+/* STYLE FOR STATUS ON TABLE FOR PASSENGER ON ROUTE */
+div[data-length] {
+  margin-left: 25%;
+}
+
+/*The spanning bar.*/
+div[data-length]:before {
+  content: " ";
+  z-index: -1;
+  display: block;
+  position: absolute;
+  height: 8px;
+  top: 50%;
+  transform: translate(0,-50%);
+}
+
+/*The circle at the end of the spanning bar.*/
+div[data-length]:after {
+  content: " ";
+  z-index: 1;
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(0,-50%);
+  width: 2em;
+  height: 2em;
+  border: .4em solid #E4E4E7;
+  background: #E4E4E7;
+  border-radius: 100%;
+}
+
+/*Passed colour styles for the spanning bar.*/
+div.passed[data-length]:before {
+  background: #1AB394;
+  border-top: 2px solid #E4E4E7;
+  border-bottom: 2px solid #E4E4E7;
+}
+
+/*Passed colour styles for the circle at the end of the spanning bar.*/
+div.passed[data-length]:after {
+  background: #1AB394;
+}
+
+/*The bar that will span 10 table columns.*/
+div[data-length='10']:before {
+  width: calc(900% + 1em);
+}
+
+/*The circle at the end of the 10 spanning bar.*/
+div[data-length='10']:after {
+  left: calc(900% + 2em);
+}
+
+/*The bar that will span 3 table columns.*/
+div[data-length='3']:before {
+  width: calc(200% + 1em);
+}
+
+/*The circle at the end of the 3 spanning bar.*/
+div[data-length='3']:after {
+  left: calc(200% + 2em);
+}
 /* MAP STYLES ADDED BELOW */
 #map{
   width:75%;
