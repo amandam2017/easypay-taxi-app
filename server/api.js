@@ -129,6 +129,7 @@ const api = (app, db) => {
             });
         }
     });
+    
     app.post('/api/owner', async function (req, res) {
         try {
             const { reg_number, qty, owner_id } = req.body;
