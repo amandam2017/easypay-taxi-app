@@ -6,24 +6,25 @@ const Driver = () => {
         init() {
             this.displayTotal()
             // this.driver()
-            
+
         },
         routes: [],
         departures: [],
         destinations: [],
         destination: '',
         departure: '',
-        count : 0,
+        no_of_cashpaid_passenger: 0,
+        count: 0,
         trips: 0,
         fare_total: 0,
 
 
-        fullTaxi(){
+        fullTaxi() {
             this.count = this.count - 15
             this.fare_total += this.price * 15
-            return this.trips ++
+            return this.trips++
         },
-        totalTrip(){
+        totalTrip() {
             return this.fare_total
         },
         passengerIncrement() {
@@ -33,12 +34,12 @@ const Driver = () => {
             return this.count--
         },
         driver() {
-          const token = localStorage.getItem('access_key_driver')
+            const token = localStorage.getItem('access_key_driver')
             axios
                 .get(`${remote_url}/api/routes`, {
-                    headers:{
-                 "Authorization" : `Bearer ${token}`,   
-                }   
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                    }
                 })
                 .then(results => {
                     // console.log(this.departures = results.data.data2);
@@ -46,42 +47,38 @@ const Driver = () => {
 
                     this.destinations = results.data.data;
                     this.departures = results.data.data;
-                    this.routes = results.data.data
+                    
                     // this.count = results.data.data
 
-                    console.log(this.destinations);
+                    // console.log(this.destinations);
 
                 })
 
                 .catch(error => console.error(error))
         },
-        passengerIncrement() {
-            return this.count++
-        },
-        passengerDecrement() {
-            return this.count--
-        },
-        
-        displayTotal(){
+
+        displayTotal() {
             const token = localStorage.getItem('access_key_driver')
             axios.post(`${remote_url}/api/driver`,
-            {
-            //  headers: {
-                // "Authorization" : `Bearer ${token}`,
-                departure:this.departure,
-                destination:this.destination,
-                no_of_cashpaid_passenger:this.no_of_cashpaid_passenger
-            //   }
-            })
-            .then(result =>{
-                console.log(result.data);
-                this.price = result.data.price.price * this.no_of_cashpaid_passenger          
-
-            })
+                {
+                    //  headers: {
+                    // "Authorization" : `Bearer ${token}`,
+                    departure: this.departure,
+                    destination: this.destination,
+                    no_of_cashpaid_passenger: this.no_of_cashpaid_passenger
+                    
+                    //   }
+                })
+                .then(result => {
+                    console.log(result.data);
+                    this.price = result.data.price.price * this.no_of_cashpaid_passenger
+                    this.routes = result.data.price
+                    console.log(this.routes + "hsifgigfakshfoi");
+                })
 
         }
     }
-    
+
 }
 
 

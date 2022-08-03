@@ -200,10 +200,13 @@
 				</div>
 				<div class="field">
 					<div class="row ui form">
-						<div class="display_amount three fields">
+						<div class="display_amount one field">
 							<div class="field">
 								You are in <p x-text="departure"></p>Going to <p x-text="destination"></p>
 							</div>
+						</div>
+						<div class="display_amount two fields">
+
 							<div class="field">
 								<label for="payment_method">How many passengers paid in cash?</label>
 								<input x-model="no_of_cashpaid_passenger" type="number" min="1" step="any">
@@ -212,8 +215,21 @@
 								<button @click="displayTotal()">Cash Total</button>
 							</div>
 							Expected Cash Amount:<span x-text="price"></span>
-		
+
 						</div>
+						<div class="display_card_amount two fields">
+
+							<div class="field">
+								<label for="payment_method">Number of Passengers who paid electronically</label>
+								<input x-model="no_of_cashpaid_passenger" type="number" min="1" step="any">
+							</div>
+							<div class="field">
+								<button @click="">Electronic Total</button>
+							</div>
+							Expected Card Amount:<span x-text="price"></span>
+
+						</div>
+		
 					</div>
 					<table id="taxis">
 					  <tr>
@@ -247,7 +263,6 @@
 							  </td>
 							  <td> R<span x-text="taxi.price.toFixed(2)"></span></td>
 							  <td> R<span x-text="totalTrip().toFixed(2)"></span></td>
-							  
 							</tr>  
 						</template>
 				  </table>
