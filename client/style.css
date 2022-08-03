@@ -171,14 +171,19 @@ div[data-length='3']:after {
 }
 /* MAP STYLES ADDED BELOW */
 #map{
-  width:75%;
+  width: 90%;
+  margin: 75px auto;
   height: 400px;
   position: absolute;
   background-repeat: no-repeat;
 }
 
 .passenger, .driver{
-  border: 1px solid;
+  border: 3px solid;
+  padding: 25px;
+  /* width: 70%; */
+  margin: auto;
+  text-align: center;
 }
 
 /* payment styles */
@@ -262,6 +267,17 @@ span.price {
   .col-25 {
     margin-bottom: 20px;
   }
+}
+
+p{
+  font-size: 18px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 600;
+  color: darksalmon;
+}
+
+.display_amount{
+  margin-top: 50px;
 }
 
 

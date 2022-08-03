@@ -109,47 +109,58 @@
 			</div>
 		</div>
 
-		<div x-show="passenger_screen" class="row passenger">
-            <h1>passenger screen</h1>
-            <h2>Taxis on Route: <span x-text="taxis.length"></span></h2>
-            <div class="two fields">
-              <div class="field">
-                <label for="Select departure">Select departute:</label>
-                <select x-model="departure">
-                  <template x-for="taxi in departures">
-                    <option :value="taxi.departure" x-text="taxi.departure"></option>
-                  </template>
-                </select>
-              </div>
-              <div class="field">
-                <label for="Select destination">Select destination:</label>
-                <select x-model="destination">
-                  <template x-for="taxi in destinations">
-                    <option :value="taxi.destination" x-text="taxi.destination"></option>
-                  </template>
-                </select>
-              </div>
-              <div class="field">
-                You are in <h1 x-text="departure"></h1>Going to <h1 x-text="destination"></h1>
-              </div>
-            </div>
-            <button @click="findTaxiByRoute()" class="ui secondary button">Search</button>
-			<div class="field">
-			Taxi fare: R<span x-text="price">00.00</span>
-				
+		<div x-show="passenger_screen" class="row ui form passenger">
+            <!-- <h1>passenger screen</h1> -->
+			<div>
+				<p class="header" x-text="feedback_message"></p>
 			</div>
-            <template x-for="taxi in taxis">
-              <div class="card four fields card-md-6 shadow text-center" style="width: 18rem;">
-                <div class="field inner">
-                  <img :src="`./images/${taxi.img}`" class="card-img-top" alt="...">
-                </div>
-                <!-- <ul class="list-group-item"><span class="card-text" x-text="taxi.img"></span></ul> -->
-                <div class="field list-group-item">Taxi will be departing from: <span class="card-text" x-text="taxi.departure"></span></div>
-                <div class="field list-group-item">Your destination is: <span class="card-text" x-text="taxi.destination"></span></div>
-                <div class="field list-group-item">Price: R<span class="card-text" x-text="taxi.price"></span></div>
-                <div class="field list-group-item">Taxi Registration Number: <span class="card-text" x-text="taxi.reg_number"></span></div>
-              </div>
-            </template>
+            <h2 class="header">Taxis on Route: <span x-text="taxis.length"></span></h2>
+            <div class="two fields">
+				<div class="field">
+					<label for="Select departure">Select departute:</label>
+					<select x-model="departure">
+						<template x-for="taxi in departures">
+							<option :value="taxi.departure" x-text="taxi.departure"></option>
+						</template>
+					</select>
+				</div>
+				<div class="field">
+					<label for="Select destination">Select destination:</label>
+					<select x-model="destination">
+						<template x-for="taxi in destinations">
+							<option :value="taxi.destination" x-text="taxi.destination"></option>
+						</template>
+					</select>
+				</div>
+			</div>
+
+			<div class="two fields">
+				<div class="field">
+					You are in <p x-text="departure"></p>
+				</div>
+				<div class="field">
+					Going to<p x-text="destination"></p>
+				</div>
+				<div class="field">
+					<button @click="findTaxiByRoute()" class="ui secondary button">Search</button>
+					<div class="field">
+						Taxi fare: R<span x-text="price">00.00</span>	
+					</div>
+					<template x-for="taxi in taxis">
+						<div class="card four fields card-md-6 shadow text-center" style="width: 18rem;">
+						  <div class="field inner">
+							<img :src="`./images/${taxi.img}`" class="card-img-top" alt="...">
+						  </div>
+						  <!-- <ul class="list-group-item"><span class="card-text" x-text="taxi.img"></span></ul> -->
+						  <div class="field list-group-item">Taxi will be departing from: <span class="card-text" x-text="taxi.departure"></span></div>
+						  <div class="field list-group-item">Your destination is: <span class="card-text" x-text="taxi.destination"></span></div>
+						  <div class="field list-group-item">Price: R<span class="card-text" x-text="taxi.price"></span></div>
+						  <div class="field list-group-item">Taxi Registration Number: <span class="card-text" x-text="taxi.reg_number"></span></div>
+						</div>
+					  </template>
+				</div>
+
+			</div>
             <br>
             <div>
                 <button class="ui secondary button" @click="payment_screen=true,landing=false,passenger_screen=false">Make Payment</button>
@@ -164,14 +175,12 @@
               </div> -->
           </div>
 	
-		<div x-show="driver_screen" class="driver">
+		<div x-show="driver_screen" class="row driver">
 			<div>
-				<span x-text="feedback_message"></span>
-			<span x-text="access_token"></span>
-				<button class="ui secondary button" @click="logout()">Logout</button>
+				<p class="header" x-text="feedback_message"></p>
 			</div>
-			<div class="row">
-				<div class="three fields">
+			<div class="row ui form">
+				<div class="two fields">
 					<div class="field">
 						<label for="Select departure">Select departute:</label>
 						<select x-model="departure">
@@ -189,19 +198,10 @@
 						</select>
 					</div>
 				</div>
-
-				<div class="field">
-					You are in <h1 x-text="departure"></h1>Going to <h1 x-text="destination"></h1>
-				</div>
-				<!-- <button class="button" @click="passengerIncrement()">+<i
-					class="fa-solid fa-circle-plus"></i></button>
-					<span x-text="count">      
-							
-					</span>
-					<button class="button" x-bind:disabled = "count <= 0"  @click="passengerDecrement()">-<i
-						class="fa-solid fa-circle-minus"></i></button> -->
-				<div class="field">
 				
+				
+
+				<!-- <div class="field">
 					<table id="taxis">
 					  <tr>
 						  <th>Passengers in Taxi</th>
@@ -286,33 +286,42 @@
 				  <!-- </table>
 				  </div> --> 
 			</div>
-			<div class="row">
-				<div class="field">
-					<!-- <label for="payment_method">How many passengers paid in cash?</label>
-					<input x-model="no_of_cashpaid_passenger" type="number" min="1" step="any">
-					<button @click="displayTotal()">Cash Total</button> -->
+			<div class="row ui form">
+				<div class="display_amount three fields">
+					<div class="field">
+						You are in <p x-text="departure"></p>Going to <p x-text="destination"></p>
+					</div>
+					<div class="field">
+						<label for="payment_method">How many passengers paid in cash?</label>
+						<input x-model="no_of_cashpaid_passenger" type="number" min="1" step="any">
+					</div>
+					<div class="field">
+						<button @click="displayTotal()">Cash Total</button>
+					</div>
+					Expected Cash Amount:<span x-text="price"></span>
+
 				</div>
-				<!-- Amount<span x-text="price"></span> -->
 			</div>
 			<!-- <table>
 				<tr>
-					 <td><strong> Passengers on taxi:</strong></td>
-		
+					<td><strong> Passengers on taxi:</strong></td>
+					
 					<td><span class="" x-text="passengers"><strong>0</strong></span>
 					</td>
 					<td>
 						<button @click="passengers--">-</button>
 						<button @click="passengers++">+</button>
-		
-		
+						
+						
 					</td>
 				</tr>
-			  </table> -->
+			</table>
+			<button class="ui secondary button" @click="logout()">Logout</button>
 		</div>
 
 		<div x-show="payment_screen" class="pay">
 			<span x-text="error_message" class="feedback_message"></span>
-			<!-- <span x-text="feedback_message" class="feedback_message"></span> -->
+			 <span x-text="feedback_message" class="feedback_message"></span> -->
 			<h2>card payment method</h2>
 			<div class="row">
 			  <div class="col-75">
@@ -363,11 +372,12 @@
 		  </div>
 		  <div x-show="success_pay" class="success_pay">
 			<div class="landing center-text">
-				<h1 x-text="passenger_name"></h1>
+				Thank you for the payment <p x-text="passenger_name"></p>
 			</div>
 			<div class="landing center-text">
-				<img src="./images/payment.png" alt="..." class="center ui medium image">
+				<img src="./public/images/Payment.png" alt="..." class="center ui medium image">
 			</div>
+			<button class="ui secondary button" @click="logout()">Logout</button>
 		  </div>
 		<!-- </div> -->
 	</div>

@@ -6,6 +6,12 @@ const Login = ()=>{
     return{
 
         init(){
+            if(localStorage == undefined) {
+                this.hideRegister()
+            }else{
+                this.access_token = localStorage.getItem('access_key_driver')
+                this.hidelanding()
+            }
              
             // this.logging()
             // if(localStorage['access_key_driver'] !== undefined) {
@@ -20,6 +26,7 @@ const Login = ()=>{
             // }
 
         },
+
         landing:true, 
         user:{
             
@@ -45,6 +52,11 @@ const Login = ()=>{
           hideRegister() {
             this.loggedin = true
             this.register = false
+            this.landing = false
+          },
+
+          hidelanding(){
+            this.driver_screen = true
             this.landing = false
           },
 
