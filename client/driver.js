@@ -37,9 +37,9 @@ const Driver = () => {
             const token = localStorage.getItem('access_key_driver')
             axios
                 .get(`${remote_url}/api/routes`, {
-                    headers: {
-                        "Authorization": `Bearer ${token}`,
-                    }
+                   // headers: {
+                        //"Authorization": `Bearer ${token}`,
+                   // }
                 })
                 .then(results => {
                     // console.log(this.departures = results.data.data2);
