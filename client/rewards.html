@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Rewards</title>
+</head>
+
+<body>
+    <div x-data="taxisapis"
+        x-init="$watch('rewardsRecieved', (value) => document.body.classList.toggle('overflow-hidden', value))"
+        @keydown.escape="rewardsRecieved = false">
+
+        <h1>Card Payment Rewards</h1>
+
+        <div id="modalTarget"></div>
+        <button @click="rewardsRecieved = !rewardsRecieved" class="p-3 text-white bg-black rounded-lg">
+            See Cashback Rewards
+        </button>
+
+        <template x-teleport="#modalTarget">
+            <div x-show="rewardsRecieved" x-transition.opacity class="fixed inset-0 bg-black/25"></div>
+        </template>
+
+        <template x-teleport="#modalTarget">
+            <div x-show="rewardsRecieved" x-transition class="fixed inset-0 z-50 flex items-center justify-center">
+                <div @click.away="rewardsRecieved = false"
+                    class="w-screen max-w-xl p-8 mx-auto overflow-scroll bg-white rounded-lg h-96">
+                    <div class="coupon">
+                        <div class="cashback">
+                            <h3>EASYPAY TAXI</h3>
+                        </div>
+                        <img src="./public/images/coupon.png" alt="Avatar" style="width:100%;">
+                        <div class="cashback" style="text-decoration: #03071e">
+                            <h2><b>3% OFF </b></h2>
+                            <h5>For all the passengers who paid using EasyPay App. Coupon is valid for food, petrol and
+                                making sure the taxi gets serviced every month</h5>
+                        </div>
+                        <div class="cashback">
+                            <h4>Use Promo Code: <span class="promo">BOH232</span></h4>
+                            <h3 class="expire">Expires: Jan 03, 2023</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+
+
+    <div>
+        <!-- <div class="coupon">
+            <div class="cashback">
+              <h3>EASYPAY TAXI</h3>
+            </div>
+            <img src="./public/images/coupon.png" alt="Avatar" style="width:100%;">
+            <div class="cashback" style="text-decoration: #03071e">
+              <h2><b>3% OFF </b></h2> 
+              <h5>For all the passengers who paid using EasyPay App. Coupon is valid for food, petrol and making sure the taxi gets serviced every month</h5>
+            </div>
+            <div class="cashback">
+              <h4>Use Promo Code: <span class="promo">BOH232</span></h4>
+              <h3 class="expire">Expires: Jan 03, 2023</h3>
+            </div>
+          </div> -->
+    </div>
+    <script type="module" src="/main.js"></script>
+</body>
+
+</html>

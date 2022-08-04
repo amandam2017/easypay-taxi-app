@@ -21,7 +21,7 @@ const Driver = () => {
         trips: 0,
         fare_total: 0,
         eftcount:0,
-
+        rewardsRecieved: false,
 
         fullTaxi() {
             this.count = this.count - 15
@@ -43,8 +43,9 @@ const Driver = () => {
             return this.eftcount++
         },
         electronic_payment(){
-       return this.cardprice= this.eftcount * this.price
-       //return this.count=this.count + this.eftcount
+        this.cardprice= Number(this.eftcount) * this.price
+        console.log(this.count);
+         this.count = Number(this.eftcount) 
         },
 // cash_payment(){
 //     return this.cashprice= this.no_of_cashpaid_passenger * this.price
@@ -93,9 +94,9 @@ const Driver = () => {
                     this.cashprice = result.data.price.price * this.no_of_cashpaid_passenger
                     this.routes = result.data.trips
                     this.reg_number = result.data.data.reg_number
-                    this.count = (this.count + this.no_of_cashpaid_passenger)
-
-                    // console.log(this.reg_number + "reg number");
+                    this.count = Number(this.eftcount) + Number(this.no_of_cashpaid_passenger)
+                    
+                    console.log(this.cashprice , this.no_of_cashpaid_passenger + "reg number");
                     // console.log(this.routes + "hsifgigfakshfoi");
                 })
 

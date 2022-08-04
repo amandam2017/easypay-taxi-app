@@ -137,6 +137,33 @@ div[data-length]:after {
   background: #E4E4E7;
   border-radius: 100%;
 }
+/* STYLE FOR REWARDS CASH BACK COUPON */
+
+.coupon {
+  border: 5px dotted #bbb;
+  width: 80%;
+  border-radius: 15px;
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.cashback {
+  padding: 2px 16px;
+  background-color: #f1f1f1;
+  text-decoration: #03071e;
+}
+
+.promo {
+  background: #ccc;
+  padding: 3px;
+  text-decoration: #03071e
+}
+h4{
+  color: green;
+}
+.expire {
+  color: red;
+}
 
 /*Passed colour styles for the spanning bar.*/
 div.passed[data-length]:before {
@@ -279,6 +306,7 @@ p{
 .display_amount{
   margin-top: 50px;
 }
+
 
 
 
