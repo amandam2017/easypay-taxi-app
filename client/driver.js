@@ -30,7 +30,7 @@ const Driver = () => {
         },
        
         totalTrip() {
-            return this.fare_total += this.cashprice
+            return this.cardprice +this.cashprice
         },
 
         passengerIncrement() {
@@ -39,9 +39,12 @@ const Driver = () => {
         passengerDecrement() {
             return this.count--
         },
+        passengerIncre(){
+            return this.eftcount++
+        },
         electronic_payment(){
-        this.cardprice= this.eftcount * this.price
-       return this.count=this.count + this.eftcount
+       return this.cardprice= this.eftcount * this.price
+       //return this.count=this.count + this.eftcount
         },
 // cash_payment(){
 //     return this.cashprice= this.no_of_cashpaid_passenger * this.price
