@@ -42,6 +42,7 @@ const Login = ()=>{
         passenger_screen: false,
         payment_screen:false,
         access_token:null,
+        success_pay: false,
 
         hideLogin() {
             this.loggedin = false
@@ -157,6 +158,7 @@ const Login = ()=>{
         this.register = false
         this.driver_screen = false,
         this.passenger_screen = false,
+        this.success_pay=false,
         this.landing = true
 
   

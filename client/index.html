@@ -148,7 +148,7 @@
 						Taxi fare: R<span x-text="price">00.00</span>	
 					</div>
 					<template x-for="taxi in taxis">
-						<div class="card four fields card-md-6 shadow text-center" style="width: 18rem;">
+						<div>
 						  <div class="field inner">
 							<img :src="`./images/${taxi.img}`" class="card-img-top" alt="...">
 						  </div>
@@ -159,6 +159,7 @@
 						  <div class="field list-group-item">Taxi Registration Number: <span class="card-text" x-text="taxi.reg_number"></span></div>
 						</div>
 					  </template>
+
 				</div>
 
 			</div>
@@ -220,19 +221,19 @@
 							<div class="field">
 								<button @click="displayTotal()">Cash Total</button>
 							</div>
-							Expected Cash Amount:<span x-text="price"></span>
+							Expected Cash Amount:<span x-text="cashprice"></span>
 
 						</div>
 						<div class="display_card_amount two fields">
 
 							<div class="field">
 								<label for="cardpayment_method">Number of Passengers who paid electronically</label>
-								<!-- <input x-model="electronic_payment" type="number" min="1" step="any"> -->
+							<span x-text="eftcount"></span> 
 							</div>
 							<div class="field">
-								<button @click="">Electronic Total</button>
+								<button @click="electronic_payment()">Electronic Total</button>
 							</div>
-							Expected Card Amount:<span x-text="price"></span>
+							Expected Card Amount:<span x-text="cardprice"></span>
 
 						</div>
 		
@@ -313,7 +314,7 @@
 						</div>
 					  </div>
 					</div>
-					<button @click="payhere()" class="ui secondary button">payment</button>
+					<button @click="payhere(),passengerIncrement()" class="ui secondary button">payment</button>
 					<!-- <input type="submit" value="checkout" class="btn"> -->
 				  <!-- </form> -->
 				</div>

@@ -107,6 +107,7 @@ const api = (app, db) => {
                 return taxi.departure === departure && taxi.destination === destination
             });
             const price = await db.oneOrNone(`select price from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
+           const storeprice=[] 
             res.json({
                 data: destination_taxis, price
             });
@@ -151,8 +152,8 @@ const api = (app, db) => {
         try {
             const { no_of_cashpaid_passenger } = req.body
             const { departure, destination } = req.body;
+            const { reg_number } = req.body;
             const Routes = await db.oneOrNone(`select reg_number from routes WHERE departure = $1 AND destination = $2 `, [departure, destination])
-            // const all = await db.manyOrNone('select * from routes')
             const TaxiData = await db.manyOrNone(`select reg_number from taxi_data`)
             const trips = await db.manyOrNone(`select price,count, total_fare, trips_taken from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
             const price = await db.oneOrNone(`select price from routes WHERE departure = $1 AND destination = $2`, [departure, destination])

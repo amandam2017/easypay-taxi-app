@@ -15,9 +15,12 @@ const Driver = () => {
         departure: '',
         reg_number: '',
         no_of_cashpaid_passenger: '',
+        cardprice:'',
+        cashprice:'',
         count: 0,
         trips: 0,
         fare_total: 0,
+        eftcount:0,
 
 
         fullTaxi() {
@@ -25,15 +28,25 @@ const Driver = () => {
             // this.fare_total += this.price * 15
             return this.trips++
         },
+       
         totalTrip() {
-            return this.fare_total += this.price
+            return this.fare_total += this.cashprice
         },
+
         passengerIncrement() {
             return this.count++
         },
         passengerDecrement() {
             return this.count--
         },
+        electronic_payment(){
+        this.cardprice= this.eftcount * this.price
+       return this.count=this.count + this.eftcount
+        },
+// cash_payment(){
+//     return this.cashprice= this.no_of_cashpaid_passenger * this.price
+// },
+
         driver() {
             const token = localStorage.getItem('access_key_driver')
             axios
@@ -74,9 +87,11 @@ const Driver = () => {
                 .then(result => {
                     console.log(result.data);
                     console.log(result.data.data.reg_number);
-                    this.price = result.data.price.price * this.no_of_cashpaid_passenger
+                    this.cashprice = result.data.price.price * this.no_of_cashpaid_passenger
                     this.routes = result.data.trips
                     this.reg_number = result.data.data.reg_number
+                    this.count = (this.count + this.no_of_cashpaid_passenger)
+
                     // console.log(this.reg_number + "reg number");
                     // console.log(this.routes + "hsifgigfakshfoi");
                 })

@@ -34,7 +34,7 @@ const Routes = () => {
                 })
                 .then(result => {
                     console.log(result.data.data);
-                    console.log(result.data.price);
+                    console.log(result.data.data);
                     this.taxis = result.data.data
                     this.price = result.data.price.price
 
