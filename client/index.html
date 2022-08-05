@@ -250,14 +250,12 @@
 					  <template x-for="taxi in routes">
 						  <tr>
 							  <td>
-								<button class="button" @click="passengerIncrement()">+<i
-									class="fa-solid fa-circle-plus"></i></button>
+
 									<span x-text="count">      
 											
 									</span>
 								
-									<button class="button" x-bind:disabled = "count <= 0"  @click="passengerDecrement()">-<i
-										class="fa-solid fa-circle-minus"></i></button>
+									
 									   </td>
 							  <td>
 								<div onclick="return false" colspan="4" class="text-center">Pending</div>
@@ -381,6 +379,52 @@
 				</div>
 			</template>
 		  </div>
+		  <!-- OWNERS SCREEN -->
+		  <div x-show="owner_screen" class="row ui form owner">
+            <div>
+                <h1 class="ui header">Owner Screen</h1>
+                <p class="header" x-text="feedback_message"></p>
+            </div>
+            <div class="fields_container">
+                <div class="three fields">
+                    <div class="field">
+                        <button class="ui secondary button" @click="registerTaxi()">Register Your taxi</button>
+                    </div>
+                    <div class="field">
+                        <button class="ui secondary button" @click="viewTaxis(),get_drivers()">View Your taxis</button>
+                    </div>
+                </div>
+                <div class="row" x-show="drivers_profile">
+                    <h4>View My taxis</h4>
+                    <a href="#" >Name</a>Reg_Number
+                    <a href="#" >Name</a>Reg_Number
+                    <a href="#" >Name</a>Reg_Number
+                </div>
+                <div class="row" x-show="drivers_profile">
+                    <a href="#" >View Driver's profile</a>
+                </div>
+                    <div class="row" x-show="register_taxis">
+                        <span x-text="error_message" class="feedback_message"></span>
+                        <div class="ui form">
+                            <div class="three fields">
+                                <div class="field">
+                                    <label for="">Registration Number</label>
+                                    <input type="text" x-model="taxi_data.taxi_reg">
+                                </div>
+                                <div class="field">
+                                    <label for="">Passenger Capacity</label>
+                                    <input type="password" x-model="taxi_data.qty">
+                                </div>
+                                <div class="field">
+                                    <label for="">Owner ID</label>
+                                    <input type="text" x-model="taxi_data.owners_id">
+                                </div>
+                            </div>
+                            <button class="ui secondary button">SEND</button>
+                        </div>
+                    </div>
+            </div>
+            </div>
 		
 	</div>
 	<script type="module" src="/main.js"></script>

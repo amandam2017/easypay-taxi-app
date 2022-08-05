@@ -131,22 +131,107 @@ const api = (app, db) => {
             });
         }
     });
-    
-    app.post('/api/owner', async function (req, res) {
+
+    app.post(`/api/registeredtaxis`, async (req, res)=>{
+
+        const {reg_number, qty, owner_id} = req.body
+        const registered = await db.oneOrNone('insert into taxi_data (reg_number, qty, owner_id) values($1,$2,$3)',[reg_number,qty,owner_id]);
+        res.json({
+            data:registered
+        })
+
+    })
+
+    app.post(`/api/linkdrivers`, async (req, res)=>{
+
+        
         try {
-            const { reg_number, qty, owner_id } = req.body;
-            await db.none('insert into taxi_data( reg_number,qty,owner_id) values($1,$2,$3)', [reg_number, qty, owner_id]);
-            res.json({
-                status: 'success'
+            const { user_id, taxi_id } = req.body;
+            const sql = 'insert into drivers (user_id, taxi_id) values($1, $2)';
+            await db.none(sql, [user_id, taxi_id]);
+
+            res.status(200)
+            .json({
+                message: 'Allocated taxi to driver :-)'
             })
-        } catch (err) {
-            console.log(err);
-            res.json({
-                status: 'error',
-                error: err.message
+            
+        } catch (error) {
+            res.status(500)
+            .json({
+                message: error.message
             })
         }
-    });
+        
+    })
+    
+    const getTaxiOwnerById = async (id) =>  {
+        const user = await db.oneOrNone(`select * from users where role = 'Owner' AND id = $1`, [id]);
+        return user;
+    }
+
+    const getUserById = async (id) =>  {
+        const user = await db.oneOrNone(`select * from users where id = $1`, [id]);
+        return user;
+    }
+    
+
+    const getDriversByTaxiId = async (id) => await db.oneOrNone('select * from drivers join users on drivers.user_id = users.id where taxi_id = $1', [id])
+        
+
+    const getTaxisByOwnerId = async (id) =>  {
+        const taxis = await db.manyOrNone(`select * from taxi_data where owner_id = $1`, [id]);
+        return taxis;
+    }
+
+    const getDriversByOwnerId = async (id) =>  {
+        const taxis = await getTaxisByOwnerId(id);
+        if(!taxis){
+            return []
+        }
+        const driversResults = taxis.map(async (taxi) => {
+            const driver = await getDriversByTaxiId(taxi.id);
+
+            
+            return {
+                ...driver,
+                taxi
+            }
+        });
+        
+        const drivers = await Promise.all(driversResults);
+        console.log(drivers);
+        return drivers;
+    }
+    
+
+         
+
+    app.get('/api/owner/:id', async (req, res) => {
+
+        const { id } = req.params; // user id
+
+        // list of taxis and drivers connected to driver
+        const owner = await getTaxiOwnerById(id);
+        const taxis = await getTaxisByOwnerId(id);
+        const drivers = await getDriversByOwnerId(id)
+
+
+        res.status(200)
+            .json({
+                owner,
+                taxis,
+                drivers
+            })
+
+    })
+
+
+
+
+
+
+
+    
 
     app.post('/api/driver', async function (req, res) {
         try {
