@@ -67,7 +67,7 @@ create table payment_receipt(
     taxi_trip_id int not null,
     amount int not null default 0,
     payment_type text,
-    foreign key(taxi_trip_id) references taxi_trip(id),
+    foreign key(taxi_trip_id) references taxi_trips(id),
     foreign key(user_id) references users(id)
 
 );

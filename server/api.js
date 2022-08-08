@@ -131,11 +131,33 @@ const api = (app, db) => {
             });
         }
     });
+    app.post(`/api/trips`, async (req, res)=>{
+
+        
+        try {
+            const { route_id, taxi_id,passenger_count} = req.body;
+            const this_trip  = await db.oneOrNone('insert into taxi_trips (route_id, taxi_id,passenger_count) values($1,$2,$3)',[route_id, taxi_id,passenger_count]);
+
+            res.status(200)
+            .json({
+                message: 'trip is taken',
+                data:this_trip
+            })
+            
+        } catch (error) {
+            res.status(500)
+            .json({
+                message: error.message
+            })
+        }
+           
+    })
 
     app.post(`/api/registeredtaxis`, async (req, res)=>{
 
         const {reg_number, qty, owner_id} = req.body
         const registered = await db.oneOrNone('insert into taxi_data (reg_number, qty, owner_id) values($1,$2,$3)',[reg_number,qty,owner_id]);
+        console.log(registered);
         res.json({
             data:registered
         })
@@ -224,14 +246,6 @@ const api = (app, db) => {
             })
 
     })
-
-
-
-
-
-
-
-    
 
     app.post('/api/driver', async function (req, res) {
         try {

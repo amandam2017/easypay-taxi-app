@@ -2,23 +2,29 @@ import axios from 'axios'
 const remote_url=import.meta.env.VITE_SERVER_URL
 const Owner = ()=>{
     return{
-        owner_screen: true,
+        owner_screen: false,
         register_taxis: false,
         taxi_data:{
-            taxi_reg:'',
+            reg_number:'',
             qty:'',
-            owners_id:''
+            owner_id:'',
+            feedback_message:'',
+        error_message: '',
         },
         drivers_profile:'',
-        init(){
+        init(){get_drivers()
         },
         get_drivers(){
             axios
-            .get(`${remote_url}/api/owner`,{
+            .post(`${remote_url}/api/registeredtaxis`,{
             })
             .then(results=>{
+               // data:registered
                 console.log(results.data);
-                console.log(results.data.data.username);
+                console.log(results.data.data);
+            })
+            .then(()=>{
+                this.feedback_message='taxi has been registered to the owner'
             })
         },
         registerTaxi(){

@@ -43,6 +43,8 @@ const Login = ()=>{
         payment_screen:false,
         access_token:null,
         success_pay: false,
+        owner_screen :false,
+        
 
         hideLogin() {
             this.loggedin = false
@@ -117,8 +119,6 @@ const Login = ()=>{
                     console.log('token?? '+this.access_token);
                     localStorage.setItem('access_key_pass', this.access_token)
                     localStorage.setItem('user_name', results.data.message)
-
-                    // .then(()=>{
                         this.passenger_screen = true
                         
                         this.driver_screen = false,
@@ -138,7 +138,19 @@ const Login = ()=>{
                     this.feedback_message = `${results.data.message} is logged in`
     
                 }
-            // }
+            // } 
+            if(results.data.role == 'Owner'){
+                localStorage.setItem('user_name', results.data.message)
+                this.passenger_screen = false,
+                this.driver_screen = false,
+                this.loggedin = false,
+                this.landing = false,
+                this.owner_screen = true,
+                this.access_token = results.data.token,
+                //localStorage.setItem('access_key_driver', this.access_token)
+                this.feedback_message = `${results.data.message} is logged in`
+
+            }
 
             
 

@@ -391,7 +391,7 @@
                         <button class="ui secondary button" @click="registerTaxi()">Register Your taxi</button>
                     </div>
                     <div class="field">
-                        <button class="ui secondary button" @click="viewTaxis(),get_drivers()">View Your taxis</button>
+                        <button class="ui secondary button" @click="viewTaxis()">View Your taxis</button>
                     </div>
                 </div>
                 <div class="row" x-show="drivers_profile">
@@ -409,18 +409,18 @@
                             <div class="three fields">
                                 <div class="field">
                                     <label for="">Registration Number</label>
-                                    <input type="text" x-model="taxi_data.taxi_reg">
+                                    <input type="text" x-model="taxi_data.reg_number">
                                 </div>
                                 <div class="field">
                                     <label for="">Passenger Capacity</label>
-                                    <input type="password" x-model="taxi_data.qty">
+                                    <input type="number" x-model="taxi_data.qty">
                                 </div>
                                 <div class="field">
                                     <label for="">Owner ID</label>
-                                    <input type="text" x-model="taxi_data.owners_id">
+                                    <input type="text" x-model="taxi_data.owner_id">
                                 </div>
                             </div>
-                            <button class="ui secondary button">SEND</button>
+                            <button class="ui secondary button" @click="get_drivers()">SEND</button>
                         </div>
                     </div>
             </div>
