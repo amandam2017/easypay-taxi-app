@@ -6,9 +6,12 @@ const Owner = () => {
         register_taxis: false,
         reg_number: '',
         qty: '',
-        owner_id: '',
+        owner_id:'',
         feedback_message: '',
         error_message: '',
+        owners_taxis:'',
+        owners_drivers:'',
+        info:'',
 
         drivers_profile: '',
         init() {
@@ -24,7 +27,7 @@ const Owner = () => {
                 .then(results => {
                     // data:registered
                     console.log(results.data);
-                    console.log(results.data.data);
+                    
                 })
                 .then(() => {
                     this.feedback_message = 'taxi has been registered to the owner'
@@ -40,8 +43,13 @@ const Owner = () => {
                 
             })
             .then(results=>{
-                console.log(results.data);
+                //console.log(results.data);
                 console.log(this.owner_id);
+                console.log(results.data.drivers);
+        this.owners_taxis=results.data.taxis
+       this.owners_drivers =results.data.drivers
+       //const mytaxis=results.data.taxis
+                //this.owners_taxis=Object.keys(mytaxis).map((taxi))
             })
             this.drivers_profile = true,
                 this.register_taxis = false

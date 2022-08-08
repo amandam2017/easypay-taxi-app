@@ -23,6 +23,7 @@ create table taxi_trips(
     route_id int not null,
     taxi_id int not null,
     passenger_count int not null,
+    total_fare int not null,
     foreign key(taxi_id) references taxi_data(id),
     foreign key(route_id) references routes(id)
 );
@@ -45,7 +46,7 @@ create table routes(
     departure text not null,
     destination text not null,
     -- count int not null,
-    total_fare int not null,
+    
     foreign key(taxi_id) references taxi_data(id)
     -- trips_taken int not null
 );
