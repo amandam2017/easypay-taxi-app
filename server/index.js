@@ -43,7 +43,7 @@ const config = {
 
 API(app, db);
 
-const PORT = process.env.PORT || 2000;
+const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, function () {
 	console.log(`App started on port ${PORT}`)

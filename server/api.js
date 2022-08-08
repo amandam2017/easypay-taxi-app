@@ -156,7 +156,7 @@ const api = (app, db) => {
     app.post(`/api/registeredtaxis`, async (req, res)=>{
 
         const {reg_number, qty, owner_id} = req.body
-        const registered = await db.oneOrNone('insert into taxi_data (reg_number, qty, owner_id) values($1,$2,$3)',[reg_number,qty,owner_id]);
+        const registered = await db.oneOrNone('insert into taxi_data (reg_number, qty, owner_id) values($1,$2,$3) returning *',[reg_number,qty,owner_id]);
         console.log(registered);
         res.json({
             data:registered
@@ -197,7 +197,7 @@ const api = (app, db) => {
     }
     
 
-    const getDriversByTaxiId = async (id) => await db.oneOrNone('select * from drivers join users on drivers.user_id = users.id where taxi_id = $1', [id])
+    const getDriversByTaxiId = async (id) => await db.manyOrNone('select * from drivers join users on drivers.user_id = users.id where taxi_id = $1', [id])
         
 
     const getTaxisByOwnerId = async (id) =>  {
@@ -240,9 +240,8 @@ const api = (app, db) => {
 
         res.status(200)
             .json({
-                owner,
-                taxis,
-                drivers
+                data: owner,taxis,drivers
+               
             })
 
     })

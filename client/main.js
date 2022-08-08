@@ -9,9 +9,9 @@ import './driver'
 import './map'
 
 import Taxi from './app'
-import persist from '@alpinejs/persist'
+// import persist from '@alpinejs/persist'
 
 window.Alpine = Alpine
-Alpine.plugin(persist)
+// Alpine.plugin(persist)
 Alpine.data('taxisapis',Taxi)
 Alpine.start()
