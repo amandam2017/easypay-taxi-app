@@ -105,7 +105,16 @@ li a:hover {
   border-radius: 12em;
   cursor: pointer;
 }
-
+.displaytaxis {
+	display: flex;
+	flex-wrap: wrap;
+}
+.owners_taxi {
+	flex: 1;
+	padding: 1em;
+	margin: 0.25em;
+	border-radius: 0.5em;
+}
 /* STYLE FOR STATUS ON TABLE FOR PASSENGER ON ROUTE */
 div[data-length] {
   margin-left: 25%;

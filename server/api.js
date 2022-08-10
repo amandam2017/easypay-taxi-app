@@ -107,8 +107,6 @@ const api = (app, db) => {
                 return taxi.departure === departure && taxi.destination === destination
             });
             const price = await db.oneOrNone(`select price from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
-          const taxiReg = await db.oneOrNone(`select `)
-            const storeprice=[] 
             res.json({
                 data: destination_taxis, price
             });
@@ -133,11 +131,10 @@ const api = (app, db) => {
         }
     });
     app.post(`/api/trips`, async (req, res)=>{
-
         
         try {
-            const { route_id, taxi_id,passenger_count} = req.body;
-            const this_trip  = await db.oneOrNone('insert into taxi_trips (route_id, taxi_id,passenger_count) values($1,$2,$3)',[route_id, taxi_id,passenger_count]);
+            const { route_id, taxi_id,passenger_count,total_fare} = req.body;
+            const this_trip  = await db.oneOrNone('insert into taxi_trips (route_id, taxi_id,passenger_count,total_fare) values($1,$2,$3)',[route_id, taxi_id,passenger_count,total_fare]);
 
             res.status(200)
             .json({
@@ -166,13 +163,11 @@ const api = (app, db) => {
     })
 
     app.post(`/api/linkdrivers`, async (req, res)=>{
-
         
         try {
             const { user_id, taxi_id } = req.body;
             const sql = 'insert into drivers (user_id, taxi_id) values($1, $2)';
             await db.none(sql, [user_id, taxi_id]);
-
             res.status(200)
             .json({
                 message: 'Allocated taxi to driver :-)'
@@ -186,7 +181,7 @@ const api = (app, db) => {
         }
         
     })
-    
+   
     const getTaxiOwnerById = async (id) =>  {
         const user = await db.oneOrNone(`select * from users where role = 'Owner' AND id = $1`, [id]);
         return user;
@@ -251,17 +246,15 @@ const api = (app, db) => {
         try {
             const { no_of_cashpaid_passenger } = req.body
             const { departure, destination } = req.body;
-            const { reg_number } = req.body;
-            const Routes = await db.oneOrNone(`select reg_number from routes WHERE departure = $1 AND destination = $2 `, [departure, destination])
-            const TaxiData = await db.manyOrNone(`select reg_number from taxi_data`)
-            const trips = await db.manyOrNone(`select price,count, total_fare, trips_taken from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
+            const this_driver = await getDriversByTaxiId
+            //const TaxiData = await db.manyOrNone(`select reg_number from taxi_data`)
+            const trips = await db.manyOrNone(`select price,taxi_id,total_fare from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
             const price = await db.oneOrNone(`select price from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
             console.log('money ' + price);
-            console.log('routes' + Routes);
-            console.log('taxidata:' + TaxiData);
+            //console.log('taxidata:' + TaxiData);
             res.json({
                 status: 'success',
-                data: Routes, TaxiData, price,trips
+                data: price,trips,this_driver
             })
         } catch (err) {
             console.log(err);

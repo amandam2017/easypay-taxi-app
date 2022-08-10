@@ -6,12 +6,14 @@ const Owner = () => {
         register_taxis: false,
         reg_number: '',
         qty: '',
-        owner_id:'',
+        owner_id: '',
         feedback_message: '',
         error_message: '',
-        owners_taxis:'',
-        owners_drivers:'',
-        info:'',
+        owners_taxis: '',
+        owners_drivers: '',
+        info: '',
+        user_id:'',
+        taxi_id: '',
 
         drivers_profile: '',
         init() {
@@ -20,17 +22,31 @@ const Owner = () => {
         get_drivers() {
             axios
                 .post(`${remote_url}/api/registeredtaxis`, {
-                    reg_number : this.reg_number,
-                    qty : this.qty,
-                    owner_id : this.owner_id
+                    reg_number: this.reg_number,
+                    qty: this.qty,
+                    owner_id: this.owner_id
                 })
                 .then(results => {
                     // data:registered
                     console.log(results.data);
-                    
+
                 })
                 .then(() => {
                     this.feedback_message = 'taxi has been registered to the owner'
+                })
+        },
+
+        linktaxidriver() {
+            axios
+                .post(`${remote_url}/api/linkdrivers`, {
+                    user_id: this.user_id,
+                    taxi_id: this.taxi_id
+
+                })
+                .then(results => {
+                    // data:registered
+                    console.log(results.data);
+
                 })
         },
         registerTaxi() {
@@ -39,18 +55,18 @@ const Owner = () => {
         },
         viewTaxis() {
             axios
-            .get(`${remote_url}/api/owner/${this.owner_id}`,{
-                
-            })
-            .then(results=>{
-                //console.log(results.data);
-                console.log(this.owner_id);
-                console.log(results.data.drivers);
-        this.owners_taxis=results.data.taxis
-       this.owners_drivers =results.data.drivers
-       //const mytaxis=results.data.taxis
-                //this.owners_taxis=Object.keys(mytaxis).map((taxi))
-            })
+                .get(`${remote_url}/api/owner/${this.owner_id}`, {
+
+                })
+                .then(results => {
+                    //console.log(results.data);
+                    console.log(this.owner_id);
+                    console.log(results.data.drivers);
+                    this.owners_taxis = results.data.taxis
+                    this.owners_drivers = results.data.drivers
+                    //const mytaxis=results.data.taxis
+                    //this.owners_taxis=Object.keys(mytaxis).map((taxi))
+                })
             this.drivers_profile = true,
                 this.register_taxis = false
         },
