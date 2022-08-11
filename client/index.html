@@ -241,7 +241,7 @@
 
 							<div class="field">
 								<label for="cardpayment_method">Number of Passengers who paid electronically</label>
-								<span x-text="eftfare_total"></span>
+								<span x-text="eftcount"></span>
 							</div>
 							<div class="field">
 								<button class="ui secondary button text-white bg-black rounded-lg"
@@ -264,7 +264,7 @@
 							<tr>
 								<td>
 
-									<span x-text="fare_total">
+									<span x-text="count">
 
 									</span>
 
@@ -275,7 +275,7 @@
 								</td>
 								<td>
 
-									<button class="button" x-bind:disabled="fare_total < 15" @click="fullTaxi()"><i
+									<button class="button" x-bind:disabled="count < 15" @click="fullTaxi()"><i
 											class="leave">Leave</i></button>
 									<span x-text="trips"></span>
 
@@ -402,7 +402,7 @@
 			</template>
 		</div>
 		<!-- OWNERS SCREEN -->
-		<div x-show="owner_screen" class="row ui form owner" x-init="viewTaxis">
+		<div x-show="owner_screen" class="row ui form owner">
 			<div>
 				<h1 class="ui header">Owner Screen</h1>
 				<p class="header" x-text="feedback_message"></p>
@@ -413,46 +413,42 @@
 						<button class="ui secondary button" @click="registerTaxi()">Register Your taxi</button>
 					</div>
 					<div class="field">
-						<button class="ui secondary button" @click="viewTaxis()">View Your taxis</button>
+						<button class="ui secondary button"  @click="viewTaxis()">View Your taxis</button>
+					</div>
+					<div class="field">
+						<button class="ui secondary button" @click="logout()">Logout</button>
 					</div>
 				</div>
 				<div class="row" x-show="drivers_profile">
 					<h4>View My taxis</h4>
 
-					<!-- <template x-for="info in owners_taxis">
-					<div>
-					<span x-text="info.reg_number" ></span>
-					<span x-text="info.qty" ></span>
-					</div>
-					</template> -->
-					<div class="diaplaytaxis">
 					<template x-for="info in owners_drivers">
 
-						<div class="owners_taxi">
-							<a href="/drivers/id" x-text="info.name"></a>
+						<div>
+							<a href="#" @click="viewDriver()" x-text="info.name"></a>
 							<span x-text="info.name"></span>
 							<span x-text="info.surname"></span>
 							<span x-text="info.role"></span>
 							<template x-if="info.taxi">
 							<span x-text="info.taxi.reg_number"></span>	
 							</template>
-							<!-- <template x-if="!info.taxi">
-								<span x-text="there is no taxi"></span>	
-								</template> -->
 							
 						</div>
-
-					</template>	
+					</template>
+					<div x-show="driver">
+						<template x-for="driver_info in driver_profile">
+							<div>
+								<span>hello I am the driver</span>
+								<span x-text="driver_info.name"></span>
+								<span x-text="driver_info.surname"></span>
+								<!-- <span x-text="driver_info.taxi.reg_number"></span>	 -->
+							</div>
+						</template>
+						<!-- <span x-text="price"></span>	 -->
 					</div>
-					
 
-					<!-- <a href="#" >Name</a>Reg_Number
-                    <a href="#" >Name</a>Reg_Number
-                    <a href="#" >Name</a>Reg_Number -->
 				</div>
-				<div class="row" x-show="drivers_profile">
-					<a href="#">View Driver's profile</a>
-				</div>
+		
 				<div class="row" x-show="register_taxis">
 					<span x-text="error_message" class="feedback_message"></span>
 					<div class="ui form">
@@ -470,22 +466,10 @@
 								<input type="text" x-model="owner_id">
 							</div>
 						</div>
-
 						<button class="ui secondary button" @click="get_drivers()">SEND</button>
-						<div class="two fields">
-							<div class="field">
-								<label for="">enter user id for your driver</label>
-								<input type="text" x-model="user_id">
-							</div>
-							<div class="field">
-								<label for="enter taxi id">enter taxi id</label>
-								<input type="number" x-model="taxi_id">
-							</div>
-							
-						</div>
-						<button class="ui secondary button" @click="linktaxidriver()">link taxi to driver</button>
 					</div>
 				</div>
+				
 			</div>
 		</div>
 

@@ -191,9 +191,21 @@ const api = (app, db) => {
         const user = await db.oneOrNone(`select * from users where id = $1`, [id]);
         return user;
     }
-    
 
-    const getDriversByTaxiId = async (id) => await db.oneOrNone('select * from drivers join users on drivers.user_id = users.id where taxi_id = $1', [id])
+    
+    const getDriversByTaxiId = async (id) => await
+        db.oneOrNone(`select * from drivers 
+            join users on drivers.user_id = users.id 
+            JOIN taxi_data on drivers.taxi_id = taxi_data.id
+            where taxi_id = $1`, [id])
+
+            const getDriversByUserId = async (id) => await
+        db.oneOrNone(`select * from drivers 
+            join users on drivers.user_id = users.id 
+            JOIN taxi_data on drivers.taxi_id = taxi_data.id
+            where user_id = $1`, [id])
+
+    // const getDriversByTaxiId = async (id) => await db.oneOrNone('select * from drivers join users on drivers.user_id = users.id where taxi_id = $1', [id])
         
 
     const getTaxisByOwnerId = async (id) =>  {
@@ -242,10 +254,12 @@ const api = (app, db) => {
 
     })
 
+    // ------------
     app.post('/api/driver', async function (req, res) {
         try {
             const { no_of_cashpaid_passenger } = req.body
             const { departure, destination } = req.body;
+<<<<<<< HEAD
             const this_driver = await getDriversByTaxiId
             //const TaxiData = await db.manyOrNone(`select reg_number from taxi_data`)
             const trips = await db.manyOrNone(`select price,taxi_id,total_fare from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
@@ -255,6 +269,14 @@ const api = (app, db) => {
             res.json({
                 status: 'success',
                 data: price,trips,this_driver
+=======
+            const trips = await db.manyOrNone(`select price,taxi_id from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
+            const price = await db.oneOrNone(`select price from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
+            console.log('money ' + price);
+            res.json({
+                status: 'success',
+                data: price,trips
+>>>>>>> 4c5b553 (added api to view drivers buy user id for the owner to vier the driver's profile)
             })
         } catch (err) {
             console.log(err);
@@ -263,7 +285,8 @@ const api = (app, db) => {
                 error: err.message
             })
         }
-    });
+    })
+    // -----------
     app.post('/api/card_payments', async function (req, res) {
         const { firstname, card_number, exp_month, exp_year, cvv } = req.body;
         try {
@@ -284,5 +307,38 @@ await db.none('insert into card_payment(firstname,card_number ,exp_month,exp_yea
 
 
     });
+
+
+     // -----------------THIS----------------
+     app.get(`/api/getlinked_drivers`, async (req, res) => {
+        try {
+            const { id } = req.params
+            // const driversAndTaxis = await getDriversByOwnerId()
+            const driversAndTaxis = await db.manyOrNone(`select * from drivers where id =$1`, [id])
+            console.log(driversAndTaxis);
+
+            // })
+
+            res.json({
+                data: driversAndTaxis
+            })
+
+        } catch (error) {
+
+        }
+    })
+
+    // -----------------OR----------------
+    app.get('/api/driver/:id', async (req, res) => {
+        const { id } = req.params
+        const drivers = await getDriversByUserId(id)
+        console.log(drivers);
+
+        res.json({
+            data: drivers
+        })
+    })
+
+    // --------------END----------------
 }
 module.exports = api;

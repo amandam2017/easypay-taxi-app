@@ -1,28 +1,18 @@
-
 import axios from 'axios'
+import Owner from './owner'
 
 const remote_url=import.meta.env.VITE_SERVER_URL
 const Login = ()=>{
+    
     return{
+        ...Owner(),
 
         init(){
-            if(localStorage == undefined) {
-                this.hideRegister()
-            }else{
-                this.access_token = localStorage.getItem('access_key_driver')
-                this.hidelanding()
-            }
-             
-            // this.logging()
-            // if(localStorage['access_key_driver'] !== undefined) {
+            // if(localStorage == undefined) {
+            //     this.hideRegister()
+            // }else{
             //     this.access_token = localStorage.getItem('access_key_driver')
-            //     this.driver_screen,
-            //     this.logging()
-            // }
-
-            // if(localStorage['access_key_driver'||'access_key_pass'] !== undefined) {
-            //     this.access_token = localStorage.getItem('access_key_driver'||'access_key_pass')
-            //     this.driver_screen || this.passenger_screen
+            //     this.hidelanding()
             // }
 
         },
@@ -32,6 +22,7 @@ const Login = ()=>{
             
             Username:'',
             Password:'',
+            id:''
         },
         feedback_message:'',
         error_message: '',
@@ -77,26 +68,17 @@ const Login = ()=>{
     logging() {
         axios
             .post(`${remote_url}/api/login`, {
-                
                 username: this.user.Username,
                 password: this.user.Password,
                 // role:this.user.role
 
             })
-            
-            // console.log(results.data);
-            // console.log(results.data.token);
+      
             .then(results => {
                 this.access_token = results.data.token
-                // if(results.data.role == 'Driver' && this.access_token){
-                //     localStorage.setItem('access_key_driver', results.data.token)
-                //     localStorage.setItem('user_name', results.data.message)
-                //     this.driver_screen = true,
-                //     this.landing = false
-                    
-                //     // this.access_token = results.data.token
-                // }
-                // console.log(this.access_token);
+                this.user =  results.data.data;
+                localStorage.setItem('user_name', JSON.stringify(results.data.data))
+
             
             if (results.data.message =='User does not exist please sign up below') {
                 this.error_message = results.data.message
@@ -118,7 +100,7 @@ const Login = ()=>{
                     this.access_token = results.data.token,
                     console.log('token?? '+this.access_token);
                     localStorage.setItem('access_key_pass', this.access_token)
-                    localStorage.setItem('user_name', results.data.message)
+                    // localStorage.setItem('user_name', results.data.message)
                         this.passenger_screen = true
                         
                         this.driver_screen = false,
@@ -128,7 +110,7 @@ const Login = ()=>{
                 }
     
                 if(results.data.role == 'Driver'){
-                    localStorage.setItem('user_name', results.data.message)
+                    // localStorage.setItem('user_name', results.data.message)
                     this.passenger_screen = false,
                     this.driver_screen = true,
                     this.loggedin = false,
@@ -136,18 +118,20 @@ const Login = ()=>{
                     this.access_token = results.data.token,
                     localStorage.setItem('access_key_driver', this.access_token)
                     this.feedback_message = `${results.data.message} is logged in`
-    
+                    
                 }
-            // } 
-            if(results.data.role == 'Owner'){
-                localStorage.setItem('user_name', results.data.message)
+                // } 
+                if(results.data.role == 'Owner'){
+                // localStorage.setItem('user_name', results.data.data)
                 this.passenger_screen = false,
                 this.driver_screen = false,
                 this.loggedin = false,
                 this.landing = false,
                 this.owner_screen = true,
                 this.access_token = results.data.token,
-                //localStorage.setItem('access_key_driver', this.access_token)
+                localStorage.setItem('access_key_owner', this.access_token)
+                this.owner_id = 56
+                this.viewTaxis()
                 this.feedback_message = `${results.data.message} is logged in`
 
             }
@@ -161,8 +145,7 @@ const Login = ()=>{
             })
            
             .catch(error => console.error(error))
-           
-            
+       
     },
     logout() {
         localStorage.clear()
@@ -172,6 +155,7 @@ const Login = ()=>{
         this.passenger_screen = false,
         this.success_pay=false,
         this.landing = true
+        this.owner_screen = false
 
   
       },

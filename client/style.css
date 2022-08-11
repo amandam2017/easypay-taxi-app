@@ -317,7 +317,17 @@ p{
 }
 
 
+ul{
+  background-color: snow;
+}
 
+li{
+  flex: 1;
+}
+
+.inline{
+  display: inline-block;
+}
 
 
 
