@@ -116,7 +116,6 @@
 		</div>
 
 		<div x-show="passenger_screen" class="row ui form passenger">
-			<!-- <h1>passenger screen</h1> -->
 			<div>
 				<p class="header" x-text="feedback_message"></p>
 			</div>
@@ -159,7 +158,6 @@
 							<div class="field inner">
 								<img :src="`./images/${taxi.img}`" class="card-img-top" alt="...">
 							</div>
-							<!-- <ul class="list-group-item"><span class="card-text" x-text="taxi.img"></span></ul> -->
 							<div class="field list-group-item">Taxi will be departing from: <span class="card-text"
 									x-text="taxi.departure"></span></div>
 							<div class="field list-group-item">Your destination is: <span class="card-text"
@@ -184,9 +182,7 @@
 				</div>
 			</div>
 			<br>
-			<!-- <div>
-                <button class="ui secondary button" @click="payment_screen =!passenger_screen">make payment</button>
-              </div> -->
+			
 		</div>
 
 		<div x-show="driver_screen" class="row driver">
@@ -304,7 +300,6 @@
 			<div class="row">
 				<div class="col-75">
 					<div class="container">
-						<!-- <form action=""> -->
 						<div class="row">
 							<div class="col-50">
 								<h3>Payment</h3>
@@ -339,8 +334,7 @@
 						</div>
 						<button @click="payhere(),passengerIncre()"
 							class="ui secondary button text-white bg-black rounded-lg">payment</button>
-						<!-- <input type="submit" value="checkout" class="btn"> -->
-						<!-- </form> -->
+			
 					</div>
 				</div>
 				<div class="col-25">
