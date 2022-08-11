@@ -78,10 +78,6 @@ const Driver = () => {
                     this.destinations = results.data.data;
                     this.departures = results.data.data;
 
-                    // this.count = results.data.data
-
-                    // console.log(this.destinations);
-
                 })
 
                 .catch(error => console.error(error))

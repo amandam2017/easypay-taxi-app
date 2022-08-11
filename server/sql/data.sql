@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 insert into routes (img, taxi_id, price, departure, destination) values ('taxi.png', '1',25.00, 'Stellenbosch', 'Cape Town');
 insert into routes (img, taxi_id, price, departure, destination) values ('taxi.png', '2',25.00, 'Stellenbosch', 'Cape Town');
 insert into routes (img, taxi_id, price, departure, destination) values ('taxi.png', '3',25.00, 'Kuilsriver', 'Cape Town');
@@ -17,24 +16,6 @@ insert into routes (img, taxi_id, price, departure, destination) values ('taxi.p
 
 
 
-=======
-insert into routes (img, taxi_id, price, departure, destination) values ('taxi.png', 1, 25.00, 'Stellenbosch', 'Cape Town');
-insert into routes (img, taxi_id, price, departure, destination) values ('taxi.png', 2, 25.00, 'Kuilsriver', 'Cape Town');
-insert into routes (img, taxi_id, price, departure, destination) values ('taxi.png', 3, 25.00, 'Stellenbosch', 'Kuilsriver');
-insert into routes (img, taxi_id, price, departure, destination) values ('taxi.png', 4, 25.00, 'Kuilsriver','Stellenbosch');
-insert into routes (img, taxi_id, price, departure, destination) values ('taxi.png', 5, 23.50, 'Cape Town','Bellville');
-insert into routes (img, taxi_id, price, departure, destination) values ('taxi.png', 6, 23.50, 'Bellville', 'Cape Town');
-insert into routes (img, taxi_id, price, departure, destination) values ('taxi.png', 7, 23.50, 'Cape Town', 'Khayelitsha');
-insert into routes (img, taxi_id, price, departure, destination) values ('taxi.png', 8, 23.50, 'Bellville', 'Kuilsriver');
-insert into routes (img, taxi_id, price, departure, destination) values ('taxi.png', 9, 23.50, 'Stellenbosch', 'Khayelitsha');
-insert into routes (img, taxi_id, price, departure, destination) values ('taxi.png', 10, 20.00, 'Bellville', 'Khayelitsha');
-insert into routes (img, taxi_id, price, departure, destination) values ('taxi.png', 11, 23.50, 'Khayelitsha', 'Kuilsriver');
-insert into routes (img, taxi_id, price, departure, destination) values ('taxi.png', 12, 15.50, 'Kuilsriver', 'Mfuleni');
-insert into routes (img, taxi_id, price, departure, destination) values ('taxi.png', 13, 15.50,  'Mfuleni','Kuilsriver');
-insert into routes (img, taxi_id, price, departure, destination) values ('taxi.png', 14, 10.00,  'Mfuleni','Mfuleni');
-insert into routes (img, taxi_id, price, departure, destination) values ('taxi.png', 15, 12.50,  'Kuilsriver','Kuilsriver');
-insert into routes (img, taxi_id, price, departure, destination) values ('taxi.png', 16, 13.50,  'Khayelitsha','Khayelitsha');
->>>>>>> 4c5b553 (added api to view drivers buy user id for the owner to vier the driver's profile)
 
 
 insert into taxi_data (reg_number, qty, owner_id) values ('CA 456 653', 15, 1);
