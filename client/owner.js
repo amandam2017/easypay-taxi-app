@@ -64,7 +64,6 @@ const Owner = () => {
                 
             })
             .then(results=>{
-                //console.log(results.data);
                 console.log(this.owner_id);
                 console.log(results.data.drivers);
         this.owners_taxis=results.data.taxis

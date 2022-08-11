@@ -259,24 +259,12 @@ const api = (app, db) => {
         try {
             const { no_of_cashpaid_passenger } = req.body
             const { departure, destination } = req.body;
-<<<<<<< HEAD
-            const this_driver = await getDriversByTaxiId
-            //const TaxiData = await db.manyOrNone(`select reg_number from taxi_data`)
-            const trips = await db.manyOrNone(`select price,taxi_id,total_fare from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
-            const price = await db.oneOrNone(`select price from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
-            console.log('money ' + price);
-            //console.log('taxidata:' + TaxiData);
-            res.json({
-                status: 'success',
-                data: price,trips,this_driver
-=======
             const trips = await db.manyOrNone(`select price,taxi_id from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
             const price = await db.oneOrNone(`select price from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
             console.log('money ' + price);
             res.json({
                 status: 'success',
                 data: price,trips
->>>>>>> 4c5b553 (added api to view drivers buy user id for the owner to vier the driver's profile)
             })
         } catch (err) {
             console.log(err);
