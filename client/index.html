@@ -24,11 +24,14 @@
 			<a :class="`ui ${landing ? 'active' : ''} item`" href="./index.html">
 				Home
 			</a>
-			<div class="right menu">
+			<div x-show="signing_btns" class="right menu">
 				<a :class="`ui ${loggedin ? 'active' : ''} item`"
 					@click="loggedin =! loggedin,hideRegister(), landing=false">SignIn</a>
 				<a :class="`ui ${loggedin ? 'active' : ''} item`"
 					@click="loggedin =! loggedin,hideLogin(), landing=false">SignUp</a>
+			</div>
+			<div x-show="signout" class="logout">
+				<button @click="logout()">SignOut</button>
 			</div>
 		</div>
 		<div class="row space" x-show="landing">
@@ -259,12 +262,8 @@
 						<template x-for="taxi in routes">
 							<tr>
 								<td>
-
 									<span x-text="count">
-
 									</span>
-
-
 								</td>
 								<td>
 									<!-- <div onclick="return false" colspan="4" class="text-center">Pending</div> -->
@@ -414,12 +413,12 @@
 					</div>
 				</div>
 				<div class="row" x-show="drivers_profile">
-					<h4>View My taxis</h4>
+					<h4>View Drivers Profile</h4>
 
 					<template x-for="info in owners_drivers">
 
 						<div>
-							<a href="#" @click="viewDriver()" x-text="info.name"></a>
+							<a href="#" @click="viewDriver(info)" x-text="info.name"></a>
 							<span x-text="info.name"></span>
 							<span x-text="info.surname"></span>
 							<span x-text="info.role"></span>
@@ -430,14 +429,33 @@
 						</div>
 					</template>
 					<div x-show="driver">
-						<template x-for="driver_info in driver_profile">
-							<div>
-								<span>hello I am the driver</span>
-								<span x-text="driver_info.name"></span>
-								<span x-text="driver_info.surname"></span>
-								<!-- <span x-text="driver_info.taxi.reg_number"></span>	 -->
-							</div>
-						</template>
+						<!-- <template x-for="driver_info in driver_profile"> -->
+							<ul>
+								<div class="inline">
+									<li>hello I am the driver</li>
+								</div>
+								<br>
+								<div class="inline">
+									<li x-text="selectedDriver.name">Hlomla</li>
+									<li x-text="selectedDriver.surname">Tapuko</li>
+									<li x-text="selectedDriver.reg_number"></li>
+								</div>
+								<br>
+								<div class="inline">
+
+									<li>Driver is traveling from Stellenbosch to Kuilsriver</li>	
+								</div>
+								<br>
+								<div class="inline">
+
+									<li>Status: On the road</li>	
+								</div>
+								<div>
+									<button @click="drivers_details()">prof</button>
+								</div>
+
+							</ul>
+						<!-- </template> -->
 						<!-- <span x-text="price"></span>	 -->
 					</div>
 

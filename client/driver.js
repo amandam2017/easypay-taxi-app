@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const remote_url = import.meta.env.VITE_SERVER_URL
-const Driver = () => {
+const Drivers = () => {
     return {
         init() {
             this.displayTotal()
@@ -78,6 +78,10 @@ const Driver = () => {
                     this.destinations = results.data.data;
                     this.departures = results.data.data;
 
+                    // this.count = results.data.data
+
+                    // console.log(this.destinations);
+
                 })
 
                 .catch(error => console.error(error))
@@ -87,10 +91,14 @@ const Driver = () => {
             const token = localStorage.getItem('access_key_driver')
             axios.post(`${remote_url}/api/driver`,
                 {
+                    //  headers: {
+                    // "Authorization" : `Bearer ${token}`,
                     departure: this.departure,
                     destination: this.destination,
                     no_of_cashpaid_passenger: this.no_of_cashpaid_passenger
 
+
+                    //   }
                 })
                 .then(result => {
                     console.log(result.data);
@@ -101,6 +109,7 @@ const Driver = () => {
                     this.count = Number(this.eftcount) + Number(this.no_of_cashpaid_passenger)
 
                     console.log(this.cashprice, this.no_of_cashpaid_passenger + "reg number");
+                    // console.log(this.routes + "hsifgigfakshfoi");
                 })
 
         }
@@ -109,4 +118,4 @@ const Driver = () => {
 }
 
 
-export default Driver
+export default Drivers

@@ -8,18 +8,14 @@ const Login = ()=>{
         ...Owner(),
 
         init(){
-            // if(localStorage == undefined) {
-            //     this.hideRegister()
-            // }else{
-            //     this.access_token = localStorage.getItem('access_key_driver')
-            //     this.hidelanding()
-            // }
 
         },
 
+        signing_btns:true,
+        signout: false,
+
         landing:true, 
         user:{
-            
             Username:'',
             Password:'',
             id:''
@@ -52,6 +48,7 @@ const Login = ()=>{
           hidelanding(){
             this.driver_screen = true
             this.landing = false
+            
           },
 
           displayRoutes(){
@@ -64,7 +61,6 @@ const Login = ()=>{
               })
           },
           
-
     logging() {
         axios
             .post(`${remote_url}/api/login`, {
@@ -77,6 +73,7 @@ const Login = ()=>{
             .then(results => {
                 this.access_token = results.data.token
                 this.user =  results.data.data;
+                console.log('user :'+this.user);
                 localStorage.setItem('user_name', JSON.stringify(results.data.data))
 
             
@@ -118,6 +115,8 @@ const Login = ()=>{
                     this.access_token = results.data.token,
                     localStorage.setItem('access_key_driver', this.access_token)
                     this.feedback_message = `${results.data.message} is logged in`
+                    this.signing_btns = false
+                    this.signout = true
                     
                 }
                 // } 
@@ -130,8 +129,9 @@ const Login = ()=>{
                 this.owner_screen = true,
                 this.access_token = results.data.token,
                 localStorage.setItem('access_key_owner', this.access_token)
-                this.owner_id = 56
-                this.viewTaxis()
+                // this.owner_id = 56
+                // this.viewTaxis()
+                // this.drivers_details()
                 this.feedback_message = `${results.data.message} is logged in`
 
             }

@@ -14,7 +14,8 @@ const Owner = () => {
         owners_drivers:'',
         info:'',
         id:'',
-        test: null,
+        selectedDriver: {},
+
         drivers_profile: '',
         driver_profile: '',
         driver_info:'',
@@ -27,8 +28,14 @@ const Owner = () => {
              console.log(this.owner_id);
         },
         drivers_details(){
+            this.user = JSON.parse(localStorage.getItem('user_name'))
+            this.id = this.user.id;
+            console.log(this.user);
             axios
-            .get(`${remote_url}/api/driver/${id}`)
+            .get(`${remote_url}/api/driver/${this.id}`)
+            .then(results =>{
+                console.log(results.data);
+            })
         },
         get_drivers() {
             axios
@@ -43,13 +50,14 @@ const Owner = () => {
                     
                 })
                 .then(() => {
-                    this.feedback_message = 'taxi has been registered to the owner'
+                    this.feedback_message = 'taxi has been registered by the owner'
                 })
         },
-        viewDriver(){
+        viewDriver(user){
             this.owners_drivers = false
             this.driver = true
-            // this.drivers_profile = false
+            this.selectedDriver = user;
+            console.log(this.selectedDriver);
         },
         registerTaxi() {
             this.register_taxis = true
@@ -66,17 +74,13 @@ const Owner = () => {
             .then(results=>{
                 console.log(this.owner_id);
                 console.log(results.data.drivers);
-        this.owners_taxis=results.data.taxis
-        this.owners_drivers =results.data.drivers
-       //const mytaxis=results.data.taxis
-                //this.owners_taxis=Object.keys(mytaxis).map((taxi))
+                this.owners_taxis=results.data.taxis
+                this.owners_drivers =results.data.drivers
             })
             this.drivers_profile = true,
                 this.register_taxis = false
         },
-        // displayDriverForOwner(){
-        //     axios
-        // }
+  
     }
 }
 export default Owner
