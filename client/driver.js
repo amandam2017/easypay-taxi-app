@@ -102,8 +102,8 @@ const Drivers = () => {
                 })
                 .then(result => {
                     console.log(result.data);
-                    console.log(result.data.data.reg_number);
-                    this.cashprice = result.data.price.price * this.no_of_cashpaid_passenger
+                    console.log(result.data.data.price);
+                    this.cashprice = result.data.data.price * Number(this.no_of_cashpaid_passenger)
                     this.routes = result.data.trips
                     this.reg_number = result.data.data.reg_number
                     this.count = Number(this.eftcount) + Number(this.no_of_cashpaid_passenger)
