@@ -22,11 +22,28 @@ const Drivers = () => {
         fare_total: 0,
         eftcount: 0,
         rewardsRecieved: false,
+        trip_details:{
+            route_id: '',
+            taxi_id:'',
+            passenger_count: '', 
+            total_fare: '' 
+        },
 
         fullTaxi() {
             this.count = this.count - 15
             // this.fare_total += this.price * 15
             return this.trips++
+        },
+
+        takeTrip(){
+            axios
+            .post(`${remote_url}/api/trips`,{
+                route_id: this.trip_details.route_id,
+                taxi_id: this.trip_details.taxi_id,
+                passenger_count: this.trip_details.passenger_count,
+                total_fare: this.trip_details.total_fare
+            })
+
         },
 
         totalTrip() {
@@ -108,7 +125,7 @@ const Drivers = () => {
                     this.reg_number = result.data.data.reg_number
                     this.count = Number(this.eftcount) + Number(this.no_of_cashpaid_passenger)
 
-                    console.log(this.cashprice, this.no_of_cashpaid_passenger + "reg number");
+                    // console.log(this.cashprice, this.no_of_cashpaid_passenger);
                     // console.log(this.routes + "hsifgigfakshfoi");
                 })
 

@@ -107,6 +107,7 @@ const api = (app, db) => {
                 return taxi.departure === departure && taxi.destination === destination
             });
             const price = await db.oneOrNone(`select price from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
+            
             res.json({
                 data: destination_taxis, price
             });
@@ -130,6 +131,8 @@ const api = (app, db) => {
             });
         }
     });
+
+    // 15/08/22
     app.post(`/api/trips`, async (req, res)=>{
         
         try {
@@ -200,7 +203,7 @@ const api = (app, db) => {
             where taxi_id = $1`, [id])
 
             const getDriversByUserId = async (id) => await
-        db.oneOrNone(`select * from drivers 
+            db.oneOrNone(`select * from drivers 
             join users on drivers.user_id = users.id 
             JOIN taxi_data on drivers.taxi_id = taxi_data.id
             where user_id = $1`, [id])
@@ -255,7 +258,7 @@ const api = (app, db) => {
     })
 
     // ------------
-    app.post('/api/driver', async function (req, res) {
+    app.post('/api/driver', async (req, res)=> {
         try {
             const { no_of_cashpaid_passenger } = req.body
             const { departure, destination } = req.body;
@@ -274,6 +277,7 @@ const api = (app, db) => {
             })
         }
     })
+
     // -----------
     app.post('/api/card_payments', async function (req, res) {
         const { firstname, card_number, exp_month, exp_year, cvv } = req.body;
@@ -328,5 +332,7 @@ await db.none('insert into card_payment(firstname,card_number ,exp_month,exp_yea
     })
 
     // --------------END----------------
+
+
 }
 module.exports = api;

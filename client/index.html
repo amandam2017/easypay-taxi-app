@@ -5,7 +5,7 @@
 	<meta charset="UTF-8" />
 	<link rel="icon" type="image/svg+xml" href="favicon.svg" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
 		integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
 		crossorigin="" />
@@ -13,7 +13,7 @@
 	<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
 		integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
 		crossorigin=""></script>
-	<title>Vite App</title>
+	<title>Easypay Taxi</title>
 </head>
 
 <body>
@@ -60,7 +60,9 @@
 		</div>
 
 		<div class="row" x-show="loggedin">
+			<div>
 			<span x-text="error_message" class="feedback_message"></span>
+			</div>
 			<h1 class="ui header">Easy Pay</h1>
 			<div class="ui form">
 				<div class="two fields">
@@ -118,7 +120,8 @@
 			</div>
 		</div>
 
-		<div x-show="passenger_screen" class="row ui form passenger">
+		<div x-show="passenger_screen" class="ui form passenger">
+			<div class="row">
 			<div>
 				<p class="header" x-text="feedback_message"></p>
 			</div>
@@ -142,50 +145,54 @@
 					</select>
 				</div>
 			</div>
+			</div>
 
-			<div class="two fields">
-				<div class="field">
-					You are in <p x-text="departure"></p>
-				</div>
-				<div class="field">
-					Going to<p x-text="destination"></p>
-				</div>
-				<div class="field">
-					<button @click="findTaxiByRoute()"
-						class="ui secondary button text-white bg-black rounded-lg">Search</button>
+			<div class="row">
+				<div class="two fields">
 					<div class="field">
-						Taxi fare: R<span x-text="price">00.00</span>
+						You are in <p x-text="departure"></p>
 					</div>
-					<template x-for="taxi in taxis">
-						<div>
-							<div class="field inner">
-								<img :src="`./images/${taxi.img}`" class="card-img-top" alt="...">
-							</div>
-							<div class="field list-group-item">Taxi will be departing from: <span class="card-text"
-									x-text="taxi.departure"></span></div>
-							<div class="field list-group-item">Your destination is: <span class="card-text"
-									x-text="taxi.destination"></span></div>
-							<div class="field list-group-item">Price: R<span class="card-text"
-									x-text="taxi.price"></span></div>
-							<div class="field list-group-item">Taxi Registration Number: <span class="card-text"
-									x-text="taxi.reg_number"></span></div>
+					<div class="field">
+						Going to<p x-text="destination"></p>
+					</div>
+					<div class="field">
+						<button @click="findTaxiByRoute()"
+							class="ui secondary button text-white bg-black rounded-lg">Search</button>
+						<div class="field">
+							Taxi fare: R<span x-text="price">00.00</span>
 						</div>
-					</template>
-
+						<template x-for="taxi in taxis">
+							<div>
+								<div class="field inner">
+									<img :src="`./images/${taxi.img}`" class="card-img-top" alt="...">
+								</div>
+								<div class="field list-group-item">Taxi will be departing from: <span class="card-text"
+										x-text="taxi.departure"></span></div>
+								<div class="field list-group-item">Your destination is: <span class="card-text"
+										x-text="taxi.destination"></span></div>
+								<div class="field list-group-item">Price: R<span class="card-text"
+										x-text="taxi.price"></span></div>
+								<div class="field list-group-item">Taxi Registration Number: <span class="card-text"
+										x-text="taxi.taxi_id"></span></div>
+							</div>
+						</template>
+	
+					</div>
+	
 				</div>
-
 			</div>
 			<br>
 			<div>
 				<button class="ui secondary button text-white bg-black rounded-lg"
 					@click="payment_screen=true,landing=false,passenger_screen=false">Make Payment</button>
 			</div>
-			<div class="row">
-				<div id="map">
-				</div>
-			</div>
 			<br>
 			
+		<!-- </div> -->
+		<div class="row">
+			<div id="map">
+			</div>
+		</div>
 		</div>
 
 		<div x-show="driver_screen" class="row driver">
@@ -194,7 +201,7 @@
 			</div>
 			<div class="one field">
 				<div class="field">
-					Taxi Registration Number is <span x-text="reg_number"></span>
+					Taxi Registration Number is <span x-text="reg"></span>
 				</div>
 			</div>
 			<div class="row ui form">
@@ -231,7 +238,9 @@
 							</div>
 							<div class="field">
 								<button class="ui secondary button text-white bg-black rounded-lg"
-									@click="displayTotal()">Cash Total</button>
+									@click="displayTotal(), drivers_details()">Cash Total</button>
+									<!-- <button @click="drivers_details()">prof</button> -->
+
 							</div>
 							Expected Cash Amount:<span x-text="cashprice"></span>
 
@@ -271,7 +280,7 @@
 								<td>
 
 									<button class="button" x-bind:disabled="count < 15" @click="fullTaxi()"><i
-											class="leave">Leave</i></button>
+											class="leave, takeTrip()">Leave</i></button>
 									<span x-text="trips"></span>
 
 								</td>
@@ -349,7 +358,7 @@
 		</div>
 		<div x-show="success_pay" class="success_pay">
 			<div class="landing center-text">
-				Thank you for the payment <p x-text="passenger_name"></p>
+				<p x-text="passenger_name"></p>
 			</div>
 			<div class="landing center-text">
 				<img src="./public/images/Payment.png" alt="..." class="center ui medium image">
@@ -430,31 +439,37 @@
 					</template>
 					<div x-show="driver">
 						<!-- <template x-for="driver_info in driver_profile"> -->
-							<ul>
+							<div>
 								<div class="inline">
 									<li>hello I am the driver</li>
 								</div>
 								<br>
-								<div class="inline">
-									<li x-text="selectedDriver.name">Hlomla</li>
-									<li x-text="selectedDriver.surname">Tapuko</li>
-									<li x-text="selectedDriver.reg_number"></li>
+								<div>
+									<div>
+										Name:<li x-text="selectedDriver.name"></li>
+									</div>
+									<div>
+										Last Name:<li x-text="selectedDriver.surname"></li>
+									</div>
+									<div>
+										Driving:<li x-text="selectedDriver.reg_number"></li>
+									</div>
 								</div>
 								<br>
 								<div class="inline">
 
-									<li>Driver is traveling from Stellenbosch to Kuilsriver</li>	
+									<li>route: </li>	
 								</div>
 								<br>
 								<div class="inline">
 
-									<li>Status: On the road</li>	
+									<span>Status: On the road</span>	
 								</div>
 								<div>
 									<button @click="drivers_details()">prof</button>
 								</div>
 
-							</ul>
+							</div>
 						<!-- </template> -->
 						<!-- <span x-text="price"></span>	 -->
 					</div>

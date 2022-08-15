@@ -15,7 +15,9 @@ const Routes = () => {
         error: false,
         passengers: 0,
         payment_screen:false,
+        user: {},
         passenger_name:'',
+        reg:'',
 
         init() {
             findTaxiByRoute()
@@ -37,6 +39,8 @@ const Routes = () => {
                     console.log(result.data.data);
                     this.taxis = result.data.data
                     this.price = result.data.price.price
+                    this.reg = result.data.data.reg_number
+
 
                 })
                 .catch(err => console.log(err))
@@ -69,8 +73,10 @@ const access_token = localStorage.getItem('access_key_pass')
                     this.this_info = results.data
                      this.error_message = results.data.message
                      this.error = false
-                     this.passenger_name = localStorage.getItem('user_name')
-                     console.log(this.passenger_name);
+                    
+                     this.user = JSON.parse(localStorage.getItem('user_name'))
+                    this.passenger_name = `Thank you for payment ${this.user.username}`;
+                    console.log(this.passenger_name);
                 })
                 .catch(error => console.error(error))
 

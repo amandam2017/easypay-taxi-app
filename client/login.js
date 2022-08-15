@@ -6,9 +6,13 @@ const Login = ()=>{
     
     return{
         ...Owner(),
+        driver:{},
+        drivers_id:'',
 
         init(){
-
+            this.driver = localStorage.getItem('user_name')
+             this.drivers_id = this.driver.id;
+             console.log(this.drivers_id);
         },
 
         signing_btns:true,
@@ -117,6 +121,7 @@ const Login = ()=>{
                     this.feedback_message = `${results.data.message} is logged in`
                     this.signing_btns = false
                     this.signout = true
+                    this.reg = this.drivers_details()
                     
                 }
                 // } 
@@ -151,11 +156,12 @@ const Login = ()=>{
         localStorage.clear()
         this.loggedin = false
         this.register = false
-        this.driver_screen = false,
-        this.passenger_screen = false,
-        this.success_pay=false,
+        this.driver_screen = false
+        this.passenger_screen = false
+        this.success_pay=false
         this.landing = true
         this.owner_screen = false
+        this.signing_btns = false
 
   
       },
@@ -163,18 +169,3 @@ const Login = ()=>{
 }
 
 export default Login
-
-
-// if(results.data.role == 'Driver' && this.access_token){
-//     localStorage.setItem('access_key_driver', results.data.token)
-//     // localStorage.setItem('user_name', results.data.message)
-//     this.driver_screen = true,
-//     this.landing = false
-// }
-
-// if(results.data.role == 'Passenger' && this.access_token){
-//     localStorage.setItem('access_key_pass', results.data.token)
-//     // localStorage.setItem('user_name', results.data.message)
-//     this.passenger_screen = true,
-//     this.landing = false
-// }

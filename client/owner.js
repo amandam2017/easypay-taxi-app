@@ -21,8 +21,8 @@ const Owner = () => {
         driver_info:'',
         user: {},
         driver:'',
+        reg:'',
         init() {
-            get_drivers()
             this.user = localStorage.getItem('user_name')
              this.owner_id = this.user.id;
              console.log(this.owner_id);
@@ -34,7 +34,8 @@ const Owner = () => {
             axios
             .get(`${remote_url}/api/driver/${this.id}`)
             .then(results =>{
-                console.log(results.data);
+                console.log(results.data.data.reg_number);
+                this.reg = results.data.data.reg_number
             })
         },
         get_drivers() {

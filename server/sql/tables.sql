@@ -67,6 +67,16 @@ create table payment_receipt(
     foreign key(taxi_trip_id) references taxi_trips(id),
     foreign key(user_id) references users(id)
 );
+
+create table trip_payment(
+    id serial not null primary key,
+    user_id int not null,
+    taxi_trip_id int not null,
+    amount int not null default 0,
+    payment_type text,
+    foreign key(taxi_trip_id) references taxi_trips(id),
+    foreign key(user_id) references users(id)
+);
 -- create table taxi_trips(
 --     id serial not null primary key,
 --     reg_number varchar not null,
