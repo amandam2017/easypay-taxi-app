@@ -132,16 +132,17 @@ const api = (app, db) => {
         }
     });
 
-    // 15/08/22
+    // *****************15/08/22*********************
     app.post(`/api/trips`, async (req, res)=>{
         
         try {
-            const { route_id, taxi_id,passenger_count,total_fare} = req.body;
-            const this_trip  = await db.oneOrNone('insert into taxi_trips (route_id, taxi_id,passenger_count,total_fare) values($1,$2,$3)',[route_id, taxi_id,passenger_count,total_fare]);
+            const { route_id, taxi_id, passenger_count,total_fare} = req.body;
+            const this_trip  = await db.oneOrNone('insert into taxi_trips (route_id, taxi_id, passenger_count, total_fare) values($1,$2,$3,$4) returning *',[route_id, taxi_id,passenger_count,total_fare]);
+            console.log(this_trip);
 
             res.status(200)
             .json({
-                message: 'trip is taken',
+                message:'trip is taken',
                 data:this_trip
             })
             
@@ -324,7 +325,11 @@ await db.none('insert into card_payment(firstname,card_number ,exp_month,exp_yea
     app.get('/api/driver/:id', async (req, res) => {
         const { id } = req.params
         const drivers = await getDriversByUserId(id)
-        console.log(drivers);
+        const route = await db.oneOrNone('select * from routes where taxi_id = $1', [drivers.taxi_id])
+        // console.log(route);
+        // console.log(drivers);
+        drivers.route_id = route.id
+        drivers.route = route
 
         res.json({
             data: drivers
@@ -332,6 +337,20 @@ await db.none('insert into card_payment(firstname,card_number ,exp_month,exp_yea
     })
 
     // --------------END----------------
+
+    // *****************16/08/22*****************
+    app.get('/api/drivertrip/:id', async (req, res)=>{
+        const {id} = req.params
+        const drivers = await getDriversByTaxiId(id)
+        console.log(drivers);
+        const amount_per_trip = await db.manyOrNone(`select * from taxi_trips where taxi_id = $1`,[drivers.taxi_id]);
+        console.log(amount_per_trip);
+
+        res.json({
+            diversTrips: amount_per_trip, drivers
+        })
+    })
+    // ENDS HERE
 
 
 }

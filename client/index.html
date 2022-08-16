@@ -199,9 +199,12 @@
 			<div>
 				<p class="header" x-text="feedback_message"></p>
 			</div>
-			<div class="one field">
+			<div class="two field">
 				<div class="field">
 					Taxi Registration Number is <span x-text="reg"></span>
+				</div>
+				<div class="field">
+					Your Route is <span x-text="route"></span>
 				</div>
 			</div>
 			<div class="row ui form">
@@ -279,8 +282,8 @@
 								</td>
 								<td>
 
-									<button class="button" x-bind:disabled="count < 15" @click="fullTaxi()"><i
-											class="leave, takeTrip()">Leave</i></button>
+									<button class="button" x-bind:disabled="count < 15" @click="fullTaxi(),takeTrip()"><i
+											class="leave">Leave</i></button>
 									<span x-text="trips"></span>
 
 								</td>
@@ -422,7 +425,6 @@
 					</div>
 				</div>
 				<div class="row" x-show="drivers_profile">
-					<h4>View Drivers Profile</h4>
 
 					<template x-for="info in owners_drivers">
 
@@ -439,7 +441,7 @@
 					</template>
 					<div x-show="driver">
 						<!-- <template x-for="driver_info in driver_profile"> -->
-							<div>
+							<div class="showdriver">
 								<div class="inline">
 									<li>hello I am the driver</li>
 								</div>
@@ -455,20 +457,17 @@
 										Driving:<li x-text="selectedDriver.reg_number"></li>
 									</div>
 								</div>
-								<br>
-								<div class="inline">
-
-									<li>route: </li>	
-								</div>
-								<br>
-								<div class="inline">
-
-									<span>Status: On the road</span>	
-								</div>
 								<div>
-									<button @click="drivers_details()">prof</button>
+									Route<li x-text="route"></li>	
 								</div>
-
+								<br>
+								<div>
+									<button @click="driversDailyTrip(selectedDriver)">Amount made</button>
+								</div>	
+								
+								<div>
+									<span x-text="drivers_profit"></span>
+								</div>
 							</div>
 						<!-- </template> -->
 						<!-- <span x-text="price"></span>	 -->

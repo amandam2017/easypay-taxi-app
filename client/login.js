@@ -108,6 +108,7 @@ const Login = ()=>{
                         this.loggedin = false,
                         this.landing = false,
                         this.feedback_message = `${results.data.message} is logged in`
+                        this.signing_btns = false
                 }
     
                 if(results.data.role == 'Driver'){
@@ -121,7 +122,10 @@ const Login = ()=>{
                     this.feedback_message = `${results.data.message} is logged in`
                     this.signing_btns = false
                     this.signout = true
+                    // this.takeTrip()
                     this.reg = this.drivers_details()
+                    this.signing_btns = false
+
                     
                 }
                 // } 
@@ -138,6 +142,8 @@ const Login = ()=>{
                 // this.viewTaxis()
                 // this.drivers_details()
                 this.feedback_message = `${results.data.message} is logged in`
+                this.signing_btns = false
+
 
             }
 
@@ -161,7 +167,7 @@ const Login = ()=>{
         this.success_pay=false
         this.landing = true
         this.owner_screen = false
-        this.signing_btns = false
+        this.signing_btns = true
 
   
       },

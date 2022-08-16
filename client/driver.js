@@ -1,11 +1,15 @@
 import axios from 'axios'
+import Owner from './owner'
+
 
 const remote_url = import.meta.env.VITE_SERVER_URL
 const Drivers = () => {
     return {
+        ...Owner(),
         init() {
             this.displayTotal()
-            // this.driver()
+            this.drivers_details()
+            this.takeTrip()
 
         },
         routes: [],
@@ -23,32 +27,68 @@ const Drivers = () => {
         eftcount: 0,
         rewardsRecieved: false,
         trip_details:{
-            route_id: '',
-            taxi_id:'',
+            route_id: 0,
+            taxi_id:0,
             passenger_count: '', 
             total_fare: '' 
         },
+        driverDetails:'',
+        route:{},
+        passengers_in_taxi:0,
 
         fullTaxi() {
             this.count = this.count - 15
             // this.fare_total += this.price * 15
             return this.trips++
         },
-
-        takeTrip(){
-            axios
-            .post(`${remote_url}/api/trips`,{
-                route_id: this.trip_details.route_id,
-                taxi_id: this.trip_details.taxi_id,
-                passenger_count: this.trip_details.passenger_count,
-                total_fare: this.trip_details.total_fare
-            })
+        fullTaxi_trip() {
+            this.passengers_in_taxi = this.passengers_in_taxi + 15
+            return this.passengers_in_taxi
 
         },
-
         totalTrip() {
             return this.cardprice + this.cashprice
         },
+
+        drivers_details(){
+            this.user = JSON.parse(localStorage.getItem('user_name'))
+            this.id = this.user.id;
+            // console.log(this.user);
+             axios
+            .get(`${remote_url}/api/driver/${this.id}`)
+            .then(results =>{
+                console.log(results.data.data.reg_number);
+                this.reg = results.data.data.reg_number
+                // // console.log(results.data.data.route.departure);
+                this.route = `${results.data.data.route.departure}  to ${results.data.data.route.destination}`
+                // console.log(this.route);
+                this.driverDetails = results.data.data
+                // console.log(driverDetails);
+            })
+        },
+
+        takeTrip(){
+            this.drivers_details()
+            // console.log(this.driverDetails);
+            // console.log(this.driverDetails.taxi_id);
+            // console.log(this.driverDetails.route_id);
+
+            axios
+            .post(`${remote_url}/api/trips`,{
+                route_id: this.driverDetails.route_id,
+                taxi_id: this.driverDetails.taxi_id,
+                passenger_count: this.fullTaxi_trip(),
+                total_fare: this.totalTrip()
+
+            })
+            .then(results=>{
+                console.log(results.data.data);
+            })
+
+            .catch(err => console.log(err))
+
+        },
+
 
         passengerIncrement() {
             return this.count++

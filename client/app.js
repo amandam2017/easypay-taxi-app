@@ -16,6 +16,7 @@ const Taxi = ()=>{
         
         // landing:true,
         init(){
+            // this.drivers_details()
             if(localStorage['access_key_driver'] !== undefined){
                 this.driver_screen = true
                 this.landing = false
