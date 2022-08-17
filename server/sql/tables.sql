@@ -47,7 +47,6 @@ create table routes(
     destination text not null,
     -- count int not null,
     foreign key(taxi_id) references taxi_data(id)
-    -- trips_taken int not null
 );
 
 --
@@ -71,23 +70,6 @@ create table payment_receipt(
     foreign key(user_id) references users(id)
 
 );
--- create table taxi_trips(
---     id serial not null primary key,
---     reg_number varchar not null,
---     destination text not null,
---     driver text not null,
---     foreign key(driver) references taxi_owners(drivers_name),
---     taxi_route text not null,
---     foreign key(taxi_route) references routes(depature, destination),
---     total_fare int not null,
---     card_payment int not null,
---     cash_payment int not null
--- );
-
--- create table vouchers(
---     id serial not null primary key,
---     cashback varchar not null
--- );
 
 
 

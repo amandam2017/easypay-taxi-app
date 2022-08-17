@@ -208,10 +208,40 @@ div[data-length='3']:after {
 /* MAP STYLES ADDED BELOW */
 #map{
   width: 90%;
-  margin: 75px auto;
+  /* margin: 75px auto; */
+  margin: 200px auto;
   height: 400px;
   position: absolute;
   background-repeat: no-repeat;
+}
+/* STYLING FOR SEARCH FORM ON MAP */
+.formBlock{
+  max-width: 300px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 10px;
+  z-index: 999;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.65);
+  border-radius: 5px;
+  width: 100%;
+}
+
+.input{
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 15px;
+  border-radius: 3px;
+}
+#form{
+  padding: 0;
+  margin: 0;
+}
+input:nth-child(1){
+  margin-bottom: 10px;
 }
 
 .passenger, .driver{

@@ -28,9 +28,9 @@ const Driver = () => {
             // this.fare_total += this.price * 15
             return this.trips++
         },
-       
+
         totalTrip() {
-            return this.cardprice +this.cashprice
+            return this.cardprice + this.cashprice
         },
 
         passengerIncrement() {
@@ -47,17 +47,17 @@ const Driver = () => {
         console.log(this.fare_total);
          this.fare_total = Number(this.eftfare_total) 
         },
-// cash_payment(){
-//     return this.cashprice= this.no_of_cashpaid_passenger * this.price
-// },
+        // cash_payment(){
+        //     return this.cashprice= this.no_of_cashpaid_passenger * this.price
+        // },
 
         driver() {
             const token = localStorage.getItem('access_key_driver')
             axios
                 .get(`${remote_url}/api/routes`, {
-                   // headers: {
-                        //"Authorization": `Bearer ${token}`,
-                   // }
+                    // headers: {
+                    //"Authorization": `Bearer ${token}`,
+                    // }
                 })
                 .then(results => {
                     // console.log(this.departures = results.data.data2);
@@ -74,16 +74,16 @@ const Driver = () => {
 
                 .catch(error => console.error(error))
         },
-        driver_trip(){
-            axios
-            .post(`${remote_url}/api/trips`,
-        { route_id:this.route_id,
-            taxi_id:this.taxi_id,passenger_count:this.passenger_count,total_fare:this.total_fare}
-            )
-            .then(results => {
-             console.log(results.data);
-            })
-        },
+        // driver_trip(){
+        //     axios
+        //     .post(`${remote_url}/api/trips`,
+        // { route_id:this.route_id,
+        //     taxi_id:this.taxi_id,passenger_count:this.passenger_count,total_fare:this.total_fare}
+        //     )
+        //     .then(results => {
+        //      console.log(results.data);
+        //     })
+        // },
 
         displayTotal() {
             const token = localStorage.getItem('access_key_driver')
@@ -94,7 +94,7 @@ const Driver = () => {
                     departure: this.departure,
                     destination: this.destination,
                     no_of_cashpaid_passenger: this.no_of_cashpaid_passenger
-                    
+
 
                     //   }
                 })
@@ -110,9 +110,17 @@ const Driver = () => {
                     // console.log(this.routes + "hsifgigfakshfoi");
                 })
 
-        }
+        },
+        driver_trip() {
+            axios.post(`${remote_url}/api/trips`,
+                { route_id: this.route_id, 
+                    taxi_id: this.taxi_id, 
+                    passenger_count: this.passenger_count, 
+                    total_fare: this.total_fare 
+                })
+                .then(results => { console.log(results.data); })
+        },
     }
-
 }
 
 
