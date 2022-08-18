@@ -107,16 +107,16 @@ it('should be able to allow user to make payment', async () => {
     //       "owner_id": 3
     //     }, registered);
     // });
-    it('should be able to link driver to a taxi', async () => {
-        const response = await supertest(app)
-            .post(`/api/linkdrivers`)
-            .send({
-                user_id:'4',
-                 taxi_id:'1'
-            });
-        const linkdrivers= response.body.message;
-        assert.deepStrictEqual('Allocated taxi to driver :-)', linkdrivers);
-    });
+    // it('should be able to link driver to a taxi', async () => {
+    //     const response = await supertest(app)
+    //         .post(`/api/linkdrivers`)
+    //         .send({
+    //             user_id:'4',
+    //              taxi_id:'1'
+    //         });
+    //     const linkdrivers= response.body.message;
+    //     assert.deepStrictEqual('Allocated taxi to driver :-)', linkdrivers);
+    // });
     after(() => {
         db.$pool.end();
     });
