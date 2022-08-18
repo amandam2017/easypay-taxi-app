@@ -124,7 +124,7 @@ const Login = ()=>{
                     this.signout = true
                     // this.takeTrip()
                     this.reg = this.drivers_details()
-                    this.signing_btns = false
+                    // this.signing_btns = false
 
                     
                 }
@@ -168,7 +168,6 @@ const Login = ()=>{
         this.landing = true
         this.owner_screen = false
         this.signing_btns = true
-
   
       },
 }

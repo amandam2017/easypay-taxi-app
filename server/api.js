@@ -23,6 +23,7 @@ const api = (app, db) => {
             const salt = await bcrypt.genSalt(saltRounds);
             const hash = await bcrypt.hash(password, salt)
             const user = await db.oneOrNone('select * from users where username = $1', [username])
+            // await db.oneOrNone(`update users set role='driver' where username = $1`, [username])
             if (user == null) {
                 await db.none('insert into users (name, surname, username, password, role) values ($1, $2, $3, $4, $5)', [name, surname, username, hash, role]);
                 res.json({
@@ -50,7 +51,7 @@ const api = (app, db) => {
         if (token === null) return res.sendStatus(401)
         // if there is then verify if its the correct user using id if not return the error
         jwt.verify(token, process.env.SECRET_TOKEN, (err, username) => {
-            
+            // console.log(err);
             if (err) return res.sendStatus(403)
             console.log('show error' + err);
 
@@ -150,20 +151,20 @@ const api = (app, db) => {
             
         } catch (error) {
             res.status(500)
-                .json({
-                    message: error.message
-                })
+            .json({
+                message: error.message
+            })
         }
-
+           
     })
 
-    app.post(`/api/registeredtaxis`, async (req, res) => {
+    app.post(`/api/registeredtaxis`, async (req, res)=>{
 
-        const { reg_number, qty, owner_id } = req.body
-        const registered = await db.oneOrNone('insert into taxi_data (reg_number, qty, owner_id) values($1,$2,$3) returning *', [reg_number, qty, owner_id]);
+        const {reg_number, qty, owner_id} = req.body
+        const registered = await db.oneOrNone('insert into taxi_data (reg_number, qty, owner_id) values($1,$2,$3) returning *',[reg_number,qty,owner_id]);
         console.log(registered);
         res.json({
-            data: registered
+            data:registered
         })
 
     })
@@ -175,25 +176,25 @@ const api = (app, db) => {
             const sql = 'insert into drivers (user_id, taxi_id) values($1, $2)';
             await db.none(sql, [user_id, taxi_id]);
             res.status(200)
-                .json({
-                    message: 'Allocated taxi to driver :-)'
-                })
-
+            .json({
+                message: 'Allocated taxi to driver :-)'
+            })
+            
         } catch (error) {
             res.status(500)
-                .json({
-                    message: error.message
-                })
+            .json({
+                message: error.message
+            })
         }
-
+        
     })
-
-    const getTaxiOwnerById = async (id) => {
+   
+    const getTaxiOwnerById = async (id) =>  {
         const user = await db.oneOrNone(`select * from users where role = 'Owner' AND id = $1`, [id]);
         return user;
     }
 
-    const getUserById = async (id) => {
+    const getUserById = async (id) =>  {
         const user = await db.oneOrNone(`select * from users where id = $1`, [id]);
         return user;
     }
@@ -214,35 +215,31 @@ const api = (app, db) => {
     // const getDriversByTaxiId = async (id) => await db.oneOrNone('select * from drivers join users on drivers.user_id = users.id where taxi_id = $1', [id])
         
 
-
-    const getTaxisByOwnerId = async (id) => {
+    const getTaxisByOwnerId = async (id) =>  {
         const taxis = await db.manyOrNone(`select * from taxi_data where owner_id = $1`, [id]);
-        return taxis;
+        return taxis; 
     }
 
-    const getDriversByOwnerId = async (id) => {
+    const getDriversByOwnerId = async (id) =>  {
         const taxis = await getTaxisByOwnerId(id);
-        if (!taxis) {
+        if(!taxis){
             return []
         }
         const driversResults = taxis.map(async (taxi) => {
             const driver = await getDriversByTaxiId(taxi.id);
 
-
+            
             return {
                 ...driver,
                 taxi
             }
         });
-
+        
         const drivers = await Promise.all(driversResults);
         console.log(drivers);
         return drivers;
     }
-
-
-
-
+    
     app.get('/api/owner/:id', async (req, res) => {
 
         const { id } = req.params; // user id
@@ -255,8 +252,8 @@ const api = (app, db) => {
 
         res.status(200)
             .json({
-                data: owner, taxis, drivers
-
+                data: owner,taxis,drivers
+               
             })
 
     })
@@ -264,7 +261,6 @@ const api = (app, db) => {
     // ------------
     app.post('/api/driver', async (req, res)=> {
         try {
-
             const { no_of_cashpaid_passenger } = req.body
             const { departure, destination } = req.body;
             const trips = await db.manyOrNone(`select price,taxi_id from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
@@ -302,25 +298,6 @@ const api = (app, db) => {
     })
 
     // -----------
-<<<<<<< HEAD
-    app.post('/api/card_payments', async function (req, res) {
-        const { firstname, card_number, exp_month, exp_year, cvv } = req.body;
-        try {
-            await db.none('insert into card_payment(firstname,card_number ,exp_month,exp_year, cvv) values ($1, $2,$3,$4,$5)', [firstname, card_number, exp_month, exp_year, cvv]);
-            //const paycard = await db.manyOrNone(`select * from card_payment`);
-            res.json({
-                message: 'payment made',
-                status: 'success',
-                //                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     data:paycard
-            })
-        } catch (err) {
-            console.log(err);
-            res.json({
-                status: 'error',
-                error: err.message
-            })
-        }
-=======
 //     app.post('/api/card_payments', async function (req, res) {
 //         const { firstname, card_number, exp_month, exp_year, cvv } = req.body;
 //         try {
@@ -340,7 +317,6 @@ const api = (app, db) => {
 //                 error: err.message
 //             })
 //         }
->>>>>>> 895cbfe (keeping my changed before pulling)
 
 
 //     });
@@ -349,7 +325,7 @@ app.post('/api/card_payments', async function (req, res) {
     
     const { firstname, card_number, exp_month, exp_year, cvv} = req.body;
     try {
-    const record_payment = await db.none('insert into card_payment(firstname,card_number ,exp_month,exp_year, cvv) values ($1,$2,$3,$4,$5) returning *', [firstname, card_number, exp_month, exp_year, cvv]);
+    const record_payment = await db.none('insert into card_payment(firstname,card_number ,exp_month,exp_year, cvv) values ($1,$2,$3,$4,$5)', [firstname, card_number, exp_month, exp_year, cvv]);
     console.log(record_payment);
         res.json({
             message: 'payment made',
@@ -363,7 +339,6 @@ app.post('/api/card_payments', async function (req, res) {
             error: err.message
         })
     }
-
 
 });
 

@@ -33,9 +33,8 @@ const DATABASE_URL = process.env.DATABASE_URL;
 const pgp = PgPromise({});
 
 const config = {
-	connectionString: process.env.DATABASE_URL || 'postgres://okuhle:okuhle@localhost:5432/easy_pay_taxi ',
-	// max: 30,
-	//ssl:{ rejectUnauthorized : false}
+	connectionString: process.env.DATABASE_URL || 'postgres://amanda:@262632@localhost:5432/easy_pay_taxi ',
+	ssl:{ rejectUnauthorized : false}
  };
  console.log(DATABASE_URL);
  
@@ -43,7 +42,7 @@ const config = {
 
 API(app, db);
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 2000;
 
 app.listen(PORT, function () {
 	console.log(`App started on port ${PORT}`)

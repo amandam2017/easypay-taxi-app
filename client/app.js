@@ -39,11 +39,14 @@ const Taxi = ()=>{
         hideLogin() {
             this.loggedin = false
             this.register = true
+            this.signing_btns = false
         
           },
           hideRegister() {
             this.loggedin = true
             this.register = false
+            this.signing_btns = false
+
           },
         role:'Passenger',
         user:{

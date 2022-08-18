@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
-	<link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
+	<link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css" />
 	<title>Vite App</title>
 </head>
 
@@ -25,9 +25,7 @@
 				<a :class="`ui ${loggedin ? 'active' : ''} item`"
 					@click="loggedin =! loggedin,hideLogin(), landing=false">SignUp</a>
 			</div>
-			<div x-show="signout" class="logout">
-				<button @click="logout()">SignOut</button>
-			</div>
+			
 		</div>
 		<div class="row space" x-show="landing">
 			<div class="landing center-text">
@@ -56,7 +54,7 @@
 
 		<div class="row" x-show="loggedin">
 			<div>
-			<span x-text="error_message" class="feedback_message"></span>
+				<span x-text="error_message" class="feedback_message"></span>
 			</div>
 			<h1 class="ui header">Easy Pay</h1>
 			<div class="ui form">
@@ -117,29 +115,29 @@
 
 		<div x-show="passenger_screen" class="ui form passenger">
 			<div class="row">
-			<div>
-				<p class="header" x-text="feedback_message"></p>
-			</div>
+				<div>
+					<p class="header" x-text="feedback_message"></p>
+				</div>
 
-			<h2 class="header">Taxis on Route: <span x-text="taxis.length"></span></h2>
-			<div class="two fields">
-				<div class="field">
-					<label for="Select departure">Select departute:</label>
-					<select x-model="departure">
-						<template x-for="taxi in departures">
-							<option :value="taxi.departure" x-text="taxi.departure"></option>
-						</template>
-					</select>
+				<h2 class="header">Taxis on Route: <span x-text="taxis.length"></span></h2>
+				<div class="two fields">
+					<div class="field">
+						<label for="Select departure">Select departute:</label>
+						<select x-model="departure">
+							<template x-for="taxi in departures">
+								<option :value="taxi.departure" x-text="taxi.departure"></option>
+							</template>
+						</select>
+					</div>
+					<div class="field">
+						<label for="Select destination">Select destination:</label>
+						<select x-model="destination">
+							<template x-for="taxi in destinations">
+								<option :value="taxi.destination" x-text="taxi.destination"></option>
+							</template>
+						</select>
+					</div>
 				</div>
-				<div class="field">
-					<label for="Select destination">Select destination:</label>
-					<select x-model="destination">
-						<template x-for="taxi in destinations">
-							<option :value="taxi.destination" x-text="taxi.destination"></option>
-						</template>
-					</select>
-				</div>
-			</div>
 			</div>
 
 			<div class="row">
@@ -171,9 +169,9 @@
 										x-text="taxi.taxi_id"></span></div>
 							</div>
 						</template>
-	
+
 					</div>
-	
+
 				</div>
 			</div>
 			<br>
@@ -182,13 +180,14 @@
 					@click="payment_screen=true,landing=false,passenger_screen=false">Make Payment</button>
 			</div>
 			<br>
-		<div class="row">
-			<h3>FOR MAP PLEASE ENTER FULL ADDRESS WITH POSTAL CODE, PROVINCE AND COUNTRY</h3>
-			<p>Eg: If Departing from Khayelitsha enter : 4 Bonga Dr, Khayelitsha, Cape Town, 7784, Western Cape, ZA</p>
-			<p>And destination enter : Site C, kuwait Taxi Rank, Khayelitsha, 7784, Western Cape, ZA</p>
-			<div id="map">
+			<div class="row">
+				<h3>FOR MAP PLEASE ENTER FULL ADDRESS WITH POSTAL CODE, PROVINCE AND COUNTRY</h3>
+				<p>Eg: If Departing from Khayelitsha enter : 4 Bonga Dr, Khayelitsha, Cape Town, 7784, Western Cape, ZA
+				</p>
+				<p>And destination enter : Site C, kuwait Taxi Rank, Khayelitsha, 7784, Western Cape, ZA</p>
+				<div id="map">
+				</div>
 			</div>
-		</div>
 		</div>
 
 		<div x-show="driver_screen" class="row driver">
@@ -238,7 +237,7 @@
 							<div class="field">
 								<button class="ui secondary button text-white bg-black rounded-lg"
 									@click="displayTotal(), drivers_details()">Cash Total</button>
-									<!-- <button @click="drivers_details()">prof</button> -->
+								<!-- <button @click="drivers_details()">prof</button> -->
 
 							</div>
 							Expected Cash Amount:<span x-text="cashprice"></span>
@@ -278,8 +277,8 @@
 								</td>
 								<td>
 
-									<button class="button" x-bind:disabled="count < 15" @click="fullTaxi(),takeTrip()"><i
-											class="leave">Leave</i></button>
+									<button class="button" x-bind:disabled="count < 15"
+										@click="fullTaxi(),takeTrip()"><i class="leave">Leave</i></button>
 									<span x-text="trips"></span>
 
 								</td>
@@ -292,7 +291,7 @@
 			</div>
 			<div class="two fields">
 
-				<button @click="rewardsRecieved = !rewardsRecieved, driver_screen=false"
+				<button @click="rewardsRecieved = !rewardsRecieved, driver_screen=false" x-bind:disabled="eftcount < 1"
 					class="ui secondary button text-white bg-black rounded-lg">
 					See Cashback Rewards
 				</button>
@@ -342,7 +341,7 @@
 						<!-- <button @click="payhere()">PAY</button> -->
 						<button @click="payhere(),passengerIncre()"
 							class="ui secondary button text-white bg-black rounded-lg">payment</button>
-			
+
 					</div>
 				</div>
 				<div class="col-25">
@@ -350,10 +349,12 @@
 						<template x-for="taxi in taxis">
 							<div>
 								<h4>Taxi fare <span class="price" x-model="price" style="color:black"><i
-									class="fa fa-taxi fare"></i> R<b x-text="taxi.price">0.00</b></span>
+											class="fa fa-taxi fare"></i> R<b x-text="taxi.price">0.00</b></span>
 								</h4>
-								<p>Total <span class="price" style="color:black">R<b x-text="taxi.price">0.00</b></span></p>
-								<p>Taxi ID: <span class="taxiID" style="color:black"><b x-text="taxi.taxi_id">0</b></span></p>
+								<p>Total <span class="price" style="color:black">R<b x-text="taxi.price">0.00</b></span>
+								</p>
+								<p>Taxi ID: <span class="taxiID" style="color:black"><b
+											x-text="taxi.taxi_id">0</b></span></p>
 							</div>
 						</template>
 					</div>
@@ -391,6 +392,10 @@
 							<div class="cashback">
 								<h3>EASYPAY TAXI</h3>
 							</div>
+
+							<div class="cashback">congratulations you have earned:<h3
+									x-text="eftcount * price*0.03.toFixed(2)"></h3>
+							</div>
 							<img src="./public/images/coupon.png" alt="Avatar" style="width:100%;">
 							<div class="cashback" style="text-decoration: #03071e">
 								<h2><b>3% OFF </b></h2>
@@ -419,7 +424,7 @@
 						<button class="ui secondary button" @click="registerTaxi()">Register Your taxi</button>
 					</div>
 					<div class="field">
-						<button class="ui secondary button"  @click="viewTaxis()">View Your taxis</button>
+						<button class="ui secondary button" @click="viewTaxis()">View Your taxis</button>
 					</div>
 					<div class="field">
 						<button class="ui secondary button" @click="logout()">Logout</button>
@@ -435,44 +440,46 @@
 							<span x-text="info.surname"></span>
 							<span x-text="info.role"></span>
 							<template x-if="info.taxi">
-							<span x-text="info.taxi.reg_number"></span>	
+								<span x-text="info.taxi.reg_number"></span>
 							</template>
-							
+
 						</div>
 					</template>
 					<div x-show="driver">
 
 						<div class="col-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="our-team">
-							  <div class="picture">
-								<img class="img-fluid" src="./public/images/persona2.jpeg">
-							  </div>
-							  <div class="team-content">
-								<div>
+								<div class="picture">
+									<img class="img-fluid" src="./public/images/persona2.jpeg">
+								</div>
+								<div class="team-content">
 									<div>
-										Name:<li x-text="selectedDriver.name"></li>
+										<div>
+											Name:<li x-text="selectedDriver.name"></li>
+										</div>
+										<div>
+											Last Name:<li x-text="selectedDriver.surname"></li>
+										</div>
+										<div>
+											Reg Number:<li x-text="selectedDriver.reg_number"></li>
+										</div>
 									</div>
 									<div>
-										Last Name:<li x-text="selectedDriver.surname"></li>
+										Route<li x-text="selectedDriver.route"></li>
 									</div>
 									<div>
-										Reg Number:<li x-text="selectedDriver.reg_number"></li>
+										<button class="ui secondary button"
+											@click="driversDailyTrip(selectedDriver)">Amount made</button>
 									</div>
 								</div>
-								<div>
-									Route<li x-text="selectedDriver.route"></li>	
-								</div>
-								<div>
-									  <button class="ui secondary button" @click="driversDailyTrip(selectedDriver)">Amount made</button>
-								  </div>	
-							  </div>
 
 								<div x-show="show_driversprofit">
 									<!-- <span x-text="drivers_profit"></span> -->
 									<template x-for="profit in drivers_profit">
 										<div>
 											<div>
-												There are passengers in a taxi: <span x-text="profit.passenger_count"></span>
+												There are passengers in a taxi: <span
+													x-text="profit.passenger_count"></span>
 											</div>
 
 											<div>
@@ -483,10 +490,10 @@
 									</template>
 								</div>
 							</div>
-						  </div>	
+						</div>
 					</div>
 				</div>
-		
+
 				<div class="row" x-show="register_taxis">
 					<span x-text="error_message" class="feedback_message"></span>
 					<div class="ui form">
@@ -507,7 +514,7 @@
 						<button class="ui secondary button" @click="get_drivers()">SEND</button>
 					</div>
 				</div>
-				
+
 			</div>
 		</div>
 
