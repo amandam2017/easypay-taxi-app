@@ -17,14 +17,16 @@ const Owner = () => {
         selectedDriver: {},
 
         drivers_profile: '',
-        driver_profile: '',
+        // driver_profile: '',
         driver_info:'',
         user: {},
         driver:'',
         reg:'',
         driver_id:'',
         drivers_profit:{},
+        show_driversprofit: false,
         init() {
+            this.driversDailyTrip()
             this.user = localStorage.getItem('user_name')
              this.owner_id = this.user.id;
              console.log(this.owner_id);
@@ -76,10 +78,13 @@ const Owner = () => {
             axios
             .get(`${remote_url}/api/drivertrip/${this.driver_id}`)
             .then(results=>{
-                console.log(results.data.diversTrips);
+                console.log(results.data.driversTrips);
                 this.drivers_profit = results.data.driversTrips;
+                console.log(this.drivers_profit);
             })
+            this.show_driversprofit = true
         },
+        
         registerTaxi() {
             this.register_taxis = true
             this.drivers_profile = false

@@ -22,6 +22,7 @@ const Drivers = () => {
         cardprice: '',
         cashprice: '',
         count: 0,
+        price:0,
         trips: 0,
         fare_total: 0,
         eftcount: 0,
@@ -35,10 +36,13 @@ const Drivers = () => {
         driverDetails:'',
         route:{},
         passengers_in_taxi:0,
+        taxi_price:0,
+        route_cost:0,
 
         fullTaxi() {
             this.count = this.count - 15
             // this.fare_total += this.price * 15
+            // this.taxi_price
             return this.trips++
         },
         fullTaxi_trip() {
@@ -57,28 +61,26 @@ const Drivers = () => {
              axios
             .get(`${remote_url}/api/driver/${this.id}`)
             .then(results =>{
-                console.log(results.data.data.reg_number);
+                this.route_cost = results.data.data.route.price;
                 this.reg = results.data.data.reg_number
                 // // console.log(results.data.data.route.departure);
                 this.route = `${results.data.data.route.departure}  to ${results.data.data.route.destination}`
-                // console.log(this.route);
+                console.log(this.route);
                 this.driverDetails = results.data.data
-                // console.log(driverDetails);
+                console.log(this.driverDetails);
+                return
             })
         },
 
         takeTrip(){
             this.drivers_details()
-            // console.log(this.driverDetails);
-            // console.log(this.driverDetails.taxi_id);
-            // console.log(this.driverDetails.route_id);
-
             axios
             .post(`${remote_url}/api/trips`,{
                 route_id: this.driverDetails.route_id,
                 taxi_id: this.driverDetails.taxi_id,
                 passenger_count: this.fullTaxi_trip(),
-                total_fare: this.totalTrip()
+                total_fare: this.totalTrip(),
+                taxi_price: this.route_cost
 
             })
             .then(results=>{
@@ -103,6 +105,7 @@ const Drivers = () => {
             this.cardprice = Number(this.eftcount) * this.price
             console.log(this.count);
             this.count = Number(this.eftcount)
+            this.price = Number(this.cardprice)
         },
         // cash_payment(){
         //     return this.cashprice= this.no_of_cashpaid_passenger * this.price
@@ -164,9 +167,6 @@ const Drivers = () => {
                     this.routes = result.data.trips
                     this.reg_number = result.data.data.reg_number
                     this.count = Number(this.eftcount) + Number(this.no_of_cashpaid_passenger)
-
-                    // console.log(this.cashprice, this.no_of_cashpaid_passenger);
-                    // console.log(this.routes + "hsifgigfakshfoi");
                 })
 
         },

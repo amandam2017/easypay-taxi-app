@@ -14,10 +14,11 @@ const Routes = () => {
         success_pay: false,
         error: false,
         passengers: 0,
-        payment_screen:false,
+        payment_screen: false,
         user: {},
-        passenger_name:'',
-        reg:'',
+        passenger_name: '',
+        reg: '',
+        // taxiID: '',
 
         init() {
             findTaxiByRoute()
@@ -36,10 +37,14 @@ const Routes = () => {
                 })
                 .then(result => {
                     console.log(result.data.data);
-                    console.log(result.data.data);
+                    localStorage.setItem('taxi', JSON.stringify(result.data.data))
                     this.taxis = result.data.data
                     this.price = result.data.price.price
                     this.reg = result.data.data.reg_number
+                    
+                    // console.log(this.reg);
+                    // this.taxiID = result.data.data.taxi_id
+                    // console.log(this.taxiID);
 
 
                 })
@@ -83,20 +88,20 @@ const Routes = () => {
                             "Authorization": `Bearer ${access_token}`,
                         }
 
-                })
-                .then(results => {
-                    console.log(results.data);
-                    this.success_pay = true
-                    this.payment_screen=false
-                    this.this_info = results.data
-                     this.error_message = results.data.message
-                     this.error = false
-                    
-                     this.user = JSON.parse(localStorage.getItem('user_name'))
-                    this.passenger_name = `Thank you for payment ${this.user.username}`;
-                    console.log(this.passenger_name);
-                })
-                .catch(error => console.error(error))
+                    })
+                    .then(results => {
+                        console.log(results.data);
+                        this.success_pay = true
+                        this.payment_screen = false
+                        this.this_info = results.data
+                        this.error_message = results.data.message
+                        this.error = false
+
+                        this.user = JSON.parse(localStorage.getItem('user_name'))
+                        this.passenger_name = `Thank you for payment ${this.user.username}`;
+                        console.log(this.passenger_name);
+                    })
+                    .catch(error => console.error(error))
 
 
 

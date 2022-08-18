@@ -339,6 +339,7 @@
 								</div>
 							</div>
 						</div>
+						<!-- <button @click="payhere()">PAY</button> -->
 						<button @click="payhere(),passengerIncre()"
 							class="ui secondary button text-white bg-black rounded-lg">payment</button>
 			
@@ -346,11 +347,15 @@
 				</div>
 				<div class="col-25">
 					<div class="container">
-						<h4>Taxi fare <span class="price" x-model="price" style="color:black"><i
-									class="fa fa-taxi fare"></i> R<b x-text="price">0.00</b></span>
-						</h4>
-						<hr>
-						<p>Total <span class="price" style="color:black">R<b x-text="price">0.00</b></span></p>
+						<template x-for="taxi in taxis">
+							<div>
+								<h4>Taxi fare <span class="price" x-model="price" style="color:black"><i
+									class="fa fa-taxi fare"></i> R<b x-text="taxi.price">0.00</b></span>
+								</h4>
+								<p>Total <span class="price" style="color:black">R<b x-text="taxi.price">0.00</b></span></p>
+								<p>Taxi ID: <span class="taxiID" style="color:black"><b x-text="taxi.taxi_id">0</b></span></p>
+							</div>
+						</template>
 					</div>
 				</div>
 			</div>
@@ -436,12 +441,13 @@
 						</div>
 					</template>
 					<div x-show="driver">
-						<!-- <template x-for="driver_info in driver_profile"> -->
-							<div class="showdriver">
-								<div class="inline">
-									<li>hello I am the driver</li>
-								</div>
-								<br>
+
+						<div class="col-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="our-team">
+							  <div class="picture">
+								<img class="img-fluid" src="./public/images/persona2.jpeg">
+							  </div>
+							  <div class="team-content">
 								<div>
 									<div>
 										Name:<li x-text="selectedDriver.name"></li>
@@ -450,25 +456,35 @@
 										Last Name:<li x-text="selectedDriver.surname"></li>
 									</div>
 									<div>
-										Driving:<li x-text="selectedDriver.reg_number"></li>
+										Reg Number:<li x-text="selectedDriver.reg_number"></li>
 									</div>
 								</div>
 								<div>
-									Route<li x-text="route"></li>	
+									Route<li x-text="selectedDriver.route"></li>	
 								</div>
-								<br>
 								<div>
-									<button @click="driversDailyTrip(selectedDriver)">Amount made</button>
-								</div>	
-								
-								<div>
-									<span x-text="drivers_profit"></span>
+									  <button class="ui secondary button" @click="driversDailyTrip(selectedDriver)">Amount made</button>
+								  </div>	
+							  </div>
+
+								<div x-show="show_driversprofit">
+									<!-- <span x-text="drivers_profit"></span> -->
+									<template x-for="profit in drivers_profit">
+										<div>
+											<div>
+												There are passengers in a taxi: <span x-text="profit.passenger_count"></span>
+											</div>
+
+											<div>
+												Amount: <span x-text="profit.total_fare"></span>
+											</div>
+
+										</div>
+									</template>
 								</div>
 							</div>
-						<!-- </template> -->
-						<!-- <span x-text="price"></span>	 -->
+						  </div>	
 					</div>
-
 				</div>
 		
 				<div class="row" x-show="register_taxis">

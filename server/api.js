@@ -107,14 +107,17 @@ const api = (app, db) => {
                 return taxi.departure === departure && taxi.destination === destination
             });
             const price = await db.oneOrNone(`select price from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
+            const taxi_id = await db.oneOrNone(`select taxi_id from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
+
             
             res.json({
-                data: destination_taxis, price
+                data: destination_taxis, price, taxi_id
             });
         } catch (error) {
             console.log(error);
         }
     });
+
     app.get('/api/routes', async function (req, res) {
 
         const routes = await db.manyOrNone(`select * from routes`);
@@ -136,8 +139,8 @@ const api = (app, db) => {
     app.post(`/api/trips`, async (req, res)=>{
         
         try {
-            const { route_id, taxi_id, passenger_count,total_fare} = req.body;
-            const this_trip  = await db.oneOrNone('insert into taxi_trips (route_id, taxi_id, passenger_count, total_fare) values($1,$2,$3,$4) returning *',[route_id, taxi_id,passenger_count,total_fare]);
+            const { route_id, taxi_id, passenger_count, taxi_price, total_fare} = req.body;
+            const this_trip  = await db.oneOrNone('insert into taxi_trips (route_id, taxi_id, passenger_count, taxi_price, total_fare) values($1,$2,$3,$4,$5) returning *',[route_id, taxi_id,passenger_count,taxi_price,total_fare]);
             console.log(this_trip);
 
             res.status(200)
@@ -280,8 +283,27 @@ const api = (app, db) => {
             })
         }
     })
+    
+    // trying to get passengers by id
+    const passenger = async(id)=>{
+        const passenger_reciept = await db.manyOrNone('select * from taxi_trips where taxi_id = $1', [id])
+        return passenger_reciept
+    }
+    
+    app.get('/api/payment_reciept/:id', async (req, res)=>{
+        const { id } = req.params
+        const reciept = await passenger(id)
+
+        res.status(200)
+            .json({
+                data: reciept
+               
+            })
+        
+    })
 
     // -----------
+<<<<<<< HEAD
     app.post('/api/card_payments', async function (req, res) {
         const { firstname, card_number, exp_month, exp_year, cvv } = req.body;
         try {
@@ -299,16 +321,58 @@ const api = (app, db) => {
                 error: err.message
             })
         }
+=======
+//     app.post('/api/card_payments', async function (req, res) {
+//         const { firstname, card_number, exp_month, exp_year, cvv } = req.body;
+//         try {
+//         const record_payment = await db.none('insert into card_payment(firstname,card_number ,exp_month,exp_year, cvv) values ($1, $2,$3,$4,$5) returning *', [firstname, card_number, exp_month, exp_year, cvv]);
+//         console.log(record_payment);
+//  //const paycard = await db.manyOrNone(`select * from card_payment`);
+//             res.json({
+//                 message: 'payment made',
+//                 status: 'success',
+//                 data:record_payment
+//                 //                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     data:paycard
+//             })
+//         } catch (err) {
+//             console.log(err);
+//             res.json({
+//                 status: 'error',
+//                 error: err.message
+//             })
+//         }
+>>>>>>> 895cbfe (keeping my changed before pulling)
 
 
-    });
+//     });
+
+app.post('/api/card_payments', async function (req, res) {
+    
+    const { firstname, card_number, exp_month, exp_year, cvv} = req.body;
+    try {
+    const record_payment = await db.none('insert into card_payment(firstname,card_number ,exp_month,exp_year, cvv) values ($1,$2,$3,$4,$5) returning *', [firstname, card_number, exp_month, exp_year, cvv]);
+    console.log(record_payment);
+        res.json({
+            message: 'payment made',
+            status: 'success',
+            //                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     data:paycard
+        })
+    } catch (err) {
+        console.log(err);
+        res.json({
+            status: 'error',
+            error: err.message
+        })
+    }
+
+
+});
 
 
      // -----------------THIS----------------
      app.get(`/api/getlinked_drivers`, async (req, res) => {
         try {
             const { id } = req.params
-            // const driversAndTaxis = await getDriversByOwnerId()
             const driversAndTaxis = await db.manyOrNone(`select * from drivers where id =$1`, [id])
             console.log(driversAndTaxis);
 
@@ -349,7 +413,7 @@ const api = (app, db) => {
         console.log(amount_per_trip);
 
         res.json({
-            diversTrips: amount_per_trip, drivers
+            driversTrips: amount_per_trip
         })
     })
     // ENDS HERE

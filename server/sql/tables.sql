@@ -24,6 +24,7 @@ create table taxi_trips(
     route_id int not null,
     taxi_id int not null,
     passenger_count int not null,
+    taxi_price int not null,
     total_fare int not null,
     foreign key(taxi_id) references taxi_data(id),
     foreign key(route_id) references routes(id)
