@@ -14,12 +14,10 @@ const Routes = () => {
         success_pay: false,
         error: false,
         passengers: 0,
-        payment_screen: false,
-        passenger_name: '',
-        user_id: '',
-        taxi_trip_id: '',
-        amount: 0,
-        payment_type: '',
+        payment_screen:false,
+        user: {},
+        passenger_name:'',
+        reg:'',
 
         init() {
             findTaxiByRoute()
@@ -41,6 +39,8 @@ const Routes = () => {
                     console.log(result.data.data);
                     this.taxis = result.data.data
                     this.price = result.data.price.price
+                    this.reg = result.data.data.reg_number
+
 
                 })
                 .catch(err => console.log(err))
@@ -83,18 +83,20 @@ const Routes = () => {
                             "Authorization": `Bearer ${access_token}`,
                         }
 
-                    })
-                    .then(results => {
-                        console.log(results.data);
-                        this.success_pay = true
-                        this.payment_screen = false
-                        this.this_info = results.data
-                        this.error_message = results.data.message
-                        this.error = false
-                        this.passenger_name = localStorage.getItem('user_name')
-                        console.log(this.passenger_name);
-                    })
-                    .catch(error => console.error(error))
+                })
+                .then(results => {
+                    console.log(results.data);
+                    this.success_pay = true
+                    this.payment_screen=false
+                    this.this_info = results.data
+                     this.error_message = results.data.message
+                     this.error = false
+                    
+                     this.user = JSON.parse(localStorage.getItem('user_name'))
+                    this.passenger_name = `Thank you for payment ${this.user.username}`;
+                    console.log(this.passenger_name);
+                })
+                .catch(error => console.error(error))
 
 
 

@@ -3,6 +3,7 @@ import Driver from './driver'
 import Login from './login'
 import Owner from './owner'
 import Routes from './routes'
+import Drivers from './driver'
 
 const remote_url=import.meta.env.VITE_SERVER_URL
 const Taxi = ()=>{
@@ -11,16 +12,23 @@ const Taxi = ()=>{
         ...Routes(),
         ...Driver(),
         ...Owner(),
+        ...Drivers(),
+        
         // landing:true,
         init(){
-            this.driver()
-            if(localStorage['access_key_driver'] !== undefined) {
+            // this.drivers_details()
+            if(localStorage['access_key_driver'] !== undefined){
                 this.driver_screen = true
                 this.landing = false
             }
-            if(localStorage['access_key_pass'] !== undefined) {
+            if(localStorage['access_key_pass'] !== undefined){
                 this.passenger_screen = true
 
+                this.landing = false
+            }
+            if(localStorage['access_key_owner'] !== undefined){
+                this.owner_screen = true
+                this.drivers_profile = true
                 this.landing = false
             }
             else{

@@ -1,5 +1,6 @@
 body{
   margin-top:8%;
+  /* background-color: #fff; */
   /* overflow: hidden; */
 }
 .inner{
@@ -211,7 +212,7 @@ div[data-length='3']:after {
   /* margin: 75px auto; */
   margin: 200px auto;
   height: 400px;
-  position: absolute;
+  position: relative;
   background-repeat: no-repeat;
 }
 /* STYLING FOR SEARCH FORM ON MAP */
@@ -347,8 +348,23 @@ p{
 }
 
 
+ul{
+  background-color: snow;
+}
 
+li{
+  flex: 1;
+}
 
+.inline{
+  display: inline-block;
+}
 
-
+/* drivers profile */
+.showdriver{
+  border: 2px solid;
+  width: 50%;
+  background-color: darkgray;
+  margin: auto;
+}
 

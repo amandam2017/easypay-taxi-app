@@ -49,7 +49,38 @@ insert into users (name, surname, username, password, role) values ('Mpumi', 'Yo
 
 
 
+insert into taxi_data (reg_number, qty, owner_id) values ('CA 456 653', 15, 1);
+insert into taxi_data (reg_number, qty, owner_id) values ('CA 123 653', 15, 2);
+insert into taxi_data (reg_number, qty, owner_id) values ('CL 123 123', 15, 3);
+insert into taxi_data (reg_number, qty, owner_id) values ('CK 123 123', 15, 4);
+insert into taxi_data (reg_number, qty, owner_id) values ('CJ 456 123', 15, 5);
+insert into taxi_data (reg_number, qty, owner_id) values ('CL 789 123', 15, 1);
+insert into taxi_data (reg_number, qty, owner_id) values ('CJ 345 456', 15, 2);
+insert into taxi_data (reg_number, qty, owner_id) values ('CAA 000 123', 15, 3);
+insert into taxi_data (reg_number, qty, owner_id) values ('CA 345 123', 15, 4);
+insert into taxi_data (reg_number, qty, owner_id) values ('CK 453 123', 15, 5);
+insert into taxi_data (reg_number, qty, owner_id) values ('CAA 789 876', 15, 1);
+insert into taxi_data (reg_number, qty, owner_id) values ('CA 678 889', 15, 2);
 
 
+insert into users (name, surname, username, password, role) values ('Thabo', 'Yona', 'Thabo', 'Thabo', 'Owner');
+insert into users (name, surname, username, password, role) values ('Bonnie', 'Yona', 'Bonnie', 'Bonnie', 'Owner');
+insert into users (name, surname, username, password, role) values ('Tshifi', 'Yona', 'Tshifi', 'Tshifi', 'Owner');
+insert into users (name, surname, username, password, role) values ('Sino', 'Yona', 'Sino', 'Sino','Owner');
+insert into users (name, surname, username, password, role) values ('Sinovuyo', 'Yona','Sinovuyo' ,'Sinovuyo', 'Owner');
+insert into users (name, surname, username, password, role) values ('Vuyo', 'Yona', 'Vuyo', 'Vuyo','Driver');
+insert into users (name, surname, username, password, role) values ('Makho', 'Yona', 'Makho',  'Makho','Driver');
+insert into users (name, surname, username, password, role) values ('Unalo', 'Yona', 'Unalo', 'Unalo','Driver');
+insert into users (name, surname, username, password, role) values ('Ongezwa', 'Yona', 'Ongezwa', 'Ongezwa','Driver');
+insert into users (name, surname, username, password, role) values ('Gideon', 'Yona', 'Gideon', 'Gideon','Driver');
+insert into users (name, surname, username, password, role) values ('Clara', 'Yona', 'Clara', 'Clara','Passenger');
+insert into users (name, surname, username, password, role) values ('Xabiso', 'Yona', 'Xabiso', 'Xabiso','Passenger');
+insert into users (name, surname, username, password, role) values ('Khosie', 'Yona', 'Khosie',  'Khosie','Passenger');
+insert into users (name, surname, username, password, role) values ('Phumza', 'Yona', 'Phumza', 'Phumza', 'Passenger');
+insert into users (name, surname, username, password, role) values ('Mpumi', 'Yona', 'Mpumi', 'Mpumi', 'Passenger');
 
 
+insert into drivers (user_id, taxi_id) values (6, 1);
+insert into drivers (user_id, taxi_id) values (7, 2);
+insert into drivers (user_id, taxi_id) values (8, 3);
+insert into drivers (user_id, taxi_id) values (9, 4);

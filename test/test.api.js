@@ -136,6 +136,42 @@ it('should be able to allow user to make payment', async () => {
         const paythis= response.body.message;
         assert.deepStrictEqual('payment made', paythis);
     });
+
+    // added tests 15 August
+
+    it('should be able to allow a driver to make a trip', async () => {
+        const response = await supertest(app)
+            .post('/api/trips')
+            .send({route_id: '1',
+                 taxi_id:'1',
+                 passenger_count:'15',
+                 total_fare:'150'
+            });
+        //const this_trip = response.body.data;
+        const this_trip= response.body.message;
+        assert.deepStrictEqual('trip is taken', this_trip);
+    });
+    it('should be able to allow a taxi owner to register his taxis', async () => {
+        const response = await supertest(app)
+            .post(`/api/registeredtaxis`)
+            .send({
+                reg_number:'CA 456 654',
+                 qty: '15',
+                 owner_id: '3',
+            });
+        const registered = response.body.data;
+        assert.deepStrictEqual(response, registered);
+    });
+    it('should be able to link driver to a taxi', async () => {
+        const response = await supertest(app)
+            .post(`/api/linkdrivers`)
+            .send({
+                user_id:'4',
+                 taxi_id:'2'
+            });
+        const linkdrivers= response.body.message;
+        assert.deepStrictEqual('Allocated taxi to driver', linkdrivers);
+    });
     after(() => {
         db.$pool.end();
     });

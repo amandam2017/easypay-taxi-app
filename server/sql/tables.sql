@@ -1,3 +1,4 @@
+-- 6. register everyone 
 create table users(
     id serial not null primary key,
     name text not null,
@@ -7,7 +8,7 @@ create table users(
     role text not null
 );
 
--- register taxi by owner
+-- 5.register taxi by owner
 create table taxi_data(
     id serial not null primary key,
     reg_number varchar not null,
@@ -17,7 +18,7 @@ create table taxi_data(
 
 );
 
--- table for passenger count, the routes taken, reference taxi data and routes id for a given trip
+-- 3. table for passenger count, the routes taken, reference taxi data and routes id for a given trip
 create table taxi_trips(
     id serial not null primary key,
     route_id int not null,
@@ -28,7 +29,7 @@ create table taxi_trips(
     foreign key(route_id) references routes(id)
 );
 
--- table for getting drivers name, assign driver to taxi, 
+-- 1. table for getting drivers name, assign driver to taxi, 
 create table drivers(
     id serial not null primary key,
     user_id int not null,
@@ -37,7 +38,7 @@ create table drivers(
     foreign key(taxi_id) references taxi_data(id)
 );
 
--- for making a trip, references the taxi data table for registration number
+-- 4.table for capture the information that will be visible for the passenger + routes for the dropdown
 create table routes(
     id serial not null primary key,
     img text not null,
@@ -45,11 +46,9 @@ create table routes(
     price int not null,
     departure text not null,
     destination text not null,
-    -- count int not null,
     foreign key(taxi_id) references taxi_data(id)
 );
 
---
 create table card_payment(
     id serial not null primary key,
     firstname text not null,
@@ -59,7 +58,7 @@ create table card_payment(
     cvv int not null
 );
 
--- for passenger making payment to get receipt, references a taxi trip that passenger was in
+-- 2. for passenger making payment to get receipt, references a taxi trip that passenger was in
 create table payment_receipt(
     id serial not null primary key,
     user_id int not null,
@@ -68,7 +67,6 @@ create table payment_receipt(
     payment_type text,
     foreign key(taxi_trip_id) references taxi_trips(id),
     foreign key(user_id) references users(id)
-
 );
 
 

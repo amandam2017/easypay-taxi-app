@@ -19,11 +19,14 @@
 			<a :class="`ui ${landing ? 'active' : ''} item`" href="./index.html">
 				Home
 			</a>
-			<div class="right menu">
+			<div x-show="signing_btns" class="right menu">
 				<a :class="`ui ${loggedin ? 'active' : ''} item`"
 					@click="loggedin =! loggedin,hideRegister(), landing=false">SignIn</a>
 				<a :class="`ui ${loggedin ? 'active' : ''} item`"
 					@click="loggedin =! loggedin,hideLogin(), landing=false">SignUp</a>
+			</div>
+			<div x-show="signout" class="logout">
+				<button @click="logout()">SignOut</button>
 			</div>
 		</div>
 		<div class="row space" x-show="landing">
@@ -52,7 +55,9 @@
 		</div>
 
 		<div class="row" x-show="loggedin">
+			<div>
 			<span x-text="error_message" class="feedback_message"></span>
+			</div>
 			<h1 class="ui header">Easy Pay</h1>
 			<div class="ui form">
 				<div class="two fields">
@@ -110,8 +115,8 @@
 			</div>
 		</div>
 
-		<div x-show="passenger_screen" class="row ui form passenger">
-			<!-- <h1>passenger screen</h1> -->
+		<div x-show="passenger_screen" class="ui form passenger">
+			<div class="row">
 			<div>
 				<p class="header" x-text="feedback_message"></p>
 			</div>
@@ -135,63 +140,67 @@
 					</select>
 				</div>
 			</div>
+			</div>
 
-			<div class="two fields">
-				<div class="field">
-					You are in <p x-text="departure"></p>
-				</div>
-				<div class="field">
-					Going to<p x-text="destination"></p>
-				</div>
-				<div class="field">
-					<button @click="findTaxiByRoute()"
-						class="ui secondary button text-white bg-black rounded-lg">Search</button>
+			<div class="row">
+				<div class="two fields">
 					<div class="field">
-						Taxi fare: R<span x-text="price">00.00</span>
+						You are in <p x-text="departure"></p>
 					</div>
-					<template x-for="taxi in taxis">
-						<div>
-							<div class="field inner">
-								<img :src="`./images/${taxi.img}`" class="card-img-top" alt="...">
-							</div>
-							<!-- <ul class="list-group-item"><span class="card-text" x-text="taxi.img"></span></ul> -->
-							<div class="field list-group-item">Taxi will be departing from: <span class="card-text"
-									x-text="taxi.departure"></span></div>
-							<div class="field list-group-item">Your destination is: <span class="card-text"
-									x-text="taxi.destination"></span></div>
-							<div class="field list-group-item">Price: R<span class="card-text"
-									x-text="taxi.price"></span></div>
-							<div class="field list-group-item">Taxi Registration Number: <span class="card-text"
-									x-text="taxi.reg_number"></span></div>
+					<div class="field">
+						Going to<p x-text="destination"></p>
+					</div>
+					<div class="field">
+						<button @click="findTaxiByRoute()"
+							class="ui secondary button text-white bg-black rounded-lg">Search</button>
+						<div class="field">
+							Taxi fare: R<span x-text="price">00.00</span>
 						</div>
-					</template>
-
+						<template x-for="taxi in taxis">
+							<div>
+								<div class="field inner">
+									<img :src="`./images/${taxi.img}`" class="card-img-top" alt="...">
+								</div>
+								<div class="field list-group-item">Taxi will be departing from: <span class="card-text"
+										x-text="taxi.departure"></span></div>
+								<div class="field list-group-item">Your destination is: <span class="card-text"
+										x-text="taxi.destination"></span></div>
+								<div class="field list-group-item">Price: R<span class="card-text"
+										x-text="taxi.price"></span></div>
+								<div class="field list-group-item">Taxi Registration Number: <span class="card-text"
+										x-text="taxi.taxi_id"></span></div>
+							</div>
+						</template>
+	
+					</div>
+	
 				</div>
-
 			</div>
 			<br>
 			<div>
 				<button class="ui secondary button text-white bg-black rounded-lg"
 					@click="payment_screen=true,landing=false,passenger_screen=false">Make Payment</button>
 			</div>
-			<div class="row">
-				<h2></h2>
-				<div id="map">
-				</div>
-			</div>
 			<br>
-			<!-- <div>
-                <button class="ui secondary button" @click="payment_screen =!passenger_screen">make payment</button>
-              </div> -->
+		<div class="row">
+			<h3>FOR MAP PLEASE ENTER FULL ADDRESS WITH POSTAL CODE, PROVINCE AND COUNTRY</h3>
+			<p>Eg: If Departing from Khayelitsha enter : 4 Bonga Dr, Khayelitsha, Cape Town, 7784, Western Cape, ZA</p>
+			<p>And destination enter : Site C, kuwait Taxi Rank, Khayelitsha, 7784, Western Cape, ZA</p>
+			<div id="map">
+			</div>
+		</div>
 		</div>
 
 		<div x-show="driver_screen" class="row driver">
 			<div>
 				<p class="header" x-text="feedback_message"></p>
 			</div>
-			<div class="one field">
+			<div class="two field">
 				<div class="field">
-					Taxi Registration Number is <span x-text="reg_number"></span>
+					Taxi Registration Number is <span x-text="reg"></span>
+				</div>
+				<div class="field">
+					Your Route is <span x-text="route"></span>
 				</div>
 			</div>
 			<div class="row ui form">
@@ -228,7 +237,9 @@
 							</div>
 							<div class="field">
 								<button class="ui secondary button text-white bg-black rounded-lg"
-									@click="displayTotal()">Cash Total</button>
+									@click="displayTotal(), drivers_details()">Cash Total</button>
+									<!-- <button @click="drivers_details()">prof</button> -->
+
 							</div>
 							Expected Cash Amount:<span x-text="cashprice"></span>
 
@@ -237,7 +248,7 @@
 
 							<div class="field">
 								<label for="cardpayment_method">Number of Passengers who paid electronically</label>
-								<span x-text="eftfare_total"></span>
+								<span x-text="eftcount"></span>
 							</div>
 							<div class="field">
 								<button class="ui secondary button text-white bg-black rounded-lg"
@@ -259,19 +270,15 @@
 						<template x-for="taxi in routes">
 							<tr>
 								<td>
-
-									<span x-text="fare_total">
-
+									<span x-text="count">
 									</span>
-
-
 								</td>
 								<td>
-									<div onclick="return false" colspan="4" class="text-center">Pending</div>
+									<!-- <div onclick="return false" colspan="4" class="text-center">Pending</div> -->
 								</td>
 								<td>
 
-									<button class="button" x-bind:disabled="fare_total < 15" @click="fullTaxi()"><i
+									<button class="button" x-bind:disabled="count < 15" @click="fullTaxi(),takeTrip()"><i
 											class="leave">Leave</i></button>
 									<span x-text="trips"></span>
 
@@ -300,7 +307,6 @@
 			<div class="row">
 				<div class="col-75">
 					<div class="container">
-						<!-- <form action=""> -->
 						<div class="row">
 							<div class="col-50">
 								<h3>Payment</h3>
@@ -335,8 +341,7 @@
 						</div>
 						<button @click="payhere(),passengerIncre()"
 							class="ui secondary button text-white bg-black rounded-lg">payment</button>
-						<!-- <input type="submit" value="checkout" class="btn"> -->
-						<!-- </form> -->
+			
 					</div>
 				</div>
 				<div class="col-25">
@@ -352,7 +357,7 @@
 		</div>
 		<div x-show="success_pay" class="success_pay">
 			<div class="landing center-text">
-				Thank you for the payment <p x-text="passenger_name"></p>
+				<p x-text="passenger_name"></p>
 			</div>
 			<div class="landing center-text">
 				<img src="./public/images/Payment.png" alt="..." class="center ui medium image">
@@ -398,7 +403,7 @@
 			</template>
 		</div>
 		<!-- OWNERS SCREEN -->
-		<div x-show="owner_screen" class="row ui form owner" x-init="viewTaxis">
+		<div x-show="owner_screen" class="row ui form owner">
 			<div>
 				<h1 class="ui header">Owner Screen</h1>
 				<p class="header" x-text="feedback_message"></p>
@@ -409,46 +414,63 @@
 						<button class="ui secondary button" @click="registerTaxi()">Register Your taxi</button>
 					</div>
 					<div class="field">
-						<button class="ui secondary button" @click="viewTaxis()">View Your taxis</button>
+						<button class="ui secondary button"  @click="viewTaxis()">View Your taxis</button>
+					</div>
+					<div class="field">
+						<button class="ui secondary button" @click="logout()">Logout</button>
 					</div>
 				</div>
 				<div class="row" x-show="drivers_profile">
-					<h4>View My taxis</h4>
 
-					<!-- <template x-for="info in owners_taxis">
-					<div>
-					<span x-text="info.reg_number" ></span>
-					<span x-text="info.qty" ></span>
-					</div>
-					</template> -->
-					<div class="diaplaytaxis">
 					<template x-for="info in owners_drivers">
 
-						<div class="owners_taxi">
-							<a href="/drivers/id" x-text="info.name"></a>
+						<div>
+							<a href="#" @click="viewDriver(info)" x-text="info.name"></a>
 							<span x-text="info.name"></span>
 							<span x-text="info.surname"></span>
 							<span x-text="info.role"></span>
 							<template x-if="info.taxi">
 							<span x-text="info.taxi.reg_number"></span>	
 							</template>
-							<!-- <template x-if="!info.taxi">
-								<span x-text="there is no taxi"></span>	
-								</template> -->
 							
 						</div>
-
-					</template>	
+					</template>
+					<div x-show="driver">
+						<!-- <template x-for="driver_info in driver_profile"> -->
+							<div class="showdriver">
+								<div class="inline">
+									<li>hello I am the driver</li>
+								</div>
+								<br>
+								<div>
+									<div>
+										Name:<li x-text="selectedDriver.name"></li>
+									</div>
+									<div>
+										Last Name:<li x-text="selectedDriver.surname"></li>
+									</div>
+									<div>
+										Driving:<li x-text="selectedDriver.reg_number"></li>
+									</div>
+								</div>
+								<div>
+									Route<li x-text="route"></li>	
+								</div>
+								<br>
+								<div>
+									<button @click="driversDailyTrip(selectedDriver)">Amount made</button>
+								</div>	
+								
+								<div>
+									<span x-text="drivers_profit"></span>
+								</div>
+							</div>
+						<!-- </template> -->
+						<!-- <span x-text="price"></span>	 -->
 					</div>
-					
 
-					<!-- <a href="#" >Name</a>Reg_Number
-                    <a href="#" >Name</a>Reg_Number
-                    <a href="#" >Name</a>Reg_Number -->
 				</div>
-				<div class="row" x-show="drivers_profile">
-					<a href="#">View Driver's profile</a>
-				</div>
+		
 				<div class="row" x-show="register_taxis">
 					<span x-text="error_message" class="feedback_message"></span>
 					<div class="ui form">
@@ -466,22 +488,10 @@
 								<input type="text" x-model="owner_id">
 							</div>
 						</div>
-
 						<button class="ui secondary button" @click="get_drivers()">SEND</button>
-						<div class="two fields">
-							<div class="field">
-								<label for="">enter user id for your driver</label>
-								<input type="text" x-model="user_id">
-							</div>
-							<div class="field">
-								<label for="enter taxi id">enter taxi id</label>
-								<input type="number" x-model="taxi_id">
-							</div>
-							
-						</div>
-						<button class="ui secondary button" @click="linktaxidriver()">link taxi to driver</button>
 					</div>
 				</div>
+				
 			</div>
 		</div>
 
