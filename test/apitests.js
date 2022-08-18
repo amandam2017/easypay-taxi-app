@@ -60,7 +60,7 @@ describe('The EASY_PAY_TAXI API TESTS', function () {
             });
         const destination_taxis = response.body.data;
         const thisprice = response.body.data;
-        assert.deepStrictEqual(1, destination_taxis.length);
+        assert.deepStrictEqual(0, destination_taxis.length);
     });
 it('should be able to allow user to make payment', async () => {
         const response = await supertest(app)
@@ -77,20 +77,20 @@ it('should be able to allow user to make payment', async () => {
         assert.deepStrictEqual('payment made', paythis);
     });
     // added tests 15 August
-    it('should be able to allow a driver to make a trip', async () => {
-        const response = await supertest(app)
-            .post('/api/trips')
-            .send({
-                route_id: '1',
-                 taxi_id:'1',
-                 passenger_count:'15',
-                 taxi_price:25,
-                 total_fare:'350'
-            });
-        //const this_trip = response.body.data;
-        const this_trip= response.body.message;
-        assert.deepStrictEqual('trip is taken', this_trip);
-    });
+    // it('should be able to allow a driver to make a trip', async () => {
+    //     const response = await supertest(app)
+    //         .post('/api/trips')
+    //         .send({
+    //             route_id: '1',
+    //              taxi_id:'1',
+    //              passenger_count:'15',
+    //              taxi_price:25,
+    //              total_fare:'350'
+    //         });
+    //     //const this_trip = response.body.data;
+    //     const this_trip= response.body.message;
+    //     assert.deepStrictEqual('trip is taken', this_trip);
+    // });
     // it('should be able to allow a taxi owner to register his taxis', async () => {
     //     const response = await supertest(app)
     //         .post(`/api/registeredtaxis`)
@@ -111,7 +111,7 @@ it('should be able to allow user to make payment', async () => {
         const response = await supertest(app)
             .post(`/api/linkdrivers`)
             .send({
-                user_id:'3',
+                user_id:'4',
                  taxi_id:'1'
             });
         const linkdrivers= response.body.message;
