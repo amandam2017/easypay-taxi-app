@@ -10,7 +10,7 @@ before_script:
   - travis_wait 30 npm install
   - npm install
   - psql -c 'create database  easy_pay_taxi' -U postgres
-  - psql -U postgres -d easy_pay_taxi -a -f ./server/sql/table.sql
+  - psql -U postgres -d easy_pay_taxi -a -f ./server/sql/tables.sql
 
 
 services:
