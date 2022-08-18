@@ -56,7 +56,7 @@ describe('The EASY_PAY_TAXI API', function () {
         // console.log(responseUsers.body.data, 'after adding new user');
         const users = response.body.data;
         const signup = response.body.message;
-        assert.deepStrictEqual('User already exist please login with the username and password', signup);
+        assert.deepStrictEqual('user successfully registered', signup);
     });
     it('should be return error message does not exist', async () => {
         const response = await supertest(app)

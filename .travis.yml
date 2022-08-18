@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-  - "v12"
+  - "v12.22.12"
 
 env:
   - DATABASE_URL=postgresql://@localhost:5432/easy_pay_taxi;
@@ -10,7 +10,7 @@ before_script:
   - travis_wait 30 npm install
   - npm install
   - psql -c 'create database  easy_pay_taxi' -U postgres
-  - psql -U postgres -d easy_pay_taxi -a -f ./server/sql/tables.sql
+  - psql -U postgres -d easy_pay_taxi -a -f ./server/sql/table.sql
 
 
 services:
