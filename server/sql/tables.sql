@@ -18,18 +18,6 @@ create table taxi_data(
 
 );
 
--- 3. table for passenger count, the routes taken, reference taxi data and routes id for a given trip
-create table taxi_trips(
-    id serial not null primary key,
-    route_id int not null,
-    taxi_id int not null,
-    passenger_count int not null,
-    taxi_price int not null,
-    total_fare int not null,
-    foreign key(taxi_id) references taxi_data(id),
-    foreign key(route_id) references routes(id)
-);
-
 -- 1. table for getting drivers name, assign driver to taxi, 
 create table drivers(
     id serial not null primary key,
@@ -48,6 +36,18 @@ create table routes(
     departure text not null,
     destination text not null,
     foreign key(taxi_id) references taxi_data(id)
+);
+
+-- 3. table for passenger count, the routes taken, reference taxi data and routes id for a given trip
+create table taxi_trips(
+    id serial not null primary key,
+    route_id int not null,
+    taxi_id int not null,
+    passenger_count int not null,
+    taxi_price int not null,
+    total_fare int not null,
+    foreign key(taxi_id) references taxi_data(id),
+    foreign key(route_id) references routes(id)
 );
 
 create table card_payment(
