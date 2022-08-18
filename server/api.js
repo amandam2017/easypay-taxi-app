@@ -50,7 +50,7 @@ const api = (app, db) => {
         if (token === null) return res.sendStatus(401)
         // if there is then verify if its the correct user using id if not return the error
         jwt.verify(token, process.env.SECRET_TOKEN, (err, username) => {
-            // console.log(err);
+            
             if (err) return res.sendStatus(403)
             console.log('show error' + err);
 
