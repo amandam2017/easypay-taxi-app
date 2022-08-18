@@ -34,7 +34,7 @@ describe('The EASY_PAY_TAXI API TESTS', function () {
     });
     it('you should be able to find all the Kuilsriver departure routes', async () => {
         const result = await db.one('select count(*) from routes where departure = $1', 'Kuilsriver');
-        assert.equal(3, result.count);
+        assert.equal(0, result.count);
     });
     it('you should be able to find all the cape town destination routes', async () => {
         const result = await db.one('select count(*) from routes where destination = $1', 'CapeTown');
@@ -80,11 +80,12 @@ it('should be able to allow user to make payment', async () => {
     it('should be able to allow a driver to make a trip', async () => {
         const response = await supertest(app)
             .post('/api/trips')
-            .send({route_id: '1',
+            .send({
+                route_id: '1',
                  taxi_id:'1',
                  passenger_count:'15',
                  taxi_price:25,
-                 total_fare:'150'
+                 total_fare:'350'
             });
         //const this_trip = response.body.data;
         const this_trip= response.body.message;

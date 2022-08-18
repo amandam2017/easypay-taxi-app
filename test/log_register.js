@@ -37,7 +37,7 @@ describe('The EASY_PAY_TAXI API', function () {
             .get('/api/users')
             .expect(200);
         const users = response.body.data;
-        assert.equal(18, users.length);
+        assert.equal(0, users.length);
         // assert.deepEqual([], users);
     });
     it('should be able to signup a user', async () => {
