@@ -18,7 +18,7 @@ const pgp = PgPromise({});
 const db2 = pgp(config);
 // const db = pgp(DATABASE_URL);
 API(app, db2);
-describe('The EASY_PAY_TAXI API', function () {
+describe('THE EASY_PAY_TAXI LOGIN AND REGISTER A USERS', function () {
     before(async function () {
         this.timeout(5000);
         //await db.none(`delete from users`);

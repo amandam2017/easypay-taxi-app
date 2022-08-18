@@ -141,7 +141,7 @@ const api = (app, db) => {
         try {
             const { route_id, taxi_id, passenger_count, taxi_price, total_fare} = req.body;
             const this_trip  = await db.oneOrNone('insert into taxi_trips (route_id, taxi_id, passenger_count, taxi_price, total_fare) values($1,$2,$3,$4,$5) returning *',[route_id, taxi_id,passenger_count,taxi_price,total_fare]);
-            console.log(this_trip);
+            // console.log(this_trip);
 
             res.status(200)
             .json({
@@ -162,7 +162,7 @@ const api = (app, db) => {
 
         const {reg_number, qty, owner_id} = req.body
         const registered = await db.oneOrNone('insert into taxi_data (reg_number, qty, owner_id) values($1,$2,$3) returning *',[reg_number,qty,owner_id]);
-        console.log(registered);
+        // console.log(registered);
         res.json({
             data:registered
         })
@@ -236,7 +236,7 @@ const api = (app, db) => {
         });
         
         const drivers = await Promise.all(driversResults);
-        console.log(drivers);
+        // console.log(drivers);
         return drivers;
     }
     
@@ -265,7 +265,7 @@ const api = (app, db) => {
             const { departure, destination } = req.body;
             const trips = await db.manyOrNone(`select price,taxi_id from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
             const price = await db.oneOrNone(`select price from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
-            console.log('money ' + price);
+            // console.log('money ' + price);
             res.json({
                 status: 'success',
                 data: price,trips
@@ -326,7 +326,7 @@ app.post('/api/card_payments', async function (req, res) {
     const { firstname, card_number, exp_month, exp_year, cvv} = req.body;
     try {
     const record_payment = await db.none('insert into card_payment(firstname,card_number ,exp_month,exp_year, cvv) values ($1,$2,$3,$4,$5)', [firstname, card_number, exp_month, exp_year, cvv]);
-    console.log(record_payment);
+    // console.log(record_payment);
         res.json({
             message: 'payment made',
             status: 'success',
@@ -348,7 +348,7 @@ app.post('/api/card_payments', async function (req, res) {
         try {
             const { id } = req.params
             const driversAndTaxis = await db.manyOrNone(`select * from drivers where id =$1`, [id])
-            console.log(driversAndTaxis);
+            // console.log(driversAndTaxis);
 
             // })
 
@@ -382,9 +382,9 @@ app.post('/api/card_payments', async function (req, res) {
     app.get('/api/drivertrip/:id', async (req, res)=>{
         const {id} = req.params
         const drivers = await getDriversByTaxiId(id)
-        console.log(drivers);
+        // console.log(drivers);
         const amount_per_trip = await db.manyOrNone(`select * from taxi_trips where taxi_id = $1`,[drivers.taxi_id]);
-        console.log(amount_per_trip);
+        // console.log(amount_per_trip);
 
         res.json({
             driversTrips: amount_per_trip
