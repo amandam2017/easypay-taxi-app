@@ -16,7 +16,7 @@ const Owner = () => {
         id:'',
         selectedDriver: {},
 
-        drivers_profile: '',
+        drivers_profile: false,
         // driver_profile: '',
         driver_info:'',
         user: {},
