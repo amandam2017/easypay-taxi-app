@@ -68,7 +68,7 @@ const Drivers = () => {
                 console.log(this.route);
                 this.driverDetails = results.data.data
                 console.log(this.driverDetails);
-                return
+                // return
             })
         },
 

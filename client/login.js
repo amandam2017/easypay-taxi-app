@@ -139,7 +139,7 @@ const Login = ()=>{
                 this.access_token = results.data.token,
                 localStorage.setItem('access_key_owner', this.access_token)
                 // this.owner_id = 56
-                // this.viewTaxis()
+                this.viewTaxis()
                 // this.drivers_details()
                 this.feedback_message = `${results.data.message} is logged in`
                 this.signing_btns = false

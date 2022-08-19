@@ -209,8 +209,7 @@ div[data-length='3']:after {
 /* MAP STYLES ADDED BELOW */
 #map{
   width: 90%;
-  /* margin: 75px auto; */
-  margin: 200px auto;
+  margin: 20px auto;
   height: 400px;
   position: relative;
   background-repeat: no-repeat;
@@ -479,4 +478,16 @@ li{
 .our-team .social li a:hover {
   color: #1369ce;
   background-color: #f7f5ec;
+}
+
+.btn_resize{
+  width:139px;
+}
+
+.no-of-pass{
+  height: 5px;
+}
+
+.row_spaces{
+  margin-top: 25px !important;
 }

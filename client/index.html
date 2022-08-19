@@ -165,7 +165,7 @@
 										x-text="taxi.destination"></span></div>
 								<div class="field list-group-item">Price: R<span class="card-text"
 										x-text="taxi.price"></span></div>
-								<div class="field list-group-item">Taxi Registration Number: <span class="card-text"
+								<div class="field list-group-item">Taxi ID: <span class="card-text"
 										x-text="taxi.taxi_id"></span></div>
 							</div>
 						</template>
@@ -194,15 +194,24 @@
 			<div>
 				<p class="header" x-text="feedback_message"></p>
 			</div>
-			<div class="two field">
-				<div class="field">
-					Taxi Registration Number is <span x-text="reg"></span>
-				</div>
-				<div class="field">
-					Your Route is <span x-text="route"></span>
-				</div>
-			</div>
 			<div class="row ui form">
+				<div class="three fields">
+					<div class="field">
+						Taxi Registration Number is <span x-text="reg"></span>
+					</div>
+					<div class="field">
+						<span></span>
+					</div>
+					<div class="field">
+						<button @click="rewardsRecieved = !rewardsRecieved, driver_screen=false" x-bind:disabled="eftcount < 1"
+						class="ui secondary button text-white bg-black rounded-lg">
+						See Cashback Rewards
+					</button>
+					</div>
+					<!-- <div class="field">
+						Your Route is <span x-text="route"></span>
+					</div> -->
+				</div>
 				<div class="two fields">
 					<div class="field">
 						<label for="Select departure">Select departute:</label>
@@ -228,23 +237,30 @@
 								You are in <p x-text="departure"></p>Going to <p x-text="destination"></p>
 							</div>
 						</div>
-						<div class="display_amount two fields">
+					</div>
+					<div class="row ui form row_spaces">
+						<div class="display_amount three fields">
 
 							<div class="field">
 								<label for="payment_method">How many passengers paid in cash?</label>
-								<input x-model="no_of_cashpaid_passenger" type="number" min="1" step="any">
+								<input class="no-of-pass" x-model="no_of_cashpaid_passenger" type="number" min="1" step="any">
 							</div>
 							<div class="field">
-								<button class="ui secondary button text-white bg-black rounded-lg"
+								<button class="ui secondary button text-white bg-black rounded-lg btn_resize"
 									@click="displayTotal(), drivers_details()">Cash Total</button>
 								<!-- <button @click="drivers_details()">prof</button> -->
-
 							</div>
+							<div class="field">
 							Expected Cash Amount:<span x-text="cashprice"></span>
 
+							</div>
 						</div>
-						<div class="display_card_amount two fields">
+					</div>
 
+						
+					<div class="row ui form row_spaces">
+						<div class="display_card_amount three fields">
+	
 							<div class="field">
 								<label for="cardpayment_method">Number of Passengers who paid electronically</label>
 								<span x-text="eftcount"></span>
@@ -253,49 +269,52 @@
 								<button class="ui secondary button text-white bg-black rounded-lg"
 									@click="electronic_payment()">Electronic Total</button>
 							</div>
+							<div class="field">
 							Expected Card Amount:<span x-text="cardprice"></span>
 
+							</div>
 						</div>
-
 					</div>
-					<table id="taxis">
-						<tr>
-							<th>Passengers in Taxi</th>
-							<th>Passengers Requested Status</th>
-							<th>Taxi Trips</th>
-							<th>Taxi Price</th>
-							<th>Total Fare</th>
-						</tr>
-						<template x-for="taxi in routes">
-							<tr>
-								<td>
-									<span x-text="count">
-									</span>
-								</td>
-								<td>
-									<!-- <div onclick="return false" colspan="4" class="text-center">Pending</div> -->
-								</td>
-								<td>
+						
 
-									<button class="button" x-bind:disabled="count < 15"
-										@click="fullTaxi(),takeTrip()"><i class="leave">Leave</i></button>
-									<span x-text="trips"></span>
-
-								</td>
-								<td> R<span x-text="taxi.price.toFixed(2)"></span></td>
-								<td> R<span x-text="totalTrip()"></span></td>
-							</tr>
-						</template>
-					</table>
+					<!-- </div> -->
+					
+					<table class="table">
+						<thead>
+						  <tr>
+							<th scope="col">Passengers in Taxi</th>
+							<!-- <th scope="col">Passengers Requested Status</th> -->
+							<th scope="col">Taxi Trips</th>
+							<th scope="col">Taxi Price</th>
+							<th scope="col">Total Fare</th>
+						  </tr>
+						</thead>
+						<tbody>
+							<template x-for="taxi in routes">
+								<tr>
+								  <td x-text="count"></td>
+								  <!-- <td x-text="count"></td> -->
+								  <td>
+									  <button class="button" x-bind:disabled="count < 15"
+										@click="fullTaxi(),takeTrip()"><i class="leave">Leave</i>
+									</button>
+								<span x-text="trips"></span></td>
+								  <td>R<span x-text="taxi.price.toFixed(2)"></span></td>
+								  <td>R<span x-text="totalTrip()"></span></td>
+								</tr>
+							</template>
+						</tbody>
+					  </table>
 				</div>
 			</div>
-			<div class="two fields">
-
-				<button @click="rewardsRecieved = !rewardsRecieved, driver_screen=false" x-bind:disabled="eftcount < 1"
-					class="ui secondary button text-white bg-black rounded-lg">
-					See Cashback Rewards
-				</button>
-				<button class="ui secondary button text-white bg-black rounded-lg" @click="logout()">Logout</button>
+			<div class="row ui form">
+				<div class="three fields">
+					<div class="field"></div>
+					<div class="field">
+						<button class="ui secondary button text-white bg-black rounded-lg btn_resize" @click="logout()">Logout</button>
+					</div>
+					<div class="field"></div>
+				</div>
 			</div>
 		</div>
 

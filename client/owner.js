@@ -30,6 +30,7 @@ const Owner = () => {
             this.user = localStorage.getItem('user_name')
              this.owner_id = this.user.id;
              console.log(this.owner_id);
+             this.viewTaxis()
         },
 
         // drivers_details(){
