@@ -390,6 +390,22 @@ app.post('/api/card_payments', async function (req, res) {
             driversTrips: amount_per_trip
         })
     })
+    app.delete('/api/removetaxi/:id', async function (req, res) {
+
+		try {
+			const { id } = req.params;
+			db.one('delete from taxi_data where reg_number = $1', [id])
+
+			res.json({
+				status: 'success'
+			})
+		} catch (err) {
+			res.json({
+				status: 'success',
+				error : err.stack
+			})
+		}
+	});
     // ENDS HERE
 
 

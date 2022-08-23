@@ -23,6 +23,9 @@ const Owner = () => {
         driver:'',
         reg:'',
         driver_id:'',
+        taxi:'',
+        user_id:'',
+        taxi_id:'',
         drivers_profit:{},
         show_driversprofit: false,
         init() {
@@ -58,11 +61,18 @@ const Owner = () => {
                 .then(results => {
                     // data:registered
                     console.log(results.data);
-                    
-                })
-                .then(() => {
                     this.feedback_message = 'taxi has been registered by the owner'
+                    this.error = true; 
                 })
+                // .then(() => {
+                //     this.feedback_message = 'taxi has been registered by the owner'
+                //     this.error = true;
+                // })
+
+                setTimeout(() => {
+                    this.feedback_message = ''
+                    this.error = false;
+                }, 3000);
         },
         viewDriver(user){
             console.log(user);
@@ -107,6 +117,33 @@ const Owner = () => {
             this.drivers_profile = true,
             this.register_taxis = false
         },
+        removetaxi(info){
+            console.log(info);
+            axios
+                .delete(`/api/removetaxi/${info.id}`)
+                 .then(() => this.viewTaxis())
+            this.info_message = 'taxi deregistered!'
+            this.error = true;
+
+            setTimeout(() =>  { 
+                this.info_message = '';
+                this.error = false;
+            }, 3000);
+
+        },
+        linkdrivers() {
+            axios
+                .post(`${remote_url}/api/linkdrivers`, {
+                    user_id : this.user_id,
+                    taxi_id : this.taxi_id
+                })
+                .then(results => {
+                    // data:registered
+                    console.log(results.data);
+        
+                })
+            },
+        
   
     }
 }
