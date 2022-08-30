@@ -1,10 +1,14 @@
 import axios from 'axios'
 
+
 const remote_url = import.meta.env.VITE_SERVER_URL
 const Routes = () => {
     return {
+
         taxis: [],
-        departure: '',
+        taxi_data:[],
+        taxi_info_id:[],
+        taxi_info_price:[],
         destination: '',
         firstname: '', card_number: "",
         exp_month: '', exp_year: '', cvv: '',
@@ -18,11 +22,43 @@ const Routes = () => {
         user: {},
         passenger_name: '',
         reg: '',
-        // taxiID: '',
+        assign_taxi:false,
+        your_taxi:'',
+        
+        pass_id:'',
+        user_pass_id:'', amount:'', taxi_trips_id:'', status:'',
+        rating: 0, 
+        comments: '', 
+        drivers_id: '',
+        Reviews:false,
+        passengerside:'',
+        allreview:'',
+        id: '',
 
         init() {
-            findTaxiByRoute()
+            findTaxiByRoute(),
+            this.drivers_details()
+
         },
+
+        addreview(){
+            this.getRatings()
+            axios
+            .post(`${remote_url}/api/ratings`, {
+                rating:this.rating, comments:this.comments,drivers_id :this.drivers_id
+            })
+            .then((result)=>console.log(result.data.data)
+            )
+            .catch(error => console.error(error))
+            
+        },
+        getRatings(){
+            axios
+            .get(`${remote_url}/api/getAllRatings`)
+            .then((result)=> console.log(result.data))
+        },
+
+        // ends here
 
         findTaxiByRoute() {
             // const access_token = localStorage.getItem('access_key_pass')
@@ -30,27 +66,40 @@ const Routes = () => {
                 .post(`${remote_url}/api/taxis`, {
                     // Headers:{
                     // "Authorization" : `Bearer ${access_token}`,
-                    departure: this.departure,
-                    destination: this.destination
+                    // departure: this.departure,
+                    route: this.destination
                     // }
 
                 })
                 .then(result => {
-                    console.log(result.data.data);
+                    // console.log(result.data.data);
+                    console.log(result.data.taxi[0]);
+                    
+                    // console.log(result.data.each_taxi[0].price);
+                    this.taxi_data = result.data.taxi
+                    JSON.stringify(this.taxi_data);
+                    console.log(this.taxi_data);
+
+                    // this.taxi_data_price = result.data.each_taxi[0].price;
+                    // console.log(this.taxi_data_price);
+
+
+
                     localStorage.setItem('taxi', JSON.stringify(result.data.data))
                     this.taxis = result.data.data
-                    this.price = result.data.price.price
+                    console.log('all taxis'+this.taxis);
                     this.reg = result.data.data.reg_number
+                    this.status = result.data.status.status
                     
-                    // console.log(this.reg);
-                    // this.taxiID = result.data.data.taxi_id
-                    // console.log(this.taxiID);
+                    console.log('????'+this.price);
+
 
 
                 })
                 .catch(err => console.log(err))
 
         },
+
         getReceipt() {
             axios
                 .post(`${remote_url}/api/payment_receipt`, {
@@ -110,9 +159,80 @@ const Routes = () => {
                     this.error = false;
                 }, 3000);
             }
-        }
+        },
+
+        // passenger_payment(){
+        //     this.findTaxiByRoute()
+        //             this.your_taxi = this.taxis
+        //             console.log(this.your_taxi);
+            
+        // },
+
+        pay_taxi(){
+            this.findTaxiByRoute()
+            this.taxi_info_id = this.taxi_data[0].taxi_id;
+            console.log(this.taxi_info_id);
+            this.taxi_info_price = this.taxi_data[0].price;
+            console.log(this.taxi_info_price);
+
+            // console.log(JSON.parse(JSON.stringify(this.taxi_info)));
+            // console.log(this.taxi_info.taxi_id);
+            this.user = JSON.parse(localStorage.getItem('user_name'))
+            this.pass_id = this.user.id;
+            console.log(this.pass_id);
+            axios
+            .post(`${remote_url}/api/trip_payment/${this.pass_id}`,{
+                user_id: this.pass_id, 
+                amount: this.taxi_info_price, 
+                taxi_id: this.taxi_info_id, 
+                status: this.status
+
+            })
+            .then(results=>{
+                console.log(results.data);
+            })
+        },
+
+        // REVIEWS
+        addreview(){
+            
+            axios
+            .post(`${remote_url}/api/ratings`, {
+                rating:this.rating, comments:this.comments,drivers_id :this.drivers_id
+            })
+            .then((result)=>{
+                console.log(result.data.data)
+                this.getRatings()
+            }
+            )
+            .catch(error => console.error(error))
+        },
+        getRatings(){
+            axios
+            .get(`${remote_url}/api/getAllRatings/${this.id}`)
+            .then((result)=> {
+                this.allreview = result.data.data
+                console.log(this.allreview);
+                // console.log(result.data)
+            })
+        },
+        // ENDS HERE
 
     }
 }
 
 export default Routes
+
+
+
+// // console.log(result.data.data);
+//                     // console.log(result.data.taxi[0]);
+                    
+//                     // console.log(result.data.each_taxi[0].price);
+//                     this.taxi_data = result.data.data
+//                     console.log(this.taxi_data);
+
+//                     this.taxi_info = result.data.taxi[0];
+//                     console.log(this.taxi_info);
+//                     // this.taxi_data_price = result.data.each_taxi[0].price;
+//                     // console.log(this.taxi_data_price);

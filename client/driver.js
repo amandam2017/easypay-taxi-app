@@ -16,7 +16,6 @@ const Drivers = () => {
         departures: [],
         destinations: [],
         destination: '',
-        departure: '',
         reg_number: '',
         no_of_cashpaid_passenger: '',
         cardprice: '',
@@ -38,6 +37,14 @@ const Drivers = () => {
         passengers_in_taxi:0,
         taxi_price:0,
         route_cost:0,
+        taxi_status:{
+            // destination:'',
+            status:'',
+            status:'queueing'
+            
+        },
+        driversID:'',
+        current_taxi_id:'',
 
         fullTaxi() {
             this.count = this.count - 15
@@ -64,9 +71,11 @@ const Drivers = () => {
                 this.route_cost = results.data.data.route.price;
                 this.reg = results.data.data.reg_number
                 // // console.log(results.data.data.route.departure);
-                this.route = `${results.data.data.route.departure}  to ${results.data.data.route.destination}`
-                console.log(this.route);
+                this.route = `${results.data.data.route.destination}`
+                console.log(this.route.price);
                 this.driverDetails = results.data.data
+                localStorage.setItem('taxi', JSON.stringify(this.driverDetails))
+
                 console.log(this.driverDetails);
                 // return
             })
@@ -102,26 +111,15 @@ const Drivers = () => {
             return this.eftcount++
         },
         electronic_payment() {
-            this.cardprice = Number(this.eftcount) * this.price
-            console.log(this.count);
-            this.count = Number(this.eftcount)
+            // this.takeTrip()
+            this.cardprice = Number(this.eftcount) * this.route_cost
+            // this.count = Number(this.eftcount)
             this.price = Number(this.cardprice)
+            console.log(this.count, this.cardprice);
         },
         // cash_payment(){
         //     return this.cashprice= this.no_of_cashpaid_passenger * this.price
         // },
-        driver_trip() {
-            axios
-                .post(`${remote_url}/api/trips`,
-                    {
-                        route_id: this.route_id,
-                        taxi_id: this.taxi_id, passenger_count: this.passenger_count, total_fare: this.total_fare
-                    }
-                )
-                .then(results => {
-                    console.log(results.data);
-                })
-        },
 
         driver() {
             const token = localStorage.getItem('access_key_driver')
@@ -148,12 +146,17 @@ const Drivers = () => {
         },
 
         displayTotal() {
+            const current_driver = JSON.parse(localStorage.getItem('taxi'))
+            console.log(current_driver.taxi_id);
+            this.current_taxi_id = current_driver.taxi_id
+            console.log(this.current_taxi_id);
             const token = localStorage.getItem('access_key_driver')
             axios.post(`${remote_url}/api/driver`,
                 {
                     //  headers: {
                     // "Authorization" : `Bearer ${token}`,
-                    departure: this.departure,
+                    // departure: this.departure,
+                    taxi_id:this.current_taxi_id,
                     destination: this.destination,
                     no_of_cashpaid_passenger: this.no_of_cashpaid_passenger
 
@@ -161,23 +164,47 @@ const Drivers = () => {
                     //   }
                 })
                 .then(result => {
-                    console.log(result.data);
-                    console.log(result.data.data.price);
-                    this.cashprice = result.data.data.price * Number(this.no_of_cashpaid_passenger)
-                    this.routes = result.data.trips
-                    this.reg_number = result.data.data.reg_number
-                    this.count = Number(this.eftcount) + Number(this.no_of_cashpaid_passenger)
+                        this.cashprice = result.data.price.price * Number(this.no_of_cashpaid_passenger)
+                        this.routes = result.data.data
+                        console.log(this.routes);
+                        this.reg_number = result.data.data.reg_number
+                        this.count = Number(this.eftcount) + Number(this.no_of_cashpaid_passenger)
+                        console.log(this.count);
+                    
+                   
                 })
 
         },
-        driver_trip() {
-            axios.post(`${remote_url}/api/trips`,
-                { route_id: this.route_id, 
-                    taxi_id: this.taxi_id, 
-                    passenger_count: this.passenger_count, 
-                    total_fare: this.total_fare 
-                })
-                .then(results => { console.log(results.data); })
+
+        update_taxi_status(){
+            this.drivers_details()
+            console.log(this.driverDetails);
+
+            console.log(this.driverDetails.user_id);
+            axios
+            .post(`${remote_url}/api/route_queue/${this.driverDetails.user_id}`,{
+                // taxi_id:this.taxi_id,
+                status:this.taxi_status.status,
+                route:this.destination
+            })
+            .then(result=>{
+                console.log(result.data);
+            })
+        },
+
+        passenger_count(){
+            this.drivers_details()
+            console.log(this.driverDetails.taxi_id);
+            // this.taxi_info_id = this.taxi_data[0].taxi_id;
+            axios
+            .post(`${remote_url}/api/passenger_count`,{
+                taxi_id: this.driverDetails.taxi_id,    
+            })
+            .then(result=>{
+                this.eftcount = result.data.data.count;
+
+                console.log(result.data.data.count);
+            })
         },
     }
 }

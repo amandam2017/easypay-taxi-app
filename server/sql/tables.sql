@@ -33,7 +33,6 @@ create table routes(
     img text not null,
     taxi_id int not null,
     price int not null,
-    departure text not null,
     destination text not null,
     foreign key(taxi_id) references taxi_data(id)
 );
@@ -63,12 +62,32 @@ create table card_payment(
 create table payment_receipt(
     id serial not null primary key,
     user_id int not null,
-    taxi_trip_id int not null,
     amount int not null default 0,
+    taxi_trip_id int not null,
     payment_type text,
     foreign key(taxi_trip_id) references taxi_trips(id),
     foreign key(user_id) references users(id)
 );
+
+create table reviews(
+    id serial not null primary key,
+    rating int not null,
+    comments text not null,
+    drivers_id serial not null,
+    foreign key(drivers_id) references drivers(id)
+);
+
+create table taxi_trips_payment(
+    id serial not null primary key,
+    user_id int not null,
+    amount decimal,
+    taxi_id int not null,
+    status text default 'paid',
+    trip_id default 0,
+    foreign key(taxi_id) references taxi_data(id),
+    foreign key(user_id) references users(id)
+);
+
 
 
 

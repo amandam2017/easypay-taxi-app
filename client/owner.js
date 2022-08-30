@@ -5,6 +5,7 @@ const Owner = () => {
     return {
         owner_screen: false,
         register_taxis: false,
+        assign_taxi: false,
         reg_number: '',
         qty: '',
         owner_id:'',
@@ -28,6 +29,9 @@ const Owner = () => {
         taxi_id:'',
         drivers_profit:{},
         show_driversprofit: false,
+        user_id:{},
+        alldrivers:'',
+        all_drivers:true,
         init() {
             this.driversDailyTrip()
             this.user = localStorage.getItem('user_name')
@@ -36,21 +40,6 @@ const Owner = () => {
              this.viewTaxis()
         },
 
-        // drivers_details(){
-        //     this.user = JSON.parse(localStorage.getItem('user_name'))
-        //     this.id = this.user.id;
-        //     console.log(this.user);
-        //     axios
-        //     .get(`${remote_url}/api/driver/${this.id}`)
-        //     .then(results =>{
-        //         this.reg = results.data.data.reg_number
-                
-        //         this.route = `${results.data.data.route.departure}  to ${results.data.data.route.destination}`
-        //         console.log(this.route);
-        //         const driver = results.data.data
-        //         console.log(driver);
-        //     })
-        // },
         get_drivers() {
             axios
                 .post(`${remote_url}/api/registeredtaxis`, {
@@ -59,15 +48,10 @@ const Owner = () => {
                     owner_id : this.owner_id
                 })
                 .then(results => {
-                    // data:registered
                     console.log(results.data);
                     this.feedback_message = 'taxi has been registered by the owner'
                     this.error = true; 
                 })
-                // .then(() => {
-                //     this.feedback_message = 'taxi has been registered by the owner'
-                //     this.error = true;
-                // })
 
                 setTimeout(() => {
                     this.feedback_message = ''
@@ -99,6 +83,7 @@ const Owner = () => {
         registerTaxi() {
             this.register_taxis = true
             this.drivers_profile = false
+            // this.assign_taxi = true
         },
         viewTaxis() {
             this.user = JSON.parse(localStorage.getItem('user_name'))
@@ -142,9 +127,66 @@ const Owner = () => {
                     console.log(results.data);
         
                 })
+            }, 
+            
+            seeAlldrivers(){
+                axios
+                .get(`${remote_url}/api/alldrivers`)
+                .then(results=>{
+                    console.log(results.data);
+                    this.alldrivers = results.data;
+                    console.log(this.alldrivers);
+                })
             },
-        
   
     }
 }
 export default Owner
+
+// app.post(`/api/linkpassenger_payment`, async (req, res)=>{
+        
+//     try {
+//         const { amount } = req.body;
+//         console.log(amount);
+        
+//         await db.none(`UPDATE drivers SET amount = $1 WHERE user_id = user_id AND taxi_id = taxi_id`,[amount])
+
+//         res.json({
+//             message: 'Allocated passenger payment to a taxi'
+//         })
+//     } catch (error) {
+//         res.status(500)
+//         .json({
+//             message: error.message
+//         })
+//     }
+    
+// })
+
+// app.post(`/api/linkpassenger_payment/:id`, async (req, res)=>{
+        
+//     try {
+//     const {id} = req.params
+//     const drivers = await getDriversByUserId(id)
+//     // const pass = await getPassengersByUserId(id)
+//     // console.log(pass);
+
+//         const { amount } = req.body;
+
+//         console.log(amount);
+        
+//         await db.none(`UPDATE drivers SET amount = $1 WHERE taxi_id = $2`,[amount, drivers.taxi_id])
+//         const payment_made = await db.oneOrNone(`select amount from drivers where taxi_id = $1`, [drivers.taxi_id])
+
+//         res.json({
+//             message: 'Allocated passenger payment to a taxi',
+//             data: payment_made
+//         })
+//     } catch (error) {
+//         res.status(500)
+//         .json({
+//             message: error.message
+//         })
+//     }
+    
+// })

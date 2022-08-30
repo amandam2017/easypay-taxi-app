@@ -99,43 +99,24 @@ const api = (app, db) => {
 
     app.post('/api/taxis', async function (req, res) {
         try {
-            const { route } = req.body;
-            // const selectedTaxi = await selected_taxi()
+            const { departure, destination } = req.body;
 
             const taxis = await db.manyOrNone(`select * from routes`);
-            // console.log(taxis);
 
             const destination_taxis = taxis.filter(taxi => {
-                return taxi.route === route
+                return taxi.departure === departure && taxi.destination === destination
             });
-            // console.log(destination_taxis);
-            const each_taxi = taxis.filter(taxi => {
-                return taxi.status === 'boarding'
-            });
-            // const each_taxi = await db.manyOrNone(`select * from routes where route = $1 AND status = 'boarding'`, [route])
-            console.log(each_taxi);
-
-            // const driver_no_passengers = 
-            
-            // const price = await db.manyOrNone(`select price from routes WHERE route = $1`, [route])
-            // console.log('how much?'+price);
-            // const taxi_id = await db.manyOrNone(`select taxi_id from routes WHERE route = $1`, [route])
-            // const status = await db.manyOrNone(`select status from routes WHERE route = $1`, [route])s
+            const price = await db.oneOrNone(`select price from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
+            const taxi_id = await db.oneOrNone(`select taxi_id from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
 
             
             res.json({
-                data: destination_taxis, 
-                taxi:each_taxi
+                data: destination_taxis, price, taxi_id
             });
         } catch (error) {
             console.log(error);
         }
     });
-
-    // app.get(`/api/taxi_data`, async(req, res)=>{
-    //     const id = req
-    //     const each_taxi = await db.oneOrNone(`select price from routes where route = $1, id = $2`, [route, id])
-    // })
 
     app.get('/api/routes', async function (req, res) {
 
@@ -160,13 +141,8 @@ const api = (app, db) => {
         try {
             const { route_id, taxi_id, passenger_count, taxi_price, total_fare} = req.body;
             const this_trip  = await db.oneOrNone('insert into taxi_trips (route_id, taxi_id, passenger_count, taxi_price, total_fare) values($1,$2,$3,$4,$5) returning *',[route_id, taxi_id,passenger_count,taxi_price,total_fare]);
-            await db.none(`UPDATE taxi_trips_payment SET trip_id = $1 WHERE taxi_id = $2 and trip_id = 0`,[this_trip.id, taxi_id])
-            // const trip_id = await db.oneOrNone(`select id from taxi_trips`)
-            // console.log(trip_id);
+            // console.log(this_trip);
 
-            // await db.none(`UPDATE taxi_trips_payment SET trip_id = $1 WHERE taxi_id = $2 and trip_id = 0`,[this_trip.id, taxi_id])
-            
-            
             res.status(200)
             .json({
                 message:'trip is taken',
@@ -212,6 +188,54 @@ const api = (app, db) => {
         }
         
     })
+
+    app.post(`/api/board`, async(req, res)=>{
+        try {
+            const { user_id, taxi_code} = req.body;
+
+
+        // const bording_status = await db.oneOrNone(`select user_ id`)
+            
+        } catch (error) {
+            
+        }
+    })
+
+    const getPassengersByID = async (id) => await
+            db.oneOrNone(`select * from users
+            where role = 'Passenger' and id = $1`,[id]);
+            
+            // const getPassengersByID = async (id) => await
+            // db.oneOrNone(`select * from taxi_trips_payment
+            // join users on taxi_trips_payment.user_id = users.id where role = 'Passenger' and id = $1`, [id])
+            
+
+    app.post(`/api/trip_payment/:id`, async (req, res)=>{
+        
+        try {
+        const {id} = req.params
+        const passenger = await getPassengersByID(id)
+        console.log(passenger);
+            const { user_id, amount, taxi_trips_id} = req.body;
+
+            console.log(amount);
+            
+            await db.none(`insert into taxi_trips_payment (user_id, amount, taxi_trips_id, status) values($1,$2,$3,'paid')`,[user_id, amount, taxi_trips_id])
+            // const {passenger_payment} = (`select * from taxi_trips_payment where user_id = $1`,[id]);
+            // console.log(passenger_payment);
+
+            res.json({
+                message: 'paid'
+                // data: passenger_payment
+            })
+        } catch (error) {
+            res.status(500)
+            .json({
+                message: error.message
+            })
+        }
+        
+    })
    
     const getTaxiOwnerById = async (id) =>  {
         const user = await db.oneOrNone(`select * from users where role = 'Owner' AND id = $1`, [id]);
@@ -242,13 +266,6 @@ const api = (app, db) => {
     const getTaxisByOwnerId = async (id) =>  {
         const taxis = await db.manyOrNone(`select * from taxi_data where owner_id = $1`, [id]);
         return taxis; 
-    }
-
-    const selected_taxi = async(id, route)=>{
-        // const { route } = req.body;
-
-        const each_taxi = await db.manyOrNone(`select id,price, taxi_id, status from routes where route = $1 AND taxi_id = taxi_id`, [route, id])
-        return each_taxi;
     }
 
     const getDriversByOwnerId = async (id) =>  {
@@ -293,18 +310,13 @@ const api = (app, db) => {
     app.post('/api/driver', async (req, res)=> {
         try {
             const { no_of_cashpaid_passenger } = req.body
-            const { destination } = req.body;
-            const { taxi_id } = req.body;
-
-            // const trips = await db.manyOrNone(`select price,taxi_id from routes WHERE destination = $1`, [destination])
-            const trips = await db.manyOrNone(`select price,taxi_id from routes WHERE taxi_id = $1 AND destination = $2`, [taxi_id, destination])
-
-            const price = await db.oneOrNone(`select price from routes WHERE destination = $1 AND status = 'boarding'`, [destination])
-            console.log('money ' + price);
+            const { departure, destination } = req.body;
+            const trips = await db.manyOrNone(`select price,taxi_id from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
+            const price = await db.oneOrNone(`select price from routes WHERE departure = $1 AND destination = $2`, [departure, destination])
+            // console.log('money ' + price);
             res.json({
                 status: 'success',
-                data:trips,price
-                // price:price
+                data: price,trips
             })
         } catch (err) {
             console.log(err);
@@ -333,12 +345,13 @@ const api = (app, db) => {
         
     })
 
+
 app.post('/api/card_payments', async function (req, res) {
     
     const { firstname, card_number, exp_month, exp_year, cvv} = req.body;
     try {
     const record_payment = await db.none('insert into card_payment(firstname,card_number ,exp_month,exp_year, cvv) values ($1,$2,$3,$4,$5)', [firstname, card_number, exp_month, exp_year, cvv]);
-    // console.log(record_payment);
+    console.log(record_payment);
         res.json({
             message: 'payment made',
             status: 'success',
@@ -354,31 +367,13 @@ app.post('/api/card_payments', async function (req, res) {
 
 });
 
-
      // -----------------THIS----------------
-     app.get(`/api/getlinked_drivers`, async (req, res) => {
-        try {
-            const { id } = req.params
-            const driversAndTaxis = await db.manyOrNone(`select * from drivers where id =$1`, [id])
-            // console.log(driversAndTaxis);
 
-            // })
-
-            res.json({
-                data: driversAndTaxis
-            })
-
-        } catch (error) {
-
-        }
-    })
-
-    // -----------------OR----------------
     app.get('/api/driver/:id', async (req, res) => {
         const { id } = req.params
-        const drivers = await getDriversByUserId(id)
+        const drivers = await (id)
         const route = await db.oneOrNone('select * from routes where taxi_id = $1', [drivers.taxi_id])
-        // console.log(route);
+        console.log(route);
         // console.log(drivers);
         drivers.route_id = route.id
         drivers.route = route
@@ -393,9 +388,9 @@ app.post('/api/card_payments', async function (req, res) {
     // *****************16/08/22*****************
     app.get('/api/drivertrip/:id', async (req, res)=>{
         const {id} = req.params
-        const drivers = await getDriversByTaxiId(id)
+        // const drivers = await getDriversByTaxiId(id)
         // console.log(drivers);
-        const amount_per_trip = await db.manyOrNone(`select * from taxi_trips where taxi_id = $1`,[drivers.taxi_id]);
+        const amount_per_trip = await db.manyOrNone(`select * from taxi_trips where taxi_id = $1`,[id]);
         // console.log(amount_per_trip);
 
         res.json({
@@ -403,52 +398,65 @@ app.post('/api/card_payments', async function (req, res) {
         })
     })
 
-    app.delete('/api/removetaxi/:id', async function (req, res) {
+    
+    app.delete('/api/delete/:id', async(req, res)=>{
+        try {
+            const {id} = req.params
+        // const drivers = await getDriversByTaxiId(id)
 
-		try {
-			const { id } = req.params;
-			db.one('delete from taxi_data where reg_number = $1', [id])
+        await db.one(`delete from taxi_data where id = $1`, [id])
 
-			res.json({
-				status: 'success'
-			})
-		} catch (err) {
-			res.json({
-				status: 'success',
-				error : err.stack
-			})
-		}
-	});
-
-    // app.delete('/api/delete/:id', async(req, res)=>{
-    //     try {
-    //         const {id} = req.params
-    //     // const drivers = await getDriversByTaxiId(id)
-
-    //     await db.one(`delete from taxi_data where id = $1`, [id])
-
-    //     res.json({
-    //         status: success,
-    //         message: 'removed taxi'
-    //     })
+        res.json({
+            status: success,
+            message: 'removed taxi'
+        })
             
-    //     } catch (err) {
-    //         res.json({
-    //             status: 'success',
-    //             error : err.stack
-    //         })
+        } catch (err) {
+            res.json({
+                status: 'success',
+                error : err.stack
+            })
             
-    //     }
-    // })
+        }
+    })
+
+    // app.delete('/api/removetaxi/:id', async function (req, res) {
+
+	// 	try {
+	// 		const { id } = req.params;
+    //         const drivers = await getDriversByTaxiId(id)
+
+	// 		db.one('delete from taxi_data where reg_number = $1', [drivers.id])
+
+	// 		res.json({
+	// 			status: 'success'
+	// 		})
+	// 	} catch (err) {
+	// 		res.json({
+	// 			status: 'success',
+	// 			error : err.stack
+	// 		})
+	// 	}
+	// });
     // ENDS HERE
 
-    // Ratings By Chichi
+    // Chifhi's api for ratings
+    // RATING FOR A DRIVER
     app.post(`/api/ratings`, async (req, res) => {
         try {
             const { rating, comments, drivers_id } = req.body;
-            console.log(req.body);
-            const reviews = await db.manyOrNone( 'insert into reviews(rating,comments ,drivers_id) values ($1, $2,$3) returning *',[rating, comments, drivers_id]);
-           
+            await db.none (`insert into reviews(rating,comments ,drivers_id) values ($1, $2,$3) returning *`,[rating, comments, drivers_id]);
+            const reviews = await db.manyOrNone(`select * from reviews`)
+            console.log(reviews);
+            // const seeReviews = await db.oneOrNone('select * from reviews where rating =$1 ,comments=$2,drivers_id=$3', [rating, comments, drivers_id])
+            // if (seeReviews == null) {
+            //     await db.none(reviews, [rating, comments, drivers_id]);
+            // }
+            // else {
+            //     res.json({
+            //         message: 'User already exist please login with the username and password',
+            //         status: 401
+            //     })}
             res.json({
                 status: 'success',
                 data: reviews
@@ -461,120 +469,36 @@ app.post('/api/card_payments', async function (req, res) {
             })
         }
     });
-    app.get('/api/getAllRatings', async (req, res) => {
-       
-        const rates = await db.manyOrNone(`select * from reviews
-           JOIN drivers on reviews.drivers_id = drivers.id join users on drivers.user_id = users.id`);
-        console.log('ratings', rates);
-     
-        res.json({
-            data: rates,
-            message: `there are ${rates.length} reviews available`
-        });
+
+    app.get('/api/getAllRatings', async function (req, res) {
+        const rates = await db.manyOrNone(`select * from reviews`);
+        if (!rates) {
+            res.json({
+                message: 'there is no rates',
+                status: 401
+            })
+        } else {
+            res.json({
+                data: rates,
+                message: `there are ${rates.length} available`
+            });
+        }
     });
-    // ENDS HERE
 
-    app.get('/api/alldrivers', async (req, res) =>{
-        const { drivers_id } = req.body;
-        try {
-            const sql = await db.manyOrNone(`select * from users where role ='Driver'` );
-            res.json({
-                status: 'success',
-                data: sql
-            })
-        } catch (err) {
-            console.log(err);
-            res.json({
-                status: 'error',
-                error: err.message
-            })
-        }
-    })
-    
-
-    app.post(`/api/board`, async(req, res)=>{
-        try {
-            const { user_id, taxi_code} = req.body;
-
-
-        // const bording_status = await db.oneOrNone(`select user_ id`)
-            
-        } catch (error) {
-            
-        }
-    })
-
-    const getPassengersByID = async (id) => await
-            db.oneOrNone(`select * from users
-            where role = 'Passenger' and id = $1`,[id]);
-            
-            // const getPassengersByID = async (id) => await
-            // db.oneOrNone(`select * from taxi_trips_payment
-            // join users on taxi_trips_payment.user_id = users.id where role = 'Passenger' and id = $1`, [id])
-            
-
-    app.post(`/api/trip_payment/:id`, async (req, res)=>{
-        
-        try {
-        const {id} = req.params
-        const passenger = await getPassengersByID(id)
-        console.log(passenger);
-            const { user_id, amount, taxi_id} = req.body;
-
-            console.log(amount);
-            
-            await db.none(`insert into taxi_trips_payment (user_id, amount, taxi_id, status) values($1,$2,$3,'paid')`,[user_id, amount, taxi_id])
-            // const {passenger_payment} = (`select * from taxi_trips_payment where user_id = $1`,[id]);
-            // console.log(passenger_payment);
-
-            res.json({
-                message: 'paid'
-                // data: passenger_payment
-            })
-        } catch (error) {
-            res.status(500)
-            .json({
-                message: error.message
-            })
-        }
-        
-    })
-
-    app.post(`/api/passenger_count`, async(req, res)=>{
-        try {
-            const {taxi_id} = req.body
-            const count = await db.oneOrNone('select count(*) from taxi_trips_payment where taxi_id = $1', [taxi_id]);
-        console.log(count);
-
-        res.json({
-            data:count
-        })
-            
-        } catch (error) {
-            
-        }
-    })
-
-
-    app.post(`/api/route_queue/:id`, async (req, res)=>{
+    app.post(`/api/route_que`, async (req, res)=>{
         
     try {
-        const { status, route } = req.body;
-        const {id} = req.params
-        // const drivers = await getDriversByTaxiId(id)
+        const { status } = req.body;
         console.log(status);
-
 
         // const {default_taxi_status} = await db.oneOrNone(`insert into taxi trips (status) values($1)`,[status])
         
-        await db.none(`UPDATE routes SET status = $1, route = $3 WHERE taxi_id = taxi_id AND id = $2`,[status, id, route])
-
-        const view_taxi_status = await db.manyOrNone(`select * from routes`)
+        const {default_taxi_status} = await db.none(`UPDATE taxi_trips SET status = $1 WHERE taxi_id = taxi_id`,[status])
+        const view_taxi_status = await db.manyOrNone(`select * from taxi_trips`)
         console.log(view_taxi_status);
 
         res.json({
-            message: 'Joined queue',
-            data:view_taxi_status
+            message: 'Joined que'
         })
     } catch (error) {
         res.status(500)

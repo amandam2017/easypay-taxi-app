@@ -168,6 +168,7 @@ const Login = ()=>{
         this.landing = true
         this.owner_screen = false
         this.signing_btns = true
+        this.Reviews = false
   
       },
 }
