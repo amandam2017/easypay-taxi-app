@@ -134,7 +134,7 @@ const Drivers = () => {
                     // console.log(this.destinations = results.data.data);
 
                     this.destinations = results.data.data;
-                    this.departures = results.data.data;
+                    // this.departures = results.data.data;
 
                     // this.count = results.data.data
 

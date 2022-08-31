@@ -525,7 +525,6 @@ app.post('/api/card_payments', async function (req, res) {
             
             await db.none(`insert into taxi_trips_payment (user_id, amount, taxi_id, status) values($1,$2,$3,'paid')`,[user_id, amount, taxi_id])
             // const {passenger_payment} = (`select * from taxi_trips_payment where user_id = $1`,[id]);
-            // console.log(passenger_payment);
 
             res.json({
                 message: 'paid'
@@ -563,8 +562,6 @@ app.post('/api/card_payments', async function (req, res) {
         const {id} = req.params
         // const drivers = await getDriversByTaxiId(id)
         console.log(status);
-
-
         // const {default_taxi_status} = await db.oneOrNone(`insert into taxi trips (status) values($1)`,[status])
         
         await db.none(`UPDATE routes SET status = $1, route = $3 WHERE taxi_id = taxi_id AND id = $2`,[status, id, route])

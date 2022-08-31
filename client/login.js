@@ -70,7 +70,6 @@ const Login = ()=>{
             .post(`${remote_url}/api/login`, {
                 username: this.user.Username,
                 password: this.user.Password,
-                // role:this.user.role
 
             })
       
