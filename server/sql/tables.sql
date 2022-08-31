@@ -34,6 +34,8 @@ create table routes(
     taxi_id int not null,
     price int not null,
     destination text not null,
+    status text not null,
+    route text not null,
     foreign key(taxi_id) references taxi_data(id)
 );
 

@@ -147,7 +147,8 @@ const Drivers = () => {
 
         displayTotal() {
             const current_driver = JSON.parse(localStorage.getItem('taxi'))
-            console.log(current_driver.taxi_id);
+            console.log(current_driver);
+            console.log(current_driver.route.price);
             this.current_taxi_id = current_driver.taxi_id
             console.log(this.current_taxi_id);
             const token = localStorage.getItem('access_key_driver')
@@ -164,8 +165,10 @@ const Drivers = () => {
                     //   }
                 })
                 .then(result => {
-                        this.cashprice = result.data.price.price * Number(this.no_of_cashpaid_passenger)
-                        this.routes = result.data.data
+                        this.cashprice = current_driver.route.price * Number(this.no_of_cashpaid_passenger)
+                        console.log(this.cashprice);
+
+                        this.routes = result.data
                         console.log(this.routes);
                         this.reg_number = result.data.data.reg_number
                         this.count = Number(this.eftcount) + Number(this.no_of_cashpaid_passenger)

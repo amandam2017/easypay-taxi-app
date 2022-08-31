@@ -299,7 +299,7 @@ const api = (app, db) => {
             // const trips = await db.manyOrNone(`select price,taxi_id from routes WHERE destination = $1`, [destination])
             const trips = await db.manyOrNone(`select price,taxi_id from routes WHERE taxi_id = $1 AND destination = $2`, [taxi_id, destination])
 
-            const price = await db.oneOrNone(`select price from routes WHERE destination = $1 AND status = 'boarding'`, [destination])
+            const price = await db.oneOrNone(`select price from routes WHERE taxi_id = $1 AND status = 'boarding'`, [taxi_id])
             console.log('money ' + price);
             res.json({
                 status: 'success',
